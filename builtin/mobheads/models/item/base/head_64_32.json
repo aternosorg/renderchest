@@ -1,0 +1,19 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 32],
+	"elements": [
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [2, 4, 4, 8], "texture": "#texture"},
+				"east": {"uv": [0, 4, 2, 8], "texture": "#texture"},
+				"south": {"uv": [6, 4, 8, 8], "texture": "#texture"},
+				"west": {"uv": [4, 4, 6, 8], "texture": "#texture"},
+				"up": {"uv": [2, 0, 4, 4], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [4, 0, 6, 4], "texture": "#texture"}
+			}
+		}
+	]
+}

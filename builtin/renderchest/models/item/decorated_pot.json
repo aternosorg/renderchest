@@ -1,0 +1,84 @@
+{
+	"credit": "Made with Blockbench",
+	"gui_light": "side",
+	"textures": {
+		"blank": "minecraft:entity/decorated_pot/decorated_pot_side",
+		"archer": "minecraft:entity/decorated_pot/pottery_pattern_archer",
+		"arms_up": "minecraft:entity/decorated_pot/pottery_pattern_arms_up",
+		"prize": "minecraft:entity/decorated_pot/pottery_pattern_prize",
+		"skull": "minecraft:entity/decorated_pot/pottery_pattern_skull.png",
+
+		"base": "minecraft:entity/decorated_pot/decorated_pot_base"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 16, 15],
+			"faces": {
+				"up": {"uv": [0, 6.5, 7, 13.5], "texture": "#base"},
+				"down": {"uv": [7, 6.5, 14, 13.5], "texture": "#base"}
+			}
+		},
+		{
+			"from": [4, 17, 4],
+			"to": [12, 20, 12],
+			"faces": {
+				"north": {"uv": [4, 4, 8, 5.5], "texture": "#base"},
+				"east": {"uv": [0, 4, 4, 5.5], "texture": "#base"},
+				"south": {"uv": [12, 4, 16, 5.5], "texture": "#base"},
+				"west": {"uv": [8, 4, 12, 5.5], "texture": "#base"},
+				"up": {"uv": [4, 0, 8, 4], "texture": "#base"},
+				"down": {"uv": [8, 0, 12, 4], "texture": "#base"}
+			}
+		},
+		{
+			"from": [5, 16, 5],
+			"to": [11, 17, 11],
+			"faces": {
+				"north": {"uv": [3, 5.5, 6, 6], "texture": "#base"},
+				"east": {"uv": [0, 5.5, 3, 6], "texture": "#base"},
+				"south": {"uv": [9, 5.5, 12, 6], "texture": "#base"},
+				"west": {"uv": [6, 5.5, 9, 6], "texture": "#base"}
+			}
+		},
+		{
+			"name": "north3",
+			"from": [1, 0, 1],
+			"to": [15, 16, 1],
+			"color": 4,
+			"faces": {
+				"north": {"uv": [0, 0, 7, 8], "texture": "#north"}
+			}
+		},
+		{
+			"name": "south1",
+			"from": [1, 0, 15],
+			"to": [15, 16, 15],
+			"faces": {
+				"south": {"uv": [1, 0, 15, 16], "texture": "#south"}
+			}
+		},
+		{
+			"name": "west0",
+			"from": [1, 0, 1],
+			"to": [1, 16, 15],
+			"faces": {
+				"west": {"uv": [1, 0, 15, 16], "texture": "#west"}
+			}
+		},
+		{
+			"name": "east2",
+			"from": [15, 0, 1],
+			"to": [15, 16, 15],
+			"faces": {
+				"east": {"uv": [1, 0, 15, 16], "texture": "#east"}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [30, 45, 0],
+			"scale": [0.625, 0.625, 0.625]
+		}
+	}
+}

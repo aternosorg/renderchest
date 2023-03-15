@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/villager",
+	"textures": {
+		"texture": "minecraft:entity/illager/illusioner"
+	}
+}

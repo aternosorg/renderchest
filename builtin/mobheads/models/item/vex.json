@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "entity/illager/vex"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-4.8, 0, -4.8]},
+			"faces": {
+				"north": {"uv": [2.5, 2.5, 5, 5], "texture": "#0"},
+				"east": {"uv": [0, 2.5, 2.5, 5], "texture": "#0"},
+				"south": {"uv": [7.5, 2.5, 10, 5], "texture": "#0"},
+				"west": {"uv": [5, 2.5, 7.5, 5], "texture": "#0"},
+				"up": {"uv": [2.5, 0, 5, 2.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [5, 0, 7.5, 2.5], "texture": "#0"}
+			}
+		}
+	]
+}

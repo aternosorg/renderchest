@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/cow",
+	"textures": {
+		"texture": "minecraft:entity/cow/red_mooshroom"
+	}
+}

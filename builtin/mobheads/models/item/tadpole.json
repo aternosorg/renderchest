@@ -1,0 +1,31 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"textures": {
+		"texture": "minecraft:entity/tadpole/tadpole"
+	},
+	"elements": [
+		{
+			"from": [5, 6, 1],
+			"to": [11, 10, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 0, -8]},
+			"faces": {
+				"north": {"uv": [3, 3, 6, 5], "texture": "#texture"},
+				"east": {"uv": [0, 3, 3, 5], "texture": "#texture"},
+				"south": {"uv": [9, 3, 12, 5], "texture": "#texture"},
+				"west": {"uv": [6, 3, 9, 5], "texture": "#texture"},
+				"up": {"uv": [3, 0, 6, 3], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [6, 0, 9, 3], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [8, 6, 3],
+			"to": [8, 10, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 0, -8]},
+			"faces": {
+				"east": {"uv": [0, 7, 7, 9], "texture": "#texture"},
+				"west": {"uv": [7, 7, 0, 9], "texture": "#texture"}
+			}
+		}
+	]
+}

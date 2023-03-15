@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/spider",
+	"textures": {
+		"texture": "minecraft:entity/spider/cave_spider"
+	}
+}

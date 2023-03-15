@@ -1,0 +1,59 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 64],
+	"textures": {
+		"texture": "minecraft:entity/bee/bee"
+	},
+	"elements": [
+		{
+			"from": [4.5, 2.75, 3],
+			"to": [11.5, 9.75, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 2.75, 0]},
+			"faces": {
+				"north": {"uv": [2.5, 2.5, 4.25, 4.25], "texture": "#texture"},
+				"east": {"uv": [0, 2.5, 2.5, 4.25], "texture": "#texture"},
+				"south": {"uv": [6.75, 2.5, 8.5, 4.25], "texture": "#texture"},
+				"west": {"uv": [4.25, 2.5, 6.75, 4.25], "texture": "#texture"},
+				"up": {"uv": [2.5, 2.5, 4.25, 0], "texture": "#texture"},
+				"down": {"uv": [4.25, 0, 6, 2.5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [6.5, 7.75, 0],
+			"to": [6.5, 9.75, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 2.75, 0]},
+			"faces": {
+				"east": {"uv": [0.5, 0.75, 1.25, 1.25], "texture": "#texture"},
+				"west": {"uv": [1.5, 1.5, 2.25, 2], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [9.5, 7.75, 0],
+			"to": [9.5, 9.75, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 2.75, 0]},
+			"faces": {
+				"east": {"uv": [0.5, 0.75, 1.25, 1.25], "texture": "#texture"},
+				"west": {"uv": [1.5, 1.5, 2.25, 2], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [9.5, 9.75, 5],
+			"to": [16.5, 9.75, 11],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [9.5, 9.75, 7]},
+			"faces": {
+				"up": {"uv": [3.75, 7.5, 5.5, 6], "texture": "#texture"},
+				"down": {"uv": [3.75, 6, 5.5, 7.5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [-0.5, 9.75, 5],
+			"to": [6.5, 9.75, 11],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [6.5, 9.75, 7]},
+			"faces": {
+				"up": {"uv": [2, 6, 3.75, 4.5], "texture": "#texture"},
+				"down": {"uv": [2, 4.5, 3.75, 6], "texture": "#texture"}
+			}
+		}
+	]
+}

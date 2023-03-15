@@ -1,0 +1,6 @@
+{
+    "parent": "renderchest:item/conduit",
+    "textures": {
+        "texture": "entity/conduit/base"
+    }
+}

@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [128, 64],
+	"textures": {
+		"0": "entity/turtle/big_sea_turtle"
+	},
+	"elements": [
+		{
+			"from": [4, 4.75, 4],
+			"to": [11.8, 11.25, 11.8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-2.4, 0, -2.4]},
+			"faces": {
+				"north": {"uv": [1.125, 1.5, 1.875, 2.75], "texture": "#0"},
+				"east": {"uv": [0.375, 1.5, 1.125, 2.75], "texture": "#0"},
+				"south": {"uv": [2.625, 1.5, 3.375, 2.75], "texture": "#0"},
+				"west": {"uv": [1.875, 1.5, 2.625, 2.75], "texture": "#0"},
+				"up": {"uv": [1.125, 0, 1.875, 1.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [1.875, 0, 2.625, 1.5], "texture": "#0"}
+			}
+		}
+	]
+}

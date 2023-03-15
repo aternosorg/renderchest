@@ -1,0 +1,41 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 32],
+	"textures": {
+		"0": "minecraft:entity/enderman/enderman",
+		"1": "minecraft:entity/enderman/enderman_eyes"
+	},
+	"elements": [
+		{
+			"from": [4.5, 4, 4.5],
+			"to": [11.5, 11, 11.5],
+			"faces": {
+				"north": {"uv": [2.25, 12.5, 3.75, 16], "texture": "#0"},
+				"east": {"uv": [0.5, 12.5, 2.25, 16], "texture": "#0"},
+				"west": {"uv": [3.75, 12.5, 5.5, 16], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [2, 4, 4, 8], "texture": "#0"},
+				"east": {"uv": [0, 4, 2, 8], "texture": "#0"},
+				"south": {"uv": [6, 4, 8, 8], "texture": "#0"},
+				"west": {"uv": [4, 4, 6, 8], "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 4], "texture": "#0"},
+				"down": {"uv": [4, 8, 6, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "eyes",
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [2, 4, 4, 8], "texture": "#1"}
+			}
+		}
+	]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "mobheads:item/base/head_32_32",
+  "textures": {
+    "texture": "minecraft:entity/allay/allay"
+  }
+}

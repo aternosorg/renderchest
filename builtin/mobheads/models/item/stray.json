@@ -1,0 +1,35 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 32],
+	"textures": {
+		"0": "entity/skeleton/stray",
+		"1": "entity/skeleton/stray_overlay"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [2, 4, 4, 8], "texture": "#0"},
+				"east": {"uv": [0, 4, 2, 8], "texture": "#0"},
+				"south": {"uv": [6, 4, 8, 8], "texture": "#0"},
+				"west": {"uv": [4, 4, 6, 8], "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 4], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4, 0, 6, 4], "texture": "#0"}
+			}
+		},
+		{
+			"from": [3.5, 3.5, 3.5],
+			"to": [12.5, 12.5, 12.5],
+			"faces": {
+				"north": {"uv": [2, 4, 4, 8], "texture": "#1"},
+				"east": {"uv": [0, 4, 2, 8], "texture": "#1"},
+				"south": {"uv": [6, 4, 8, 8], "texture": "#1"},
+				"west": {"uv": [4, 4, 6, 8], "texture": "#1"},
+				"up": {"uv": [2, 0, 4, 4], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [4, 0, 6, 4], "texture": "#1"}
+			}
+		}
+	]
+}

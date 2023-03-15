@@ -1,0 +1,69 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 32],
+	"textures": {
+		"texture": "minecraft:entity/slime/slime"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [2, 4, 4, 8], "texture": "#texture"},
+				"east": {"uv": [0, 4, 2, 8], "texture": "#texture"},
+				"south": {"uv": [6, 4, 8, 8], "texture": "#texture"},
+				"west": {"uv": [4, 4, 6, 8], "texture": "#texture"},
+				"up": {"uv": [2, 0, 4, 4], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [4, 0, 6, 4], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [5, 5, 5],
+			"to": [11, 11, 11],
+			"faces": {
+				"north": {"uv": [1.5, 11, 3, 14], "texture": "#texture"},
+				"east": {"uv": [0, 11, 1.5, 14], "texture": "#texture"},
+				"south": {"uv": [4.5, 11, 6, 14], "texture": "#texture"},
+				"west": {"uv": [3, 11, 4.5, 14], "texture": "#texture"},
+				"up": {"uv": [1.5, 8, 3, 11], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [3, 8, 4.5, 11], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [4.75, 8, 4.5],
+			"to": [6.75, 10, 6.5],
+			"faces": {
+				"north": {"uv": [8.5, 3, 9, 4], "texture": "#texture"},
+				"east": {"uv": [8, 3, 8.5, 4], "texture": "#texture"},
+				"south": {"uv": [9.5, 3, 10, 4], "texture": "#texture"},
+				"west": {"uv": [9, 3, 9.5, 4], "texture": "#texture"},
+				"up": {"uv": [8.5, 2, 9, 3], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [9, 2, 9.5, 3], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [9.25, 8, 4.5],
+			"to": [11.25, 10, 6.5],
+			"faces": {
+				"north": {"uv": [8.5, 1, 9, 2], "texture": "#texture"},
+				"east": {"uv": [8, 1, 8.5, 2], "texture": "#texture"},
+				"south": {"uv": [9.5, 1, 10, 2], "texture": "#texture"},
+				"west": {"uv": [9, 1, 9.5, 2], "texture": "#texture"},
+				"up": {"uv": [8.5, 0, 9, 1], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [9, 0, 9.5, 1], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [7, 6, 4.5],
+			"to": [8, 7, 5.5],
+			"faces": {
+				"north": {"uv": [8.25, 4.5, 8.5, 5], "texture": "#texture"},
+				"east": {"uv": [8, 4.5, 8.25, 5], "texture": "#texture"},
+				"west": {"uv": [8.5, 4.5, 8.75, 5], "texture": "#texture"},
+				"up": {"uv": [8.25, 4, 8.5, 4.5], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [8.5, 4, 8.75, 4.5], "texture": "#texture"}
+			}
+		}
+	]
+}

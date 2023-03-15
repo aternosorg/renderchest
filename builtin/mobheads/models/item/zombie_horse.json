@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/horse",
+	"textures": {
+		"texture": "minecraft:entity/horse/horse_zombie"
+	}
+}

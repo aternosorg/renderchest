@@ -1,0 +1,61 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 64],
+	"textures": {
+		"texture": "minecraft:entity/panda/panda"
+	},
+	"elements": [
+		{
+			"from": [3.58, 4, 5.62],
+			"to": [12.42, 10.8, 11.74],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.56, 0, 2.56]},
+			"faces": {
+				"north": {"uv": [2.25, 3.75, 5.5, 6.25], "texture": "#texture"},
+				"east": {"uv": [0, 3.75, 2.25, 6.25], "texture": "#texture"},
+				"south": {"uv": [7.75, 3.75, 11, 6.25], "texture": "#texture"},
+				"west": {"uv": [5.5, 3.75, 7.75, 6.25], "texture": "#texture"},
+				"up": {"uv": [2.25, 1.5, 5.5, 3.75], "texture": "#texture"},
+				"down": {"uv": [5.5, 1.5, 8.75, 3.75], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [5.62, 4, 4.26],
+			"to": [10.38, 7.4, 5.62],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.56, 0, 2.56]},
+			"faces": {
+				"north": {"uv": [11.75, 4.5, 13.5, 5.75], "texture": "#texture"},
+				"east": {"uv": [11.25, 4.5, 11.75, 5.75], "texture": "#texture"},
+				"west": {"uv": [13.5, 4.5, 14, 5.75], "texture": "#texture"},
+				"up": {"uv": [11.75, 4, 13.5, 4.5], "texture": "#texture"},
+				"down": {"uv": [13.5, 4, 15.25, 4.5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [2.22, 10.12, 7.66],
+			"to": [5.62, 12.84, 8.34],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.56, 0, 2.56]},
+			"faces": {
+				"north": {"uv": [13.25, 6.5, 14.5, 7.5], "texture": "#texture"},
+				"east": {"uv": [13, 6.5, 13.25, 7.5], "texture": "#texture"},
+				"south": {"uv": [14.75, 6.5, 16, 7.5], "texture": "#texture"},
+				"west": {"uv": [14.5, 6.5, 14.75, 7.5], "texture": "#texture"},
+				"up": {"uv": [13.25, 6.25, 14.5, 6.5], "texture": "#texture"},
+				"down": {"uv": [14.5, 6.25, 15.75, 6.5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [9.7, 10.12, 7.66],
+			"to": [13.1, 12.84, 8.34],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.56, 0, 2.56]},
+			"faces": {
+				"north": {"uv": [13.25, 6.5, 14.5, 7.5], "texture": "#texture"},
+				"east": {"uv": [13, 6.5, 13.25, 7.5], "texture": "#texture"},
+				"south": {"uv": [14.75, 6.5, 16, 7.5], "texture": "#texture"},
+				"west": {"uv": [14.5, 6.5, 14.75, 7.5], "texture": "#texture"},
+				"up": {"uv": [13.25, 6.25, 14.5, 6.5], "texture": "#texture"},
+				"down": {"uv": [14.5, 6.25, 15.75, 6.5], "texture": "#texture"}
+			}
+		}
+	]
+}

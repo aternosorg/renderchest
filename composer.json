@@ -1,0 +1,21 @@
+{
+    "name": "aternos/renderchest",
+    "description": "PHP library for rendering icons for Minecraft items directly from Minecraft's assets",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Aternos\\Renderchest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kurt Thiemann",
+            "email": "kurt@aternos.org"
+        }
+    ],
+    "require": {
+        "ext-imagick": "*",
+        "vanilla/garden-cli": "^3.1",
+        "spatie/async": "^1.5"
+    }
+}

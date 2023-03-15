@@ -1,0 +1,314 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "33558a4b5a800c25aaf2829ba11ea7d7",
+    "packages": [
+        {
+            "name": "laravel/serializable-closure",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/serializable-closure.git",
+                "reference": "f23fe9d4e95255dacee1bf3525e0810d1a1b0f37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/f23fe9d4e95255dacee1bf3525e0810d1a1b0f37",
+                "reference": "f23fe9d4e95255dacee1bf3525e0810d1a1b0f37",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "nesbot/carbon": "^2.61",
+                "pestphp/pest": "^1.21.3",
+                "phpstan/phpstan": "^1.8.2",
+                "symfony/var-dumper": "^5.4.11"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\SerializableClosure\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Nuno Maduro",
+                    "email": "nuno@laravel.com"
+                }
+            ],
+            "description": "Laravel Serializable Closure provides an easy and secure way to serialize closures in PHP.",
+            "keywords": [
+                "closure",
+                "laravel",
+                "serializable"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/serializable-closure/issues",
+                "source": "https://github.com/laravel/serializable-closure"
+            },
+            "time": "2023-01-30T18:31:20+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/1.1.4"
+            },
+            "time": "2021-05-03T11:20:27+00:00"
+        },
+        {
+            "name": "spatie/async",
+            "version": "1.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/async.git",
+                "reference": "742708736b1e6d606dd1cd0f60acb7e354211e41"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/async/zipball/742708736b1e6d606dd1cd0f60acb7e354211e41",
+                "reference": "742708736b1e6d606dd1cd0f60acb7e354211e41",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/serializable-closure": "^1.0",
+                "php": "^7.4|^8.0",
+                "symfony/process": "^3.3 || ^4.0 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^7.5 || ^8.5.21 || ^9.0",
+                "symfony/stopwatch": "^4.0 || ^5.0 || ^6.0"
+            },
+            "suggest": {
+                "ext-pcntl": "Required to use async processes",
+                "ext-posix": "Required to use async processes"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Async\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent Roose",
+                    "email": "brent@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Asynchronous and parallel PHP with the PCNTL extension",
+            "homepage": "https://github.com/spatie/async",
+            "keywords": [
+                "async",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/async/issues",
+                "source": "https://github.com/spatie/async/tree/1.5.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-21T06:40:45+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v6.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "680e8a2ea6b3f87aecc07a6a65a203ae573d1902"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/680e8a2ea6b3f87aecc07a6a65a203ae573d1902",
+                "reference": "680e8a2ea6b3f87aecc07a6a65a203ae573d1902",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Executes commands in sub-processes",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/process/tree/v6.2.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-02-24T10:42:00+00:00"
+        },
+        {
+            "name": "vanilla/garden-cli",
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vanilla/garden-cli.git",
+                "reference": "d9844c47f4f2812259ee1b583aa66e7b6b5d85c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vanilla/garden-cli/zipball/d9844c47f4f2812259ee1b583aa66e7b6b5d85c5",
+                "reference": "d9844c47f4f2812259ee1b583aa66e7b6b5d85c5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.2",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.8",
+                "phpdocumentor/reflection-docblock": "^4.3",
+                "phpunit/phpunit": "^8",
+                "vanilla/garden-container": "^3.0",
+                "vanilla/standards": "^1.3",
+                "vimeo/psalm": "^3.16"
+            },
+            "suggest": {
+                "ext-pdo": "Required for the DbUtils class.",
+                "phpdocumentor/reflection-docblock": "Required for the CliApplication functionality.",
+                "vanilla/garden-container": "Required for the CliApplication functionality."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Garden\\Cli\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Todd Burry",
+                    "email": "todd@vanillaforums.com"
+                }
+            ],
+            "description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt().",
+            "support": {
+                "issues": "https://github.com/vanilla/garden-cli/issues",
+                "source": "https://github.com/vanilla/garden-cli/tree/v3.1.2"
+            },
+            "time": "2020-10-25T13:36:44+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "ext-imagick": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/hoglin",
+	"textures": {
+		"texture": "minecraft:entity/hoglin/hoglin"
+	}
+}

@@ -1,0 +1,62 @@
+#!/usr/bin/php
+<?php
+require_once 'vendor/autoload.php';
+
+use Aternos\Renderchest\Output\AsyncItemLibraryGenerator;
+use Aternos\Renderchest\Output\ItemLibraryGenerator;
+use Garden\Cli\Cli;
+
+$cli = new Cli();
+
+$cli->description("Generate icons and css for Minecraft items.")
+    ->opt("assets:a", "Assets folder to use. Multiple assets folders are possible, " .
+        "but a base assets folder extracted from the Minecraft jar should always be included.", true, "string[]")
+    ->opt("namespace:n", "Asset namespace that the items should be rendered from. Default: minecraft", false, "string[]")
+    ->opt("size:s", "Size of the generated item icons. Default: 64", false, "integer")
+    ->opt("quality:q", "When generating very small icons, small issues (like z-fighting of faces close to each other) can occur. " .
+        "This option allows rendering images in a higher resolution and scaling them down for the final texture atlas. Default: 2", false, "integer")
+    ->opt("item-list:i", "Create a JSON file containing the names of all rendered items.", false, "boolean")
+    ->opt("output:o", "Output directory", true)
+    ->opt("prefix:p", "Prefix to use for CSS classes. Default: rc-")
+    ->opt("format:f", "Output image format. Default: webp")
+    ->opt("processes:p", "Number of processes to use. Default: 16", false, "integer")
+    ->opt("batch-size:b", "Batch size for multi threaded rendering. Default: 16", false, "integer")
+    ->opt("fallback", "Create a set of fallback textures as PNGs. Default: false", false, "boolean")
+    ->opt("sync", "Don't use multithreading. Default: false", false, "boolean");
+
+function resolvePath($path)
+{
+    if (!str_starts_with($path, "/")) {
+        $path = getcwd() . "/" . $path;
+    }
+    return $path;
+}
+
+function onProgress($i, $total, $name): void
+{
+    echo "Rendering item " . ($i + 1) . "/" . $total . ": " . $name . "\n";
+}
+
+$args = $cli->parse($argv);
+$output = resolvePath($args->getOpt("output"));
+$assets = array_map(resolvePath(...), $args->getOpt("assets"));
+
+if(!$args->getOpt('sync', false)) {
+    $libraryGenerator = (new AsyncItemLibraryGenerator($assets, $output))
+        ->setMaxProcesses($args->getOpt("processes", 16))
+        ->setBatchSize($args->getOpt("batch-size", 16));
+} else {
+    $libraryGenerator = new ItemLibraryGenerator($assets, $output);
+}
+
+$libraryGenerator->setNamespaces($args->getOpt("namespace", ["minecraft"]))
+    ->setSize($args->getOpt("size", 64))
+    ->setQuality($args->getOpt("quality", 2))
+    ->setCreateItemList($args->getOpt("item-list", false))
+    ->setPrefix($args->getOpt("prefix", "rc-"))
+    ->setFormat($args->getOpt("format", "webp"))
+    ->setCreatePngFallback($args->getOpt("fallback", false))
+    ->render(onProgress(...));
+
+
+echo "Saved stylesheet and textures to " . $output . "\n";

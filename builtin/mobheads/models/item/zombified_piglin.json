@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/piglin",
+	"textures": {
+		"texture": "minecraft:entity/piglin/zombified_piglin"
+	}
+}

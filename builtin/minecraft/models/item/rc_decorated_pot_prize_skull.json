@@ -1,0 +1,9 @@
+{
+    "parent": "renderchest:item/decorated_pot",
+    "textures": {
+        "north": "#blank",
+        "south": "#skull",
+        "west": "#prize",
+        "east": "#blank"
+    }
+}

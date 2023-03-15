@@ -1,0 +1,6 @@
+{
+  "parent": "renderchest:item/shulker_box",
+  "textures": {
+    "texture": "entity/shulker/shulker"
+  }
+}

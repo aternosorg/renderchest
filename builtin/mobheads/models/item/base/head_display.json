@@ -1,0 +1,8 @@
+{
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [30, -130, 0]
+    }
+  }
+}

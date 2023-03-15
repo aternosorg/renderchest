@@ -1,0 +1,6 @@
+{
+  "parent": "mobheads:item/base/head_64_32",
+  "textures": {
+    "texture": "minecraft:entity/skeleton/skeleton"
+  }
+}

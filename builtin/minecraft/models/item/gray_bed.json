@@ -1,0 +1,6 @@
+{
+  "parent": "renderchest:item/bed",
+  "textures": {
+    "texture": "minecraft:entity/bed/gray"
+  }
+}

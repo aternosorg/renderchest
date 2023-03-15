@@ -1,0 +1,59 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 32],
+	"textures": {
+		"texture": "minecraft:entity/rabbit/brown"
+	},
+	"elements": [
+		{
+			"from": [4.55, 2.25, 4.4],
+			"to": [11.55, 7.85, 11.4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-2.45, 2.25, -1.2]},
+			"faces": {
+				"north": {"uv": [9.25, 2.5, 10.5, 4.5], "texture": "#texture"},
+				"east": {"uv": [8, 2.5, 9.25, 4.5], "texture": "#texture"},
+				"south": {"uv": [11.75, 2.5, 13, 4.5], "texture": "#texture"},
+				"west": {"uv": [10.5, 2.5, 11.75, 4.5], "texture": "#texture"},
+				"up": {"uv": [9.25, 0, 10.5, 2.5], "rotation": 180, "texture": "#texture"},
+				"down": {"uv": [10.5, 0, 11.75, 2.5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [7.35, 4.35, 3],
+			"to": [8.75, 5.75, 4.4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-2.45, 2.25, -1.2]},
+			"faces": {
+				"north": {"uv": [8.25, 5, 8.5, 5.5], "texture": "#texture"},
+				"east": {"uv": [8, 5, 8.25, 5.5], "texture": "#texture"},
+				"west": {"uv": [8.5, 5, 8.75, 5.5], "texture": "#texture"},
+				"up": {"uv": [8.25, 4.5, 8.5, 5], "texture": "#texture"},
+				"down": {"uv": [8.5, 4.5, 8.75, 5], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [4.9, 7.85, 9.3],
+			"to": [7.7, 14.85, 10.7],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [6.3, 7.85, 10]},
+			"faces": {
+				"north": {"uv": [14.75, 0.5, 15.25, 3], "texture": "#texture"},
+				"east": {"uv": [14.5, 0.5, 14.75, 3], "texture": "#texture"},
+				"south": {"uv": [15.5, 0.5, 16, 3], "texture": "#texture"},
+				"west": {"uv": [15.25, 0.5, 15.5, 3], "texture": "#texture"},
+				"up": {"uv": [14.75, 0, 15.25, 0.5], "rotation": 180, "texture": "#texture"}
+			}
+		},
+		{
+			"from": [8.4, 7.85, 9.3],
+			"to": [11.2, 14.85, 10.7],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [9.8, 7.85, 10]},
+			"faces": {
+				"north": {"uv": [13.25, 0.5, 13.75, 3], "texture": "#texture"},
+				"east": {"uv": [13, 0.5, 13.25, 3], "texture": "#texture"},
+				"south": {"uv": [14, 0.5, 14.5, 3], "texture": "#texture"},
+				"west": {"uv": [13.75, 0.5, 14, 3], "texture": "#texture"},
+				"up": {"uv": [13.25, 0, 13.75, 0.5], "rotation": 180, "texture": "#texture"}
+			}
+		}
+	]
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/cat",
+	"textures": {
+		"texture": "minecraft:entity/cat/ocelot"
+	}
+}

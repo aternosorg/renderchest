@@ -1,0 +1,6 @@
+{
+  "parent": "mobheads:item/base/squid",
+  "textures": {
+    "texture": "minecraft:entity/squid/squid"
+  }
+}

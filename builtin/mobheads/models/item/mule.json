@@ -1,0 +1,6 @@
+{
+	"parent": "mobheads:item/base/donkey",
+	"textures": {
+		"texture": "minecraft:entity/horse/mule"
+	}
+}

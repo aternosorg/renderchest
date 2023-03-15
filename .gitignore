@@ -1,0 +1,5 @@
+.idea/
+vendor/
+assets/
+renders/
+test.php

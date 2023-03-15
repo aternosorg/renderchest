@@ -1,0 +1,32 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "mobheads:item/base/head_display",
+	"texture_size": [64, 32],
+	"textures": {
+		"eyes": "minecraft:entity/spider_eyes"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [10, 6, 12, 10], "texture": "#texture"},
+				"east": {"uv": [8, 6, 10, 10], "texture": "#texture"},
+				"south": {"uv": [14, 6, 16, 10], "texture": "#texture"},
+				"west": {"uv": [12, 6, 14, 10], "texture": "#texture"},
+				"up": {"uv": [10, 2, 12, 6], "texture": "#texture"},
+				"down": {"uv": [12, 2, 14, 6], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [10, 6, 12, 10], "texture": "#eyes"},
+				"east": {"uv": [8, 6, 10, 10], "texture": "#eyes"},
+				"west": {"uv": [12, 6, 14, 10], "texture": "#eyes"}
+			}
+		}
+	]
+}
