@@ -14,7 +14,7 @@ $cli->description("Generate icons and css for Minecraft items.")
     ->opt("namespace:n", "Asset namespace that the items should be rendered from. Default: minecraft", false, "string[]")
     ->opt("size:s", "Size of the generated item icons. Default: 64", false, "integer")
     ->opt("quality:q", "When generating very small icons, small issues (like z-fighting of faces close to each other) can occur. " .
-        "This option allows rendering images in a higher resolution and scaling them down for the final texture atlas. Default: 2", false, "integer")
+        "This option allows rendering images in a higher resolution and scaling them down for the final icon. Default: 2", false, "integer")
     ->opt("item-list:i", "Create a JSON file containing the names of all rendered items.", false, "boolean")
     ->opt("output:o", "Output directory", true)
     ->opt("prefix:p", "Prefix to use for CSS classes. Default: rc-")

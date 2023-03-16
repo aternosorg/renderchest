@@ -53,7 +53,7 @@ OPTIONS
   --quality, -q      When generating very small icons, small issues (like
                      z-fighting of faces close to each other) can occur. This
                      option allows rendering images in a higher resolution and
-                     scaling them down for the final texture atlas. Default: 2
+                     scaling them down for the final icon. Default: 2
   --size, -s         Size of the generated item icons. Default: 64
   --sync             Don't use multithreading. Default: false
 ```
