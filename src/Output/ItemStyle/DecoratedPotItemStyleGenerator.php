@@ -51,6 +51,7 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
             (new PropertyListEntry($this->getCssSelector()))
                 ->setProperties([
                     "background-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator()),
+                    "-webkit-mask-image" => "none"
                 ]),
             (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "enchanted"))
                 ->setProperties([
