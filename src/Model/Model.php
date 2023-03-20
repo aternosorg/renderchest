@@ -119,7 +119,9 @@ class Model implements ModelInterface
             }
 
             foreach ($faces as $i => $face) {
-                if($lastAnimationFrames !== null && $lastAnimationFrames[$i] === $frames[$i]) {
+                if($lastAnimationFrames !== null &&
+                    !$face->getFaceInfo()->getTexture()->getMeta()->isInterpolated() &&
+                    $lastAnimationFrames[$i] === $frames[$i]) {
                     continue;
                 }
                 $res = $face->getPerspectiveImage($width, $height, $tick);
