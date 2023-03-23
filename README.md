@@ -88,9 +88,9 @@ Armor trims can be displayed by adding a `rc-trim-[material]` class.
 ```
 
 #### Decorated pots
-Decorated pots can be displayed by adding a `rc-pot-[material-1]-[material-3]` class.
+Decorated pots can be displayed by adding `rc-pot-1-[material-1]` and `rc-pot-2-[material-3]` classes.
 ```html
-<div class="rc-item rc-minecraft_decorated_pot rc-pot-minecraft_pottery_shard_archer-minecraft_pottery_shard_arms_up" style="width: 64px; height: 64px"></div>
+<div class="rc-item rc-minecraft_decorated_pot rc-pot-1-minecraft_prize_pottery_shard rc-pot-2-minecraft_angler_pottery_shard" style="width: 64px; height: 64px"></div>
 ```
 Only the first and third material are required because the other sides of the pot are not visible.
 
