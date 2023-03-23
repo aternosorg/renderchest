@@ -1,15 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"gui_light": "side",
-	"textures": {
-		"blank": "minecraft:entity/decorated_pot/decorated_pot_side",
-		"archer": "minecraft:entity/decorated_pot/pottery_pattern_archer",
-		"arms_up": "minecraft:entity/decorated_pot/pottery_pattern_arms_up",
-		"prize": "minecraft:entity/decorated_pot/pottery_pattern_prize",
-		"skull": "minecraft:entity/decorated_pot/pottery_pattern_skull.png",
-
-		"base": "minecraft:entity/decorated_pot/decorated_pot_base"
-	},
+	"parent": "renderchest:item/decorated_pot_base",
 	"elements": [
 		{
 			"from": [1, 0, 1],
@@ -74,11 +65,5 @@
 				"east": {"uv": [1, 0, 15, 16], "texture": "#east"}
 			}
 		}
-	],
-	"display": {
-		"gui": {
-			"rotation": [30, 45, 0],
-			"scale": [0.625, 0.625, 0.625]
-		}
-	}
+	]
 }

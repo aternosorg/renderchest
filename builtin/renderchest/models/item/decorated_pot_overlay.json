@@ -1,0 +1,14 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "renderchest:item/decorated_pot_base",
+	"elements": [
+		{
+			"name": "south1",
+			"from": [1, 0, 15],
+			"to": [15, 16, 15],
+			"faces": {
+				"south": {"uv": [1, 0, 15, 16], "texture": "#south"}
+			}
+		}
+	]
+}

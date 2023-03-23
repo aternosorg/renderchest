@@ -1,0 +1,34 @@
+{
+  "textures": {
+    "brick": "minecraft:entity/decorated_pot/decorated_pot_side",
+    "angler_pottery_shard": "minecraft:entity/decorated_pot/angler_pottery_pattern",
+    "heartbreak_pottery_shard": "minecraft:entity/decorated_pot/heartbreak_pottery_pattern",
+    "archer_pottery_shard": "minecraft:entity/decorated_pot/archer_pottery_pattern",
+    "heart_pottery_shard": "minecraft:entity/decorated_pot/heart_pottery_pattern",
+    "arms_up_pottery_shard": "minecraft:entity/decorated_pot/arms_up_pottery_pattern",
+    "howl_pottery_shard": "minecraft:entity/decorated_pot/howl_pottery_pattern",
+    "blade_pottery_shard": "minecraft:entity/decorated_pot/blade_pottery_pattern",
+    "miner_pottery_shard": "minecraft:entity/decorated_pot/miner_pottery_pattern",
+    "brewer_pottery_shard": "minecraft:entity/decorated_pot/brewer_pottery_pattern",
+    "mourner_pottery_shard": "minecraft:entity/decorated_pot/mourner_pottery_pattern",
+    "burn_pottery_shard": "minecraft:entity/decorated_pot/burn_pottery_pattern",
+    "plenty_pottery_shard": "minecraft:entity/decorated_pot/plenty_pottery_pattern",
+    "danger_pottery_shard": "minecraft:entity/decorated_pot/danger_pottery_pattern",
+    "prize_pottery_shard": "minecraft:entity/decorated_pot/prize_pottery_pattern",
+    "sheaf_pottery_shard": "minecraft:entity/decorated_pot/sheaf_pottery_pattern",
+    "shelter_pottery_shard": "minecraft:entity/decorated_pot/shelter_pottery_pattern",
+    "explorer_pottery_shard": "minecraft:entity/decorated_pot/explorer_pottery_pattern",
+    "skull_pottery_shard": "minecraft:entity/decorated_pot/skull_pottery_pattern",
+    "friend_pottery_shard": "minecraft:entity/decorated_pot/friend_pottery_pattern",
+    "snort_pottery_shard": "minecraft:entity/decorated_pot/snort_pottery_pattern",
+
+    "base": "minecraft:entity/decorated_pot/decorated_pot_base"
+  },
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [30, 45, 0],
+      "scale": [0.625, 0.625, 0.625]
+    }
+  }
+}

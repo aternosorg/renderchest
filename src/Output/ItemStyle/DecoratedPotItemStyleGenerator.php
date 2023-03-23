@@ -11,18 +11,26 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
 {
     const SHARDS = [
         "brick",
-        "pottery_shard_archer",
-        "pottery_shard_arms_up",
-        "pottery_shard_prize",
-        "pottery_shard_skull"
-    ];
-
-    const STYLES = [
-        "blank",
-        "archer",
-        "arms_up",
-        "prize",
-        "skull"
+        "angler_pottery_shard",
+        "archer_pottery_shard",
+        "arms_up_pottery_shard",
+        "blade_pottery_shard",
+        "brewer_pottery_shard",
+        "burn_pottery_shard",
+        "danger_pottery_shard",
+        "explorer_pottery_shard",
+        "friend_pottery_shard",
+        "heart_pottery_shard",
+        "heartbreak_pottery_shard",
+        "howl_pottery_shard",
+        "miner_pottery_shard",
+        "mourner_pottery_shard",
+        "plenty_pottery_shard",
+        "prize_pottery_shard",
+        "sheaf_pottery_shard",
+        "shelter_pottery_shard",
+        "skull_pottery_shard",
+        "snort_pottery_shard"
     ];
 
     /**
@@ -46,16 +54,11 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
      */
     public function getItemStyles(): array
     {
-        $prefix = $this->item->getGenerator()->getPrefix();
         $styles = [
             (new PropertyListEntry($this->getCssSelector()))
                 ->setProperties([
                     "background-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator()),
-                    "-webkit-mask-image" => "none"
-                ]),
-            (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "enchanted"))
-                ->setProperties([
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator()),
+                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator())
                 ])
         ];
 
@@ -68,14 +71,10 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
      */
     public function getItemFallbackStyles(): array
     {
-        $prefix = $this->item->getGenerator()->getPrefix();
         $styles = [
             (new PropertyListEntry($this->getCssSelector()))
                 ->setProperties([
                     "background-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator(), true),
-                ]),
-            (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "enchanted"))
-                ->setProperties([
                     "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator(), true),
                 ])
         ];
@@ -91,25 +90,27 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
     protected function generateShardStyles(bool $fallback): array
     {
         $styles = [];
-        for ($i = 0; $i < count(static::SHARDS); $i++) {
-            for ($j = 0; $j < count(static::SHARDS); $j++) {
-                $shard1 = static::SHARDS[$i];
-                $shard2 = static::SHARDS[$j];
-                $style1 = static::STYLES[$i];
-                $style2 = static::STYLES[$j];
-
-                $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getShardSelector($shard1, $shard2)))
-                    ->setProperties([
-                        "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_decorated_pot_" . $style1 . "_" . $style2, $fallback),
-                    ]);
-            }
+        foreach (static::SHARDS as $shard) {
+            $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getShardSelector($shard, 1)))
+                ->setProperties([
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_b_" . $shard, $fallback),
+                ]);
+            $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getShardSelector($shard, 2) . ":before"))
+                ->setProperties([
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_o_" . $shard, $fallback),
+                ]);
         }
         return $styles;
     }
 
-    protected function getShardSelector(string $shard1, string $shard2): string
+    /**
+     * @param string $shard
+     * @param int $layer
+     * @return string
+     */
+    protected function getShardSelector(string $shard, int $layer): string
     {
         $prefix = $this->item->getGenerator()->getPrefix();
-        return "." . $prefix . "pot-minecraft_" . $shard1 . "-minecraft_" . $shard2;
+        return "." . $prefix . "pot-" . $layer . "-minecraft_" . $shard;
     }
 }

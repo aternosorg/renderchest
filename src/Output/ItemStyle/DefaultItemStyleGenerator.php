@@ -101,6 +101,9 @@ class DefaultItemStyleGenerator extends ItemStyleGenerator
      */
     public function getItemStyles(): array
     {
+        if(str_starts_with($this->item->getLocator(), "minecraft:rc_")) {
+            return [];
+        }
         $prefix = $this->item->getGenerator()->getPrefix();
         $hasMask = in_array($this->item->getLocator(), static::ENCHANTED_EFFECT_ITEMS);
         return [

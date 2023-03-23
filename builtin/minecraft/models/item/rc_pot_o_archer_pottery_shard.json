@@ -1,0 +1,6 @@
+{
+    "parent": "renderchest:item/decorated_pot_overlay",
+    "textures": {
+        "south": "#archer_pottery_shard"
+    }
+}
