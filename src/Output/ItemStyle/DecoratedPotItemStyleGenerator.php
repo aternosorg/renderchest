@@ -9,28 +9,28 @@ use Aternos\Renderchest\Output\ItemLibraryGenerator;
 
 class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
 {
-    const SHARDS = [
+    const SHERDS = [
         "brick",
-        "angler_pottery_shard",
-        "archer_pottery_shard",
-        "arms_up_pottery_shard",
-        "blade_pottery_shard",
-        "brewer_pottery_shard",
-        "burn_pottery_shard",
-        "danger_pottery_shard",
-        "explorer_pottery_shard",
-        "friend_pottery_shard",
-        "heart_pottery_shard",
-        "heartbreak_pottery_shard",
-        "howl_pottery_shard",
-        "miner_pottery_shard",
-        "mourner_pottery_shard",
-        "plenty_pottery_shard",
-        "prize_pottery_shard",
-        "sheaf_pottery_shard",
-        "shelter_pottery_shard",
-        "skull_pottery_shard",
-        "snort_pottery_shard"
+        "angler_pottery_sherd",
+        "archer_pottery_sherd",
+        "arms_up_pottery_sherd",
+        "blade_pottery_sherd",
+        "brewer_pottery_sherd",
+        "burn_pottery_sherd",
+        "danger_pottery_sherd",
+        "explorer_pottery_sherd",
+        "friend_pottery_sherd",
+        "heart_pottery_sherd",
+        "heartbreak_pottery_sherd",
+        "howl_pottery_sherd",
+        "miner_pottery_sherd",
+        "mourner_pottery_sherd",
+        "plenty_pottery_sherd",
+        "prize_pottery_sherd",
+        "sheaf_pottery_sherd",
+        "shelter_pottery_sherd",
+        "skull_pottery_sherd",
+        "snort_pottery_sherd"
     ];
 
     /**
@@ -62,7 +62,7 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
                 ])
         ];
 
-        array_push($styles, ...$this->generateShardStyles(false));
+        array_push($styles, ...$this->generateSherdStyles(false));
         return $styles;
     }
 
@@ -79,7 +79,7 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
                 ])
         ];
 
-        array_push($styles, ...$this->generateShardStyles(true));
+        array_push($styles, ...$this->generateSherdStyles(true));
         return $styles;
     }
 
@@ -87,30 +87,30 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
      * @param bool $fallback
      * @return CSSEntry[]
      */
-    protected function generateShardStyles(bool $fallback): array
+    protected function generateSherdStyles(bool $fallback): array
     {
         $styles = [];
-        foreach (static::SHARDS as $shard) {
-            $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getShardSelector($shard, 1)))
+        foreach (static::SHERDS as $sherd) {
+            $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getSherdSelector($sherd, 1)))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_b_" . $shard, $fallback),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_b_" . $sherd, $fallback),
                 ]);
-            $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getShardSelector($shard, 2) . ":before"))
+            $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getSherdSelector($sherd, 2) . ":before"))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_o_" . $shard, $fallback),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_o_" . $sherd, $fallback),
                 ]);
         }
         return $styles;
     }
 
     /**
-     * @param string $shard
+     * @param string $sherd
      * @param int $layer
      * @return string
      */
-    protected function getShardSelector(string $shard, int $layer): string
+    protected function getSherdSelector(string $sherd, int $layer): string
     {
         $prefix = $this->item->getGenerator()->getPrefix();
-        return "." . $prefix . "pot-" . $layer . "-minecraft_" . $shard;
+        return "." . $prefix . "pot-" . $layer . "-minecraft_" . $sherd;
     }
 }

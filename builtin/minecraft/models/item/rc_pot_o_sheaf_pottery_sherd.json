@@ -1,0 +1,6 @@
+{
+    "parent": "renderchest:item/decorated_pot_overlay",
+    "textures": {
+        "south": "#sheaf_pottery_sherd"
+    }
+}

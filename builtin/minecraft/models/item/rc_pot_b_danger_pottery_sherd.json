@@ -1,0 +1,9 @@
+{
+    "parent": "renderchest:item/decorated_pot",
+    "textures": {
+        "north": "#brick",
+        "south": "#brick",
+        "west": "#danger_pottery_sherd",
+        "east": "#brick"
+    }
+}

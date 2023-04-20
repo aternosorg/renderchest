@@ -1,6 +1,0 @@
-{
-    "parent": "renderchest:item/decorated_pot_overlay",
-    "textures": {
-        "south": "#danger_pottery_shard"
-    }
-}
