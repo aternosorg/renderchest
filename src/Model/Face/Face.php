@@ -95,7 +95,7 @@ class Face
 
         $baseTexture = clone $this->faceInfo->getTexture()->getImage($animationTick);
 
-        if ($baseTexture->getImageType() === Imagick::IMGTYPE_GRAYSCALE) {
+        if ($baseTexture->getImageType() !== Imagick::IMGTYPE_TRUECOLORMATTE) {
             $baseTexture->transformImageColorspace(Imagick::COLORSPACE_UNDEFINED);
         }
 
