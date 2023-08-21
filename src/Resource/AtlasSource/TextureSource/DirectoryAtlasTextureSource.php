@@ -15,7 +15,7 @@ class DirectoryAtlasTextureSource extends AtlasTextureSource
         if (!str_starts_with($path, $this->settings->prefix)) {
             return null;
         }
-        $source = str_ends_with($this->settings->prefix, "/") ? $this->settings->prefix : $this->settings->prefix . "/";
+        $source = str_ends_with($this->settings->source, "/") ? $this->settings->source : $this->settings->source . "/";
         return parent::getTextureLocator($locator->clone()->setPath($source . substr($path, strlen($this->settings->prefix))));
     }
 }

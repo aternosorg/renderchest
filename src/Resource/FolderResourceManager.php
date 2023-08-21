@@ -79,6 +79,7 @@ class FolderResourceManager implements ResourceManagerInterface
     /**
      * @inheritDoc
      * @throws ModelResolutionException
+     * @throws TextureResolutionException
      * @throws Exception
      */
     function getModel(ResourceLocator $locator, ?Model $model = null): ModelInterface
