@@ -140,14 +140,15 @@ class ItemLibraryGenerator
      */
     protected function getItemNames(): array
     {
-        //return ["minecraft:item/unknown", "minecraft:item/empty", "minecraft:item/acacia_boat"];
-        $itemNames = [];
+        $itemNames = ["minecraft:item/unknown", "minecraft:item/empty"];
         foreach ($this->namespaces as $namespace) {
             foreach ($this->resourceManager->getAllItems($namespace) as $name) {
                 if (preg_match("#_\d\d$#", $name) && !str_contains($name, "minecraft:item/music_disc_")) {
                     continue;
                 }
-                $itemNames[] = $name;
+                if (!in_array($name, $itemNames, true)) {
+                    $itemNames[] = $name;
+                }
             }
         }
         return $itemNames;
