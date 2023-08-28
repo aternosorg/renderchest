@@ -9,6 +9,11 @@
       "type": "directory",
       "source": "entity",
       "prefix": "entity/"
+    },
+    {
+      "type": "directory",
+      "source": "colormap",
+      "prefix": "colormap/"
     }
   ]
 }
