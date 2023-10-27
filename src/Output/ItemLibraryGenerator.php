@@ -2,7 +2,6 @@
 
 namespace Aternos\Renderchest\Output;
 
-use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Output\CSS\MediaQueryEntry;
 use Aternos\Renderchest\Output\CSS\StyleSheet;
@@ -15,9 +14,9 @@ use Aternos\Renderchest\Output\ItemStyle\ItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\PotionItemStyleGenerator;
 use Aternos\Renderchest\Resource\FolderResourceManager;
 use Aternos\Renderchest\Resource\ResourceLocator;
+use Aternos\Taskmaster\Taskmaster;
 use Closure;
 use Exception;
-use Imagick;
 use ImagickException;
 
 class ItemLibraryGenerator
@@ -159,43 +158,45 @@ class ItemLibraryGenerator
      * @param int $quality
      * @param Closure|callable|null $onProgress
      * @return Item[]
-     * @throws ImagickException
      * @throws Exception
      */
     protected function createItems(int $size, int $quality = 1, Closure|callable|null $onProgress = null): array
     {
         $items = $this->getItemNames();
 
+        $taskmaster = new Taskmaster();
+        $taskmaster->autoDetectWorkers(12);
+
+        foreach ($items as $itemName) {
+            $taskmaster->runTask(new ItemRenderTask($itemName, $size, $quality, $this->assets, $this->format, $this->createPngFallback, $this->output));
+        }
+
         $total = count($items);
         $results = [];
-        foreach ($items as $i => $name) {
-            if ($onProgress !== null) {
-                $onProgress($i, $total, $name);
-            }
-            $locator = ResourceLocator::parse($name);
+        $i = 0;
 
-            try {
-                $model = $this->resourceManager->getModel($locator);
-            } catch (ModelResolutionException) {
+        foreach ($taskmaster->waitAndHandleTasks() as $task) {
+            if (!$task instanceof ItemRenderTask) {
                 continue;
             }
-
-            try {
-                $out = $model->render($size * $quality, $size * $quality);
-            } catch (TextureResolutionException) {
-                continue;
-            }
-
-            if ($quality !== 1) {
-                foreach ($out as $frame) {
-                    $frame->resizeImage($size, $size, Imagick::FILTER_BOX, 1);
+            if ($task->getError() || $task->getResult() === null) {
+                echo "Failed to render " . $task->getItemName();
+                if ($task->getError()) {
+                    echo ": " . $task->getError()->getMessage();
                 }
+                echo PHP_EOL;
+            } else {
+                $results[$task->getResult()] = new Item($task->getResult(), $this);
             }
 
-            $normalizedLocator = $locator->clone()->setPath(basename($locator->getPath()));
-            Item::writeImageFile($out, strval($normalizedLocator), $this->getFormat(), $this->output, $this->createPngFallback);
-            $results[strval($normalizedLocator)] = new Item(strval($normalizedLocator), $this);
+            $i++;
+            if ($onProgress !== null) {
+                $onProgress($i, $total, $task->getItemName());
+            }
         }
+
+        $taskmaster->stop();
+
         return $results;
     }
 

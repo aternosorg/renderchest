@@ -19,10 +19,7 @@ $cli->description("Generate icons and css for Minecraft items.")
     ->opt("output:o", "Output directory", true)
     ->opt("prefix:p", "Prefix to use for CSS classes. Default: rc-")
     ->opt("format:f", "Output image format. Default: webp")
-    ->opt("processes:p", "Number of processes to use. Default: 16", false, "integer")
-    ->opt("batch-size:b", "Batch size for multi threaded rendering. Default: 16", false, "integer")
-    ->opt("fallback", "Create a set of fallback textures as PNGs. Default: false", false, "boolean")
-    ->opt("sync", "Don't use multithreading. Default: false", false, "boolean");
+    ->opt("fallback", "Create a set of fallback textures as PNGs. Default: false", false, "boolean");
 
 function resolvePath($path)
 {
@@ -34,20 +31,14 @@ function resolvePath($path)
 
 function onProgress($i, $total, $name): void
 {
-    echo "Rendering item " . ($i + 1) . "/" . $total . ": " . $name . "\n";
+    echo "Rendered item " . ($i + 1) . "/" . $total . ": " . $name . "\n";
 }
 
 $args = $cli->parse($argv);
 $output = resolvePath($args->getOpt("output"));
 $assets = array_map(resolvePath(...), $args->getOpt("assets"));
 
-if(!$args->getOpt('sync', false)) {
-    $libraryGenerator = (new AsyncItemLibraryGenerator($assets, $output))
-        ->setMaxProcesses($args->getOpt("processes", 16))
-        ->setBatchSize($args->getOpt("batch-size", 16));
-} else {
-    $libraryGenerator = new ItemLibraryGenerator($assets, $output);
-}
+$libraryGenerator = new ItemLibraryGenerator($assets, $output);
 
 $libraryGenerator->setNamespaces($args->getOpt("namespace", ["minecraft"]))
     ->setSize($args->getOpt("size", 64))

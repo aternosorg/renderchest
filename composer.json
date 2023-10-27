@@ -4,6 +4,7 @@
     "keywords": ["minecraft", "item", "render", "icon", "css"],
     "readme": "README.md",
     "type": "library",
+    "minimum-stability": "dev",
     "license": "MIT",
     "authors": [
         {
@@ -19,8 +20,8 @@
         "ext-imagick": "*",
         "ext-json": "*",
         "vanilla/garden-cli": "^3.1",
-        "spatie/async": "^1.5",
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "aternos/taskmaster": "dev-master"
     },
     "autoload": {
         "psr-4": {
