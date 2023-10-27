@@ -17,7 +17,7 @@ This information can't be extracted from the asset files and therefore is hard-c
 ### Requirements
 - PHP 8.1+
 - ext-imagick
-- ext-pcntl (optional, required for multithreading)
+- ext-pcntl (optional, allows more efficient multithreading)
 
 ### Usage
 To use renderchest, a valid Minecraft assets directory is required.
@@ -39,7 +39,6 @@ OPTIONS
   --assets, -a       Assets folder to use. Multiple assets folders are possible,
                      but a base assets folder extracted from the Minecraft jar
                      should always be included.
-  --batch-size, -b   Batch size for multi threaded rendering. Default: 16
   --fallback         Create a set of fallback textures as PNGs. Default: false
   --format, -f       Output image format. Default: webp
   --help, -?         Display this help.
@@ -49,14 +48,13 @@ OPTIONS
                      Default: minecraft
   --output, -o       Output directory
   --prefix, -p       Prefix to use for CSS classes. Default: rc-
-  --processes, -p    Number of processes to use. Default: 16
   --quality, -q      When generating very small icons, small issues (like
                      z-fighting of faces close to each other) can occur. This
                      option allows rendering images in a higher resolution and
                      scaling them down for the final icon. Default: 2
   --size, -s         Size of the generated item icons. Default: 64
-  --sync             Don't use multithreading. Default: false
 ```
+Renderchest uses [Taskmaster](https://github.com/aternosorg/taskmaster) for asynchronous tasks, which can be configured [using environment variables](https://github.com/aternosorg/taskmaster#defining-workers-using-environment-variables).
 
 #### Using resource packs
 Resource packs can be added by specifying multiple asset paths.
@@ -109,7 +107,7 @@ Dynamic colors can be added by setting the `--rc-layer-1-tint` and `--rc-layer-2
 composer require aternos/renderchest
 ```
 
-When using renderchest as a library, the `ItemLibraryGenerator` or `AsyncItemLibraryGenerator` class to replicate the functionality of the CLI tool.
+When using renderchest as a library, the `ItemLibraryGenerator` class can be used to replicate the functionality of the CLI tool.
 ```php
 (new ItemLibraryGenerator(["path/to/assets"], "path/to/output"))
     ->setNamespaces(["minecraft"])

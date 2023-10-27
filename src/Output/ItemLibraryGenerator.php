@@ -165,7 +165,7 @@ class ItemLibraryGenerator
         $items = $this->getItemNames();
 
         $taskmaster = new Taskmaster();
-        $taskmaster->autoDetectWorkers(12);
+        $taskmaster->autoDetectWorkers(8);
 
         foreach ($items as $itemName) {
             $taskmaster->runTask(new ItemRenderTask($itemName, $size, $quality, $this->assets, $this->format, $this->createPngFallback, $this->output));
