@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26185157664d92da6cfe8b00b4184e1a",
+    "content-hash": "b653686e41f408c95b5570c5e9f35972",
     "packages": [
         {
             "name": "aternos/taskmaster",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aternosorg/taskmaster.git",
-                "reference": "93200ac749bdb0b8d6b939c91f5a122051d61def"
+                "reference": "69e60b8c6e424a7fdd0c0ae0c7ec4f4c2bea1238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aternosorg/taskmaster/zipball/93200ac749bdb0b8d6b939c91f5a122051d61def",
-                "reference": "93200ac749bdb0b8d6b939c91f5a122051d61def",
+                "url": "https://api.github.com/repos/aternosorg/taskmaster/zipball/69e60b8c6e424a7fdd0c0ae0c7ec4f4c2bea1238",
+                "reference": "69e60b8c6e424a7fdd0c0ae0c7ec4f4c2bea1238",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,6 @@
                 "ext-parallel": "Required for thread workers",
                 "ext-pcntl": "Required for fork workers"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -51,9 +50,9 @@
             "description": "Object-oriented PHP library for running tasks in parallel",
             "support": {
                 "issues": "https://github.com/aternosorg/taskmaster/issues",
-                "source": "https://github.com/aternosorg/taskmaster/tree/master"
+                "source": "https://github.com/aternosorg/taskmaster/tree/v1.0.0"
             },
-            "time": "2023-10-26T15:45:40+00:00"
+            "time": "2023-10-27T15:30:32+00:00"
         },
         {
             "name": "psr/log",
@@ -163,10 +162,8 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "aternos/taskmaster": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
