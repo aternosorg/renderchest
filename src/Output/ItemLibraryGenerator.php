@@ -36,6 +36,7 @@ class ItemLibraryGenerator
     protected array $namespaces = ["minecraft"];
     protected int $size = 64;
     protected int $quality = 2;
+    protected int $defaultWorkerCount = 8;
     protected bool $createItemList = false;
     protected bool $createPngFallback = false;
     protected string $prefix = "rc-";
@@ -165,7 +166,7 @@ class ItemLibraryGenerator
         $items = $this->getItemNames();
 
         $taskmaster = new Taskmaster();
-        $taskmaster->autoDetectWorkers(8);
+        $taskmaster->autoDetectWorkers($this->defaultWorkerCount);
 
         foreach ($items as $itemName) {
             $taskmaster->runTask(new ItemRenderTask($itemName, $size, $quality, $this->assets, $this->format, $this->createPngFallback, $this->output));
@@ -454,5 +455,23 @@ class ItemLibraryGenerator
     public function isCreatePngFallback(): bool
     {
         return $this->createPngFallback;
+    }
+
+    /**
+     * @param int $defaultWorkerCount
+     * @return $this
+     */
+    public function setDefaultWorkerCount(int $defaultWorkerCount): static
+    {
+        $this->defaultWorkerCount = $defaultWorkerCount;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultWorkerCount(): int
+    {
+        return $this->defaultWorkerCount;
     }
 }
