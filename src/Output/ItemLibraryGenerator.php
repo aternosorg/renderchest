@@ -181,19 +181,17 @@ class ItemLibraryGenerator
                 continue;
             }
             if ($task->getError() || $task->getResult() === null) {
-                echo "Failed to render " . $task->getItemName();
-                if ($task->getError()) {
-                    echo ": " . $task->getError()->getMessage();
+                if ($onProgress !== null) {
+                    $onProgress($i, $total, $task->getItemName(), false, $task->getError()?->getMessage());
                 }
-                echo PHP_EOL;
             } else {
                 $results[$task->getResult()] = new Item($task->getResult(), $this);
             }
 
-            $i++;
             if ($onProgress !== null) {
-                $onProgress($i, $total, $task->getItemName());
+                $onProgress($i, $total, $task->getItemName(), true, null);
             }
+            $i++;
         }
 
         $taskmaster->stop();

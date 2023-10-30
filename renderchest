@@ -29,9 +29,13 @@ function resolvePath($path)
     return $path;
 }
 
-function onProgress($i, $total, $name): void
+function onProgress($i, $total, $name, $success, $errorMessage): void
 {
-    echo "Rendered item " . ($i + 1) . "/" . $total . ": " . $name . "\n";
+    if ($success) {
+        echo "Rendered item " . ($i + 1) . "/" . $total . ": " . $name . PHP_EOL;
+    } else {
+        echo "Failed to render item " . ($i + 1) . "/" . $total . ": " . $name . ($errorMessage ? " (" . $errorMessage . ")" : "") . PHP_EOL;
+    }
 }
 
 $args = $cli->parse($argv);
