@@ -49,6 +49,7 @@ class TinterManager
             "item/bat_spawn_egg" => new FixedColorTinter("#4b3d2f", "#0f0f0f"),
             "item/bee_spawn_egg" => new FixedColorTinter("#eac142", "#42241b"),
             "item/blaze_spawn_egg" => new FixedColorTinter("#f3b001", "#fcf57d"),
+            "item/breeze_spawn_egg" => new FixedColorTinter("#af94df", "#9166df"),
             "item/cat_spawn_egg" => new FixedColorTinter("#ecc68c", "#937155"),
             "item/cave_spider_spawn_egg" => new FixedColorTinter("#0c414d", "#a60e0e"),
             "item/chicken_spawn_egg" => new FixedColorTinter("#9f9f9f", "#fc0000"),
