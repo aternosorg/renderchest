@@ -31,6 +31,7 @@ class TinterManager
             "item/lily_pad",
             "block/leaves",
             "item/grass",
+            "item/short_grass",
             "item/tall_grass",
             "item/fern",
             "item/large_fern",
