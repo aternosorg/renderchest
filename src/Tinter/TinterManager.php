@@ -28,8 +28,14 @@ class TinterManager
         }
 
         if (in_array($modelLocator->getPath(), [
+            "block/oak_leaves",
+            "block/birch_leaves",
+            "block/acacia_leaves",
+            "block/jungle_leaves",
+            "block/spruce_leaves",
+            "block/dark_oak_leaves",
+            "block/mangrove_leaves",
             "item/lily_pad",
-            "block/leaves",
             "item/grass",
             "item/short_grass",
             "item/tall_grass",
