@@ -52,6 +52,7 @@ class TinterManager
             "item/potion", "item/splash_potion", "item/lingering_potion" => new FixedColorTinter("#375cc4"),
 
             "item/allay_spawn_egg" => new FixedColorTinter("#00d7fc", "#00abfc"),
+            "item/armadillo_spawn_egg" => new FixedColorTinter("#a67775", "#734b4f"),
             "item/axolotl_spawn_egg" => new FixedColorTinter("#f8bfe0", "#a42c73"),
             "item/bat_spawn_egg" => new FixedColorTinter("#4b3d2f", "#0f0f0f"),
             "item/bee_spawn_egg" => new FixedColorTinter("#eac142", "#42241b"),
