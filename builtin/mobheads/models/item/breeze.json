@@ -3,7 +3,8 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "minecraft:entity/breeze/breeze"
+		"0": "entity/breeze/breeze",
+		"1": "entity/breeze/breeze_eyes"
 	},
 	"elements": [
 		{
@@ -19,16 +20,16 @@
 			}
 		},
 		{
-			"from": [4, 5, 4],
-			"to": [12, 6, 5],
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
 			"shade": false,
 			"faces": {
-				"north": {"uv": [4, 8.5, 8, 9], "texture": "#0"},
-				"east": {"uv": [3.5, 8.5, 4, 9], "texture": "#0"},
-				"south": {"uv": [12, 4, 16, 4.5], "texture": "#0"},
-				"west": {"uv": [8, 8.5, 8.5, 9], "texture": "#0"},
-				"up": {"uv": [4, 8, 8, 8.5], "rotation": 180, "texture": "#0"},
-				"down": {"uv": [8, 8, 12, 8.5], "texture": "#0"}
+				"north": {"uv": [4, 4, 8, 8], "texture": "#1"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#1"},
+				"south": {"uv": [12, 4, 16, 8], "texture": "#1"},
+				"west": {"uv": [8, 4, 12, 8], "texture": "#1"},
+				"up": {"uv": [4, 0, 8, 4], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [8, 0, 12, 4], "texture": "#1"}
 			}
 		},
 		{
@@ -36,12 +37,12 @@
 			"to": [13, 9, 7.75],
 			"shade": false,
 			"faces": {
-				"north": {"uv": [4, 14, 9, 15.5], "texture": "#0"},
-				"east": {"uv": [2, 14, 4, 15.5], "texture": "#0"},
-				"south": {"uv": [11, 4, 16, 5.5], "texture": "#0"},
-				"west": {"uv": [9, 14, 11, 15.5], "texture": "#0"},
-				"up": {"uv": [4, 12, 9, 14], "rotation": 180, "texture": "#0"},
-				"down": {"uv": [9, 12, 14, 14], "texture": "#0"}
+				"north": {"uv": [4, 14, 9, 15.5], "texture": "#1"},
+				"east": {"uv": [2, 14, 4, 15.5], "texture": "#1"},
+				"south": {"uv": [11, 14, 16, 15.5], "texture": "#1"},
+				"west": {"uv": [9, 14, 11, 15.5], "texture": "#1"},
+				"up": {"uv": [4, 12, 9, 14], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [9, 12, 14, 14], "texture": "#1"}
 			}
 		}
 	]
