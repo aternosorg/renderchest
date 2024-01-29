@@ -19,6 +19,10 @@ This information can't be extracted from the asset files and therefore is hard-c
 - ext-imagick
 - ext-pcntl (optional, allows more efficient multithreading)
 
+### Windows support
+While Renderchest will generally work on Windows, it will be much slower since asynchronous tasks are not supported.
+It is therefore recommended to use the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) to run renderchest on Windows.
+
 ### Usage
 To use renderchest, a valid Minecraft assets directory is required.
 It can be extracted from a Minecraft client jar file.
