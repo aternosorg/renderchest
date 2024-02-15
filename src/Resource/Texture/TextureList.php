@@ -58,9 +58,6 @@ class TextureList
         if (str_starts_with($name, "#")) {
             $name = substr($name, 1);
         }
-        if (isset($this->textures[$name])) {
-            return $this->textures[$name];
-        }
         return new ResolvableTexture($this, $name);
     }
 
