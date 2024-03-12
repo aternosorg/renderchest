@@ -12,6 +12,7 @@ use Aternos\Renderchest\Output\ItemStyle\DefaultItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\EnchantedItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\InternalItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\ItemStyleGenerator;
+use Aternos\Renderchest\Output\ItemStyle\MapItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\PotionItemStyleGenerator;
 use Aternos\Renderchest\Resource\FolderResourceManager;
 use Aternos\Renderchest\Resource\ResourceLocator;
@@ -31,6 +32,7 @@ class ItemLibraryGenerator
         ArmorItemStyleGenerator::class,
         PotionItemStyleGenerator::class,
         ChargedProjectileItemStyleGenerator::class,
+        MapItemStyleGenerator::class,
         EnchantedItemStyleGenerator::class,
         DefaultItemStyleGenerator::class
     ];
