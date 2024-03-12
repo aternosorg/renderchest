@@ -96,6 +96,12 @@ Decorated pots can be displayed by adding `rc-pot-1-[material-1]` and `rc-pot-2-
 ```
 Only the first and third material are required because the other sides of the pot are not visible.
 
+#### Crossbow projectiles
+Crossbow projectiles can be displayed by adding `rc-projectile-[material]` classes.
+```html
+<div class="rc-item rc-minecraft_crossbow rc-projectile-minecraft_tipped_arrow" style="width: 64px; height: 64px"></div>
+```
+
 #### Dynamic tinting
 Icons can consist of two layers, which can be separately tinted using CSS.
 This is necessary whenever colors can change dynamically based on item properties (e.g. dyed leather armor or potions).

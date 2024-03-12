@@ -6,6 +6,7 @@ use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Output\CSS\MediaQueryEntry;
 use Aternos\Renderchest\Output\CSS\StyleSheet;
 use Aternos\Renderchest\Output\ItemStyle\ArmorItemStyleGenerator;
+use Aternos\Renderchest\Output\ItemStyle\ChargedProjectileItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\DecoratedPotItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\DefaultItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\EnchantedItemStyleGenerator;
@@ -29,6 +30,7 @@ class ItemLibraryGenerator
         DecoratedPotItemStyleGenerator::class,
         ArmorItemStyleGenerator::class,
         PotionItemStyleGenerator::class,
+        ChargedProjectileItemStyleGenerator::class,
         EnchantedItemStyleGenerator::class,
         DefaultItemStyleGenerator::class
     ];
