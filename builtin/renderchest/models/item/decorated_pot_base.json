@@ -21,6 +21,9 @@
     "skull_pottery_sherd": "minecraft:entity/decorated_pot/skull_pottery_pattern",
     "friend_pottery_sherd": "minecraft:entity/decorated_pot/friend_pottery_pattern",
     "snort_pottery_sherd": "minecraft:entity/decorated_pot/snort_pottery_pattern",
+    "flow_pottery_sherd": "minecraft:entity/decorated_pot/flow_pottery_pattern",
+    "guster_pottery_sherd": "minecraft:entity/decorated_pot/guster_pottery_pattern",
+    "scrape_pottery_sherd": "minecraft:entity/decorated_pot/scrape_pottery_pattern",
 
     "base": "minecraft:entity/decorated_pot/decorated_pot_base"
   },

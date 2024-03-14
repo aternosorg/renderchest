@@ -30,7 +30,10 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
         "sheaf_pottery_sherd",
         "shelter_pottery_sherd",
         "skull_pottery_sherd",
-        "snort_pottery_sherd"
+        "snort_pottery_sherd",
+        "flow_pottery_sherd",
+        "guster_pottery_sherd",
+        "scrape_pottery_sherd"
     ];
 
     /**
