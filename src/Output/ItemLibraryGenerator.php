@@ -10,6 +10,7 @@ use Aternos\Renderchest\Output\ItemStyle\ChargedProjectileItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\DecoratedPotItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\DefaultItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\EnchantedItemStyleGenerator;
+use Aternos\Renderchest\Output\ItemStyle\FireWorkStarItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\InternalItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\ItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\MapItemStyleGenerator;
@@ -33,6 +34,7 @@ class ItemLibraryGenerator
         PotionItemStyleGenerator::class,
         ChargedProjectileItemStyleGenerator::class,
         MapItemStyleGenerator::class,
+        FireWorkStarItemStyleGenerator::class,
         EnchantedItemStyleGenerator::class,
         DefaultItemStyleGenerator::class
     ];
