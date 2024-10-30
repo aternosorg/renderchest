@@ -3,6 +3,7 @@
 namespace Aternos\Renderchest\Resource\DynamicResources;
 
 use Aternos\Renderchest\Constants;
+use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\ResourceLocator;
@@ -12,6 +13,14 @@ use Exception;
 class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
 {
     protected array $models = [];
+
+    /**
+     * @inheritDoc
+     */
+    public static function getNamespace(): string
+    {
+        return "_leather_armor";
+    }
 
     /**
      * @param ResourceManagerInterface $resourceManager
@@ -51,35 +60,28 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
             $model->getTextures()->set("layer" . $i, $layer, $this->resourceManager);
         }
 
-        $itemId = new ResourceLocator($this->getNamespace(), $locatorPath);
+        $itemId = new ResourceLocator(static::getNamespace(), $locatorPath);
         $this->models[strval($itemId)] = $model;
 
         return $model;
     }
 
     /**
-     * @param ResourceLocator $locator
-     * @return ModelInterface
+     * @inheritDoc
      */
     public function getModel(ResourceLocator $locator): ModelInterface
     {
+        if (!isset($this->models[strval($locator)])) {
+            throw new ModelResolutionException("Cannot resolve model locator " . $locator);
+        }
         return $this->models[strval($locator)];
-    }
-
-    /**
-     * @param string $namespace
-     * @return array
-     */
-    public function getAllItems(string $namespace): array
-    {
-        return array_keys($this->models);
     }
 
     /**
      * @inheritDoc
      */
-    public function getNamespace(): string
+    public function getAllItems(string $namespace): array
     {
-        return "_leather_armor";
+        return array_keys($this->models);
     }
 }

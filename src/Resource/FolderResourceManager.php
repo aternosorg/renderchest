@@ -9,6 +9,7 @@ use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\Model;
 use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\AtlasSource\AtlasTextureResolver;
+use Aternos\Renderchest\Resource\DynamicResources\DecoratedPotModelGenerator;
 use Aternos\Renderchest\Resource\DynamicResources\LeatherArmorTrimModelGenerator;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 use Aternos\Renderchest\Tinter\TinterManager;
@@ -25,12 +26,17 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     protected array $resourceGenerators = [];
 
+    /**
+     * @param array $paths
+     * @throws Exception
+     */
     public function __construct(protected array $paths)
     {
         $this->tinters = new TinterManager($this);
         array_unshift($this->paths, __DIR__ . "/../../builtin/");
         $this->loadTextureSources();
         $this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
+        $this->addDynamicResourceGenerator(new DecoratedPotModelGenerator($this));
     }
 
     /**
@@ -39,7 +45,7 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     public function addDynamicResourceGenerator(DynamicResourceGeneratorInterface $generator): static
     {
-        $this->resourceGenerators[$generator->getNamespace()] = $generator;
+        $this->resourceGenerators[$generator::getNamespace()] = $generator;
         return $this;
     }
 

@@ -9,14 +9,14 @@ namespace Aternos\Renderchest\Resource;
 interface DynamicResourceGeneratorInterface extends ResourceManagerInterface
 {
     /**
-     * @param ResourceManagerInterface $resourceManager
-     */
-    public function __construct(ResourceManagerInterface $resourceManager);
-
-    /**
      * Get the namespace this generator is responsible for
      *
      * @return string
      */
-    public function getNamespace(): string;
+    public static function getNamespace(): string;
+
+    /**
+     * @param ResourceManagerInterface $resourceManager
+     */
+    public function __construct(ResourceManagerInterface $resourceManager);
 }

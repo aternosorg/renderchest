@@ -2,40 +2,15 @@
 
 namespace Aternos\Renderchest\Output\ItemStyle;
 
+use Aternos\Renderchest\Constants;
 use Aternos\Renderchest\Output\CSS\CSSEntry;
 use Aternos\Renderchest\Output\CSS\PropertyListEntry;
 use Aternos\Renderchest\Output\Item;
 use Aternos\Renderchest\Output\ItemLibraryGenerator;
+use Aternos\Renderchest\Resource\DynamicResources\DecoratedPotModelGenerator;
 
 class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
 {
-    const SHERDS = [
-        "brick",
-        "angler_pottery_sherd",
-        "archer_pottery_sherd",
-        "arms_up_pottery_sherd",
-        "blade_pottery_sherd",
-        "brewer_pottery_sherd",
-        "burn_pottery_sherd",
-        "danger_pottery_sherd",
-        "explorer_pottery_sherd",
-        "friend_pottery_sherd",
-        "heart_pottery_sherd",
-        "heartbreak_pottery_sherd",
-        "howl_pottery_sherd",
-        "miner_pottery_sherd",
-        "mourner_pottery_sherd",
-        "plenty_pottery_sherd",
-        "prize_pottery_sherd",
-        "sheaf_pottery_sherd",
-        "shelter_pottery_sherd",
-        "skull_pottery_sherd",
-        "snort_pottery_sherd",
-        "flow_pottery_sherd",
-        "guster_pottery_sherd",
-        "scrape_pottery_sherd"
-    ];
-
     /**
      * @inheritDoc
      */
@@ -93,14 +68,14 @@ class DecoratedPotItemStyleGenerator extends ItemStyleGenerator
     protected function generateSherdStyles(bool $fallback): array
     {
         $styles = [];
-        foreach (static::SHERDS as $sherd) {
+        foreach (Constants::POTTERY_SHERDS as $sherd) {
             $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getSherdSelector($sherd, 1)))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_b_" . $sherd, $fallback),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl(DecoratedPotModelGenerator::getNamespace() . ":pot_b_" . $sherd, $fallback),
                 ]);
             $styles[] = (new PropertyListEntry($this->getCssSelector() . $this->getSherdSelector($sherd, 2) . ":before"))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_pot_o_" . $sherd, $fallback),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl(DecoratedPotModelGenerator::getNamespace() . ":pot_o_" . $sherd, $fallback),
                 ]);
         }
         return $styles;

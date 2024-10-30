@@ -7,6 +7,7 @@ use Aternos\Renderchest\Output\CSS\CSSEntry;
 use Aternos\Renderchest\Output\CSS\PropertyListEntry;
 use Aternos\Renderchest\Output\Item;
 use Aternos\Renderchest\Output\ItemLibraryGenerator;
+use Aternos\Renderchest\Resource\DynamicResources\LeatherArmorTrimModelGenerator;
 
 class ArmorItemStyleGenerator extends ItemStyleGenerator
 {
@@ -109,14 +110,14 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         $styles = [
             (new PropertyListEntry($this->getCssSelector()))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_base", $fallbackTexture),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl(LeatherArmorTrimModelGenerator::getNamespace() . ":" . $name . "_base", $fallbackTexture),
                     "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator(), $fallbackTexture),
                     "--" . $prefix . "layer-1-tint" => "#9e643f"
                 ]),
             (new PropertyListEntry($this->getCssSelector() . ":before"))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_overlay", $fallbackTexture),
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_overlay", $fallbackTexture),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl(LeatherArmorTrimModelGenerator::getNamespace() . ":" . $name . "_overlay", $fallbackTexture),
+                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl(LeatherArmorTrimModelGenerator::getNamespace() . ":" . $name . "_overlay", $fallbackTexture),
                 ])
         ];
 
@@ -128,8 +129,8 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
 
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material . ":before"))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_" . $material . "_trim", $fallbackTexture),
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_" . $material . "_trim", $fallbackTexture),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl(LeatherArmorTrimModelGenerator::getNamespace() . ":" . $name . "_" . $material . "_trim", $fallbackTexture),
+                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl(LeatherArmorTrimModelGenerator::getNamespace() . ":" . $name . "_" . $material . "_trim", $fallbackTexture),
                 ]);
         }
 
