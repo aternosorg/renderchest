@@ -64,6 +64,7 @@ class TinterManager
             "item/chicken_spawn_egg" => new FixedColorTinter("#9f9f9f", "#fc0000"),
             "item/cod_spawn_egg" => new FixedColorTinter("#bfa569", "#e2c289"),
             "item/cow_spawn_egg" => new FixedColorTinter("#433526", "#9f9f9f"),
+            "item/creaking_spawn_egg" => new FixedColorTinter("#5f5f5f", "#fc7812"),
             "item/creeper_spawn_egg" => new FixedColorTinter("#0da50b", "#000000"),
             "item/dolphin_spawn_egg" => new FixedColorTinter("#223a4c", "#f6f6f6"),
             "item/donkey_spawn_egg" => new FixedColorTinter("#524438", "#847465"),
