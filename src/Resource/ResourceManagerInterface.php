@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Resource;
 
+use Aternos\Renderchest\Exception\FileResolutionException;
 use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Model\ModelInterface;
@@ -33,6 +34,7 @@ interface ResourceManagerInterface
      * @param ResourceLocator $locator
      * @param string|null $extension
      * @return string
+     * @throws FileResolutionException
      */
     function getFileContent(ResourceLocator $locator, ?string $extension = null): string;
 

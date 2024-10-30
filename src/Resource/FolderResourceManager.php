@@ -9,6 +9,7 @@ use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\Model;
 use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\AtlasSource\AtlasTextureResolver;
+use Aternos\Renderchest\Resource\DynamicResources\LeatherArmorTrimModelGenerator;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 use Aternos\Renderchest\Tinter\TinterManager;
 use Exception;
@@ -19,11 +20,36 @@ class FolderResourceManager implements ResourceManagerInterface
     protected TinterManager $tinters;
     protected AtlasTextureResolver $atlasTextureResolver;
 
+    /**
+     * @var DynamicResourceGeneratorInterface[]
+     */
+    protected array $resourceGenerators = [];
+
     public function __construct(protected array $paths)
     {
         $this->tinters = new TinterManager($this);
         array_unshift($this->paths, __DIR__ . "/../../builtin/");
         $this->loadTextureSources();
+        $this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
+    }
+
+    /**
+     * @param DynamicResourceGeneratorInterface $generator
+     * @return $this
+     */
+    public function addDynamicResourceGenerator(DynamicResourceGeneratorInterface $generator): static
+    {
+        $this->resourceGenerators[$generator->getNamespace()] = $generator;
+        return $this;
+    }
+
+    /**
+     * @param string $namespace
+     * @return DynamicResourceGeneratorInterface|null
+     */
+    protected function getGeneratorFor(string $namespace): ?DynamicResourceGeneratorInterface
+    {
+        return $this->resourceGenerators[$namespace] ?? null;
     }
 
     /**
@@ -84,6 +110,9 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     function getModel(ResourceLocator $locator, ?Model $model = null): ModelInterface
     {
+        if ($generator = $this->getGeneratorFor($locator->getNamespace())) {
+            return $generator->getModel($locator);
+        }
         $path = $this->getFile($locator->getNamespace() . "/models/" . $locator->getPath(), "json");
         if ($path === null) {
             throw new ModelResolutionException("Cannot resolve model locator " . $locator);
@@ -116,6 +145,9 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     function getTexture(ResourceLocator $locator): TextureInterface
     {
+        if ($generator = $this->getGeneratorFor($locator->getNamespace())) {
+            return $generator->getTexture($locator);
+        }
         $texture = $this->atlasTextureResolver->getTexture($locator);
         if ($texture === null) {
             throw new TextureResolutionException("Cannot resolve texture locator " . $locator);
@@ -145,6 +177,11 @@ class FolderResourceManager implements ResourceManagerInterface
                 }
             }
         }
+
+        foreach ($this->resourceGenerators as $generator) {
+            $items = array_merge($items, $generator->getAllItems($namespace));
+        }
+
         return $items;
     }
 
@@ -154,6 +191,9 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     function getFileContent(ResourceLocator $locator, ?string $extension = null): string
     {
+        if ($generator = $this->getGeneratorFor($locator->getNamespace())) {
+            return $generator->getFileContent($locator, $extension);
+        }
         $path = $this->getFile($locator->getNamespace() . "/" . $locator->getPath(), $extension);
         if ($path === null) {
             throw new FileResolutionException("Cannot resolve file locator " . $locator);
@@ -167,6 +207,9 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     function hasFile(ResourceLocator $locator, ?string $extension = null): bool
     {
+        if ($generator = $this->getGeneratorFor($locator->getNamespace())) {
+            return $generator->hasFile($locator, $extension);
+        }
         return !!$this->getFile($locator->getNamespace() . "/" . $locator->getPath(), $extension);
     }
 }

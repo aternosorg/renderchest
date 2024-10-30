@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Output\ItemStyle;
 
+use Aternos\Renderchest\Constants;
 use Aternos\Renderchest\Output\CSS\CSSEntry;
 use Aternos\Renderchest\Output\CSS\PropertyListEntry;
 use Aternos\Renderchest\Output\Item;
@@ -45,19 +46,6 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         "minecraft:netherite_helmet",
     ];
 
-    const TRIM_MATERIALS = [
-        "quartz",
-        "iron",
-        "gold",
-        "diamond",
-        "netherite",
-        "redstone",
-        "copper",
-        "emerald",
-        "lapis",
-        "amethyst",
-    ];
-
     /**
      * @inheritDoc
      */
@@ -96,7 +84,7 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
                 ])
         ];
 
-        foreach (static::TRIM_MATERIALS as $material) {
+        foreach (Constants::TRIM_MATERIALS as $material) {
             $textureMaterial = $material;
             if ($textureMaterial == $armorMaterial) {
                 $textureMaterial .= "_darker";
@@ -121,18 +109,18 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         $styles = [
             (new PropertyListEntry($this->getCssSelector()))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_" . $name . "_base", $fallbackTexture),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_base", $fallbackTexture),
                     "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator(), $fallbackTexture),
                     "--" . $prefix . "layer-1-tint" => "#9e643f"
                 ]),
             (new PropertyListEntry($this->getCssSelector() . ":before"))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_" . $name . "_overlay", $fallbackTexture),
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_" . $name . "_overlay", $fallbackTexture),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_overlay", $fallbackTexture),
+                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_overlay", $fallbackTexture),
                 ])
         ];
 
-        foreach (static::TRIM_MATERIALS as $material) {
+        foreach (Constants::TRIM_MATERIALS as $material) {
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material))
                 ->setProperties([
                     "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator() . "_" . $material . "_trim", $fallbackTexture),
@@ -140,8 +128,8 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
 
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material . ":before"))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_" . $name . "_" . $material . "_trim", $fallbackTexture),
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl("minecraft:rc_" . $name . "_" . $material . "_trim", $fallbackTexture),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_" . $material . "_trim", $fallbackTexture),
+                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl("_leather_armor:" . $name . "_" . $material . "_trim", $fallbackTexture),
                 ]);
         }
 
