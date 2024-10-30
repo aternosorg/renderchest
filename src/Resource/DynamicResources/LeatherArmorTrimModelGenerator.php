@@ -7,12 +7,11 @@ use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\ResourceLocator;
-use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Exception;
 
 class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
 {
-    protected array $models = [];
+    protected ?array $models = null;
 
     /**
      * @inheritDoc
@@ -23,12 +22,15 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
     }
 
     /**
-     * @param ResourceManagerInterface $resourceManager
+     * @return void
      * @throws Exception
      */
-    public function __construct(ResourceManagerInterface $resourceManager)
+    protected function initializeModels(): void
     {
-        parent::__construct($resourceManager);
+        if ($this->models !== null) {
+            return;
+        }
+        $this->models = [];
         foreach (Constants::ARMOR_ITEM_TYPES as $armorItem) {
             $this->createModelFromLayers("leather_" . $armorItem . "_base", [
                 "minecraft:item/leather_" . $armorItem
@@ -68,9 +70,11 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public function getModel(ResourceLocator $locator): ModelInterface
     {
+        $this->initializeModels();
         if (!isset($this->models[strval($locator)])) {
             throw new ModelResolutionException("Cannot resolve model locator " . $locator);
         }
@@ -79,9 +83,11 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public function getAllItems(string $namespace): array
     {
+        $this->initializeModels();
         return array_keys($this->models);
     }
 }
