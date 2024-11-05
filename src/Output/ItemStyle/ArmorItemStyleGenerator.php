@@ -76,6 +76,9 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         $prefix = $this->item->getGenerator()->getPrefix();
         $name = substr($this->item->getLocator(), 10);
         $armorMaterial = explode("_", $name)[0];
+        if ($armorMaterial === "golden") {
+            $armorMaterial = "gold";
+        }
 
         $styles = [
             (new PropertyListEntry($this->getCssSelector()))
