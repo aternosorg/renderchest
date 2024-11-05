@@ -31,10 +31,10 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         "minecraft:iron_chestplate",
         "minecraft:iron_helmet",
 
-        "minecraft:gold_boots",
-        "minecraft:gold_leggings",
-        "minecraft:gold_chestplate",
-        "minecraft:gold_helmet",
+        "minecraft:golden_boots",
+        "minecraft:golden_leggings",
+        "minecraft:golden_chestplate",
+        "minecraft:golden_helmet",
 
         "minecraft:diamond_boots",
         "minecraft:diamond_leggings",
