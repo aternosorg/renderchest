@@ -2,8 +2,10 @@
 
 namespace Aternos\Renderchest\Tinter;
 
+use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use ImagickPixel;
 use ImagickPixelException;
+use stdClass;
 
 class FishTinter implements Tinterface
 {
@@ -26,18 +28,26 @@ class FishTinter implements Tinterface
         "#1d1d21"
     ];
 
-    protected array $cache = [];
+    protected ?ImagickPixel $cache = null;
+
+    /**
+     * @inheritDoc
+     */
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): ?static
+    {
+        return new static();
+    }
 
     /**
      * @inheritDoc
      * @throws ImagickPixelException
      */
-    public function getTintColor(int $index): ?ImagickPixel
+    public function getTintColor(): ?ImagickPixel
     {
-        if (!isset($this->cache[$index])) {
-            $this->cache[$index] = static::COLORS[array_rand(static::COLORS)];
+        if ($this->cache !== null) {
+            return $this->cache;
         }
 
-        return new ImagickPixel($this->cache[$index]);
+        return $this->cache = new ImagickPixel(static::COLORS[array_rand(static::COLORS)]);
     }
 }

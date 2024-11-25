@@ -5,6 +5,8 @@ namespace Aternos\Renderchest\Model\Face;
 use Aternos\Renderchest\Model\LightSource;
 use Aternos\Renderchest\Model\Rasterizer\Point;
 use Aternos\Renderchest\Model\Rasterizer\TriangleRasterizer;
+use Aternos\Renderchest\Tinter\Tinterface;
+use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
 use Aternos\Renderchest\Vector\UV;
 use Aternos\Renderchest\Vector\Vector3;
@@ -67,12 +69,13 @@ class Face
      * @param int $width
      * @param int $height
      * @param int $animationTick
+     * @param TinterList|null $tinters
      * @return FaceImage|null
      * @throws ImagickException
      * @throws ImagickPixelException
      * @throws ImagickPixelIteratorException
      */
-    public function getPerspectiveImage(int $width, int $height, int $animationTick = 0): ?FaceImage
+    public function getPerspectiveImage(int $width, int $height, int $animationTick = 0, ?TinterList $tinters = null): ?FaceImage
     {
         $uv1 = $this->faceInfo->getUv1()?->clone();
         $uv2 = $this->faceInfo->getUv2()?->clone();
@@ -105,8 +108,8 @@ class Face
         $absUv1 = $normUv1->clone()->multiplyByVector(new UV($baseWidth, $baseHeight));
         $absUv2 = $normUv2->clone()->multiplyByVector(new UV($baseWidth, $baseHeight));
 
-        if ($this->faceInfo->getTintIndex() !== null && $this->faceInfo->getTinter()) {
-            $color = $this->faceInfo->getTinter()->getTintColor($this->faceInfo->getTintIndex());
+        if ($this->faceInfo->getTintIndex() !== null && $tinters !== null) {
+            $color = $tinters->getTintColor($this->faceInfo->getTintIndex());
             if ($color !== null) {
                 ColorBlender::tintImage($baseTexture, $color);
             }

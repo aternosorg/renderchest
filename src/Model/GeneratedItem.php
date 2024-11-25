@@ -7,7 +7,7 @@ use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 use Aternos\Renderchest\Resource\Texture\TextureList;
-use Aternos\Renderchest\Tinter\Tinterface;
+use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
 use Aternos\Renderchest\Util\Math;
 use Exception;
@@ -23,7 +23,6 @@ class GeneratedItem implements ModelInterface
     protected ModelDisplaySettings $displaySettings;
     protected TextureList $textures;
     protected ModelGuiLight $guiLight = ModelGuiLight::FRONT;
-    protected ?Tinterface $tinter = null;
 
     public function __construct()
     {
@@ -57,14 +56,12 @@ class GeneratedItem implements ModelInterface
 
     /**
      * @inheritDoc
-     * @param int $width
-     * @param int $height
      * @return Imagick
      * @throws ImagickException
      * @throws ImagickPixelException
      * @throws ImagickPixelIteratorException
      */
-    public function render(int $width, int $height): Imagick
+    public function render(int $width, int $height, ?TinterList $tinters = null): Imagick
     {
         $layers = [];
         $animationLengths = [];
@@ -99,8 +96,8 @@ class GeneratedItem implements ModelInterface
             foreach ($layers as $i => $layer) {
                 $image = clone $layer->getImage($tick);
 
-                if ($this->tinter !== null) {
-                    $color = $this->tinter->getTintColor($i);
+                if ($tinters !== null) {
+                    $color = $tinters->getTintColor($i);
                     if ($color !== null) {
                         ColorBlender::tintImage($image, $color);
                     }
@@ -141,11 +138,8 @@ class GeneratedItem implements ModelInterface
      * @inheritDoc
      * @throws Exception
      */
-    public function applyModelData(stdClass $data, ResourceManagerInterface $resourceManager, ?Tinterface $tinter): void
+    public function applyModelData(stdClass $data, ResourceManagerInterface $resourceManager): void
     {
-        if ($tinter !== null) {
-            $this->tinter = $tinter;
-        }
         foreach ($data->textures ?? [] as $name => $locator) {
             $this->textures->set($name, $locator, $resourceManager);
         }

@@ -8,15 +8,13 @@ use Aternos\Renderchest\Model\Face\Face;
 use Aternos\Renderchest\Model\Face\FaceImage;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Resource\Texture\TextureList;
-use Aternos\Renderchest\Tinter\TinterCollection;
-use Aternos\Renderchest\Tinter\Tinterface;
+use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
 use Aternos\Renderchest\Util\Math;
 use Aternos\Renderchest\Util\PixelIterator;
 use Aternos\Renderchest\Vector\Vector3;
 use Exception;
 use Imagick;
-use ImagickDrawException;
 use ImagickException;
 use ImagickPixelException;
 use ImagickPixelIteratorException;
@@ -29,7 +27,6 @@ class Model implements ModelInterface
     protected ModelDisplaySettings $displaySettings;
     protected TextureList $textures;
     protected ModelGuiLight $guiLight = ModelGuiLight::FRONT;
-    protected TinterCollection $tinters;
 
     /**
      * @var Element[]
@@ -40,7 +37,6 @@ class Model implements ModelInterface
     {
         $this->displaySettings = ModelDisplaySettings::getDefault();
         $this->textures = new TextureList();
-        $this->tinters = new TinterCollection();
     }
 
     /**
@@ -78,13 +74,14 @@ class Model implements ModelInterface
     /**
      * @param int $width
      * @param int $height
+     * @param TinterList|null $tinters
      * @return Imagick
-     * @throws ImagickDrawException
      * @throws ImagickException
      * @throws ImagickPixelException
-     * @throws ImagickPixelIteratorException|TextureResolutionException
+     * @throws ImagickPixelIteratorException
+     * @throws TextureResolutionException
      */
-    public function render(int $width, int $height): Imagick
+    public function render(int $width, int $height, ?TinterList $tinters = null): Imagick
     {
         $startT = microtime(true);
 
@@ -92,7 +89,7 @@ class Model implements ModelInterface
         $faces = [];
         $animationLengths = [];
         $interpolated = false;
-        foreach ($this->elements as $i => $element) {
+        foreach ($this->elements as $element) {
             foreach ($element->getFaces() as $face) {
                 $faces[] = $face;
                 $texture = $face->getFaceInfo()->getTexture();
@@ -124,7 +121,7 @@ class Model implements ModelInterface
                     $lastAnimationFrames[$i] === $frames[$i]) {
                     continue;
                 }
-                $res = $face->getPerspectiveImage($width, $height, $tick);
+                $res = $face->getPerspectiveImage($width, $height, $tick, $tinters);
                 if($res === null) {
                     continue;
                 }
@@ -209,12 +206,8 @@ class Model implements ModelInterface
      * @inheritDoc
      * @throws Exception
      */
-    public function applyModelData(stdClass $data, ResourceManagerInterface $resourceManager, ?Tinterface $tinter): void
+    public function applyModelData(stdClass $data, ResourceManagerInterface $resourceManager): void
     {
-        if ($tinter !== null) {
-            $this->tinters->addTinter($tinter);
-        }
-
         $guiDisplay = $data->display?->gui ?? null;
         if ($guiDisplay) {
             $this->displaySettings = new ModelDisplaySettings(
@@ -236,7 +229,7 @@ class Model implements ModelInterface
         if (isset($data->elements)) {
             $this->elements = [];
             foreach ($data->elements ?? [] as $element) {
-                $this->elements[] = Element::fromModelData($element, $this->guiLight, $this->textures, $this->displaySettings, $this->tinters);
+                $this->elements[] = Element::fromModelData($element, $this->guiLight, $this->textures, $this->displaySettings);
             }
         }
     }

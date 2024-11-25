@@ -37,15 +37,14 @@ class Element
      */
     public static function fromModelData(
         stdClass    $data, ModelGuiLight $light,
-        TextureList $textures, ModelDisplaySettings $displaySettings,
-        ?Tinterface $tinter
+        TextureList $textures, ModelDisplaySettings $displaySettings
     ): Element
     {
         $from = new Vector3(...$data->from);
         $to = new Vector3(...$data->to);
         $faces = [];
         foreach ($data->faces ?? [] as $name => $face) {
-            $faces[$name] = FaceInfo::fromModelData($face, $textures, $tinter);
+            $faces[$name] = FaceInfo::fromModelData($face, $textures);
         }
 
         $shade = !isset($data->shade) || $data->shade;

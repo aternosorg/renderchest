@@ -14,11 +14,10 @@ class FaceInfo
     /**
      * @param stdClass $data
      * @param TextureList $textures
-     * @param Tinterface|null $tinter
      * @return FaceInfo
      * @throws Exception
      */
-    public static function fromModelData(stdClass $data, TextureList $textures, ?Tinterface $tinter): FaceInfo
+    public static function fromModelData(stdClass $data, TextureList $textures): FaceInfo
     {
         $uvData = $data->uv ?? [];
         $uv1 = count($uvData) >= 2 ? new UV(...array_slice($uvData, 0, 2)) : null;
@@ -29,7 +28,7 @@ class FaceInfo
         $rotation = $data->rotation ?? 0;
         $tintIndex = $data->tintindex ?? null;
 
-        return new static($uv1, $uv2, $texture, $rotation, $tintIndex, $tinter);
+        return new static($uv1, $uv2, $texture, $rotation, $tintIndex);
     }
 
     /**
@@ -38,15 +37,13 @@ class FaceInfo
      * @param TextureInterface $texture
      * @param int $rotation
      * @param int|null $tintIndex
-     * @param Tinterface|null $tinter
      */
     public function __construct(
         protected ?UV         $uv1,
         protected ?UV         $uv2,
         protected TextureInterface $texture,
         protected int              $rotation,
-        protected ?int             $tintIndex,
-        protected ?Tinterface      $tinter
+        protected ?int             $tintIndex
     )
     {
     }
