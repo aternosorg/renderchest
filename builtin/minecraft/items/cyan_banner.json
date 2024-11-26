@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "renderchest:item/banner",
+        "tints": [
+            {
+                "type": "minecraft:constant",
+                "value": 4279671450
+            }
+        ]
+    }
+}

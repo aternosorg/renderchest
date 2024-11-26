@@ -4,10 +4,7 @@ namespace Aternos\Renderchest\Resource\Item;
 
 use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Resource\Item\Parts\SelectCase;
-use Aternos\Renderchest\Resource\ResourceLocator;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
-use Aternos\Renderchest\Tinter\TinterList;
-use Exception;
 use Imagick;
 use stdClass;
 
