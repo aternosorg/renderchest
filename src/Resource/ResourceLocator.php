@@ -2,7 +2,7 @@
 
 namespace Aternos\Renderchest\Resource;
 
-use Exception;
+use Aternos\Renderchest\Exception\InvalidResourceLocatorException;
 
 class ResourceLocator
 {
@@ -10,12 +10,12 @@ class ResourceLocator
      * @param string $locator
      * @param string|null $namespace
      * @return ResourceLocator
-     * @throws Exception
+     * @throws InvalidResourceLocatorException
      */
     public static function parse(string $locator, ?string $namespace = null): ResourceLocator
     {
         if (!preg_match("#^(?:(\w+):)?(.*)$#", $locator, $matches)) {
-            throw new Exception("Invalid resource locator '" . $locator . "'");
+            throw new InvalidResourceLocatorException("Invalid resource locator '" . $locator . "'");
         }
         $namespace = $matches[1] ?: ($namespace ?: "minecraft");
         $path = $matches[2];
@@ -50,7 +50,7 @@ class ResourceLocator
     /**
      * @param string $locator
      * @return bool
-     * @throws Exception
+     * @throws InvalidResourceLocatorException
      */
     public function isString(string $locator): bool
     {
@@ -61,7 +61,6 @@ class ResourceLocator
     /**
      * @param ResourceLocator $locator
      * @return bool
-     * @throws Exception
      */
     public function is(ResourceLocator $locator): bool
     {

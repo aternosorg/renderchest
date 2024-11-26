@@ -2,7 +2,7 @@
 
 namespace Aternos\Renderchest\Exception;
 
-class TextureResolutionException extends RenderchestException
+class TextureResolutionException extends ResourceResolutionException
 {
 
 }

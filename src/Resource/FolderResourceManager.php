@@ -3,6 +3,7 @@
 namespace Aternos\Renderchest\Resource;
 
 use Aternos\Renderchest\Exception\FileResolutionException;
+use Aternos\Renderchest\Exception\ItemResolutionException;
 use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Model\GeneratedItem;
@@ -11,14 +12,14 @@ use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\AtlasSource\AtlasTextureResolver;
 use Aternos\Renderchest\Resource\DynamicResources\DecoratedPotModelGenerator;
 use Aternos\Renderchest\Resource\DynamicResources\LeatherArmorTrimModelGenerator;
+use Aternos\Renderchest\Resource\Item\ItemInterface;
+use Aternos\Renderchest\Resource\Item\ItemType;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
-use Aternos\Renderchest\Tinter\TinterManager;
 use Exception;
 use ImagickException;
 
 class FolderResourceManager implements ResourceManagerInterface
 {
-    protected TinterManager $tinters;
     protected AtlasTextureResolver $atlasTextureResolver;
 
     /**
@@ -32,11 +33,10 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     public function __construct(protected array $paths)
     {
-        $this->tinters = new TinterManager($this);
         array_unshift($this->paths, __DIR__ . "/../../builtin/");
         $this->loadTextureSources();
-        $this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
-        $this->addDynamicResourceGenerator(new DecoratedPotModelGenerator($this));
+        //$this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
+        //$this->addDynamicResourceGenerator(new DecoratedPotModelGenerator($this));
     }
 
     /**
@@ -138,9 +138,7 @@ class FolderResourceManager implements ResourceManagerInterface
             $model = new Model();
         }
 
-        $tinter = $this->tinters->getTinter($locator);
-
-        $model->applyModelData($data, $this, $tinter);
+        $model->applyModelData($data, $this);
         return $model;
     }
 
@@ -168,7 +166,7 @@ class FolderResourceManager implements ResourceManagerInterface
     {
         $items = [];
         foreach ($this->paths as $path) {
-            $folder = $path . "/" . $namespace . "/models/item/";
+            $folder = $path . "/" . $namespace . "/items/";
             if (!file_exists($folder) || !is_dir($folder)) {
                 continue;
             }
@@ -177,7 +175,7 @@ class FolderResourceManager implements ResourceManagerInterface
                 if (!str_ends_with($file, ".json")) {
                     continue;
                 }
-                $name = $namespace . ":" . "item/" . substr($file, 0, -5);
+                $name = $namespace . ":" . substr($file, 0, -5);
                 if (!in_array($name, $items, true)) {
                     $items[] = $name;
                 }
@@ -217,5 +215,19 @@ class FolderResourceManager implements ResourceManagerInterface
             return $generator->hasFile($locator, $extension);
         }
         return !!$this->getFile($locator->getNamespace() . "/" . $locator->getPath(), $extension);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function getItem(ResourceLocator $locator): ItemInterface
+    {
+        $path = $this->getFile($locator->getNamespace() . "/items/" . $locator->getPath(), "json");
+        if ($path === null) {
+            throw new ItemResolutionException("Cannot resolve model locator " . $locator);
+        }
+
+        $data = json_decode(file_get_contents($path));
+        return ItemType::createFromData($data->model, $this);
     }
 }

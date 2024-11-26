@@ -6,6 +6,7 @@ use Aternos\Renderchest\Constants;
 use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\ModelInterface;
+use Aternos\Renderchest\Resource\Item\ItemInterface;
 use Aternos\Renderchest\Resource\ResourceLocator;
 use Exception;
 
@@ -89,5 +90,13 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
     {
         $this->initializeModels();
         return array_keys($this->models);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function getItem(ResourceLocator $locator): ItemInterface
+    {
+        // TODO: Implement getItem() method.
     }
 }

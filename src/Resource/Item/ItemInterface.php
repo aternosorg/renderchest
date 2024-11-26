@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Resource\Item;
 
+use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Exception;
@@ -14,9 +15,10 @@ interface ItemInterface
     /**
      * @param stdClass $data
      * @param ResourceManagerInterface $resourceManager
-     * @return static|null
+     * @return static
+     * @throws InvalidItemDefinitionException
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): ?static;
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): static;
 
     /**
      * @param int $width

@@ -2,7 +2,7 @@
 
 namespace Aternos\Renderchest\Output;
 
-use Aternos\Renderchest\Exception\ModelResolutionException;
+use Aternos\Renderchest\Exception\ItemResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Resource\FolderResourceManager;
 use Aternos\Renderchest\Resource\ResourceLocator;
@@ -30,24 +30,22 @@ class ItemRenderTask extends Task
     /**
      * @inheritDoc
      * @throws ImagickException
-     * @throws TextureResolutionException
      * @throws Exception
      */
     #[OnChild] public function run()
     {
         $resourceManager = new FolderResourceManager($this->assets);
         $locator = ResourceLocator::parse($this->itemName);
-        $normalizedLocator = $locator->clone()->setPath(basename($locator->getPath()));
-        $key = strval($normalizedLocator);
+        $key = strval($locator);
 
         try {
-            $model = $resourceManager->getModel($locator);
-        } catch (ModelResolutionException) {
+            $item = $resourceManager->getItem($locator);
+        } catch (ItemResolutionException) {
             return null;
         }
 
         try {
-            $out = $model->render($this->size * $this->quality, $this->size * $this->quality);
+            $out = $item->render($this->size * $this->quality, $this->size * $this->quality);
         } catch (TextureResolutionException) {
             return null;
         }

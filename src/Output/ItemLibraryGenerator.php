@@ -146,12 +146,9 @@ class ItemLibraryGenerator
      */
     protected function getItemNames(): array
     {
-        $itemNames = ["minecraft:item/unknown", "minecraft:item/empty"];
+        $itemNames = ["renderchest:unknown", "renderchest:empty"];
         foreach ($this->namespaces as $namespace) {
             foreach ($this->resourceManager->getAllItems($namespace) as $name) {
-                if (preg_match("#_\d\d$#", $name) && !str_contains($name, "minecraft:item/music_disc_")) {
-                    continue;
-                }
                 if (!in_array($name, $itemNames, true)) {
                     $itemNames[] = $name;
                 }
@@ -319,7 +316,7 @@ class ItemLibraryGenerator
      */
     public function getItemCSSUrl(string $name, bool $fallbackTexture = false): string
     {
-        $item = $this->getItem($name) ?? $this->getItem("minecraft:unknown");
+        $item = $this->getItem($name) ?? $this->getItem("renderchest:unknown");
         $format = !$fallbackTexture && $this->createPngFallback ? "png" : $this->format;
         return "url('" . $item->getImageFilePath($format) . "')";
     }

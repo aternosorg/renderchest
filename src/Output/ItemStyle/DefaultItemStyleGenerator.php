@@ -46,8 +46,8 @@ class DefaultItemStyleGenerator extends ItemStyleGenerator
             ->setProperties([
                 "position" => "relative",
                 "image-rendering" => "pixelated",
-                "background-image" => $generator->getItemCSSUrl("minecraft:unknown"),
-                "-webkit-mask-image" => $generator->getItemCSSUrl("minecraft:unknown"),
+                "background-image" => $generator->getItemCSSUrl("renderchest:unknown"),
+                "-webkit-mask-image" => $generator->getItemCSSUrl("renderchest:unknown"),
                 "background-size" => "cover",
                 "background-color" => static::cssVar("layer-1-tint", $prefix),
                 "background-blend-mode" => "multiply",
@@ -56,7 +56,7 @@ class DefaultItemStyleGenerator extends ItemStyleGenerator
 
         $enchanted = (new PropertyListEntry("." . $prefix . "item" . "." . $prefix . "enchanted"))
             ->setProperties([
-                "-webkit-mask-image" => $generator->getItemCSSUrl("minecraft:unknown"),
+                "-webkit-mask-image" => $generator->getItemCSSUrl("renderchest:unknown"),
             ]);
 
         $before = (new PropertyListEntry("." . $generator->getPrefix() . "item:before"))
@@ -68,7 +68,7 @@ class DefaultItemStyleGenerator extends ItemStyleGenerator
                 "top" => "0",
                 "left" => "0",
                 "image-rendering" => "pixelated",
-                "background-image" => $generator->getItemCSSUrl("minecraft:empty"),
+                "background-image" => $generator->getItemCSSUrl("renderchest:empty"),
                 "background-size" => "cover",
                 "background-color" => static::cssVar("layer-2-tint", $prefix),
                 "background-blend-mode" => "multiply",
@@ -85,12 +85,12 @@ class DefaultItemStyleGenerator extends ItemStyleGenerator
     {
         $style = (new PropertyListEntry("." . $generator->getPrefix() . "item"))
             ->setProperties([
-                "background-image" => $generator->getItemCSSUrl("minecraft:unknown", true)
+                "background-image" => $generator->getItemCSSUrl("renderchest:unknown", true)
             ]);
 
         $before = (new PropertyListEntry("." . $generator->getPrefix() . "item:before"))
             ->setProperties([
-                "background-image" => $generator->getItemCSSUrl("minecraft:empty", true),
+                "background-image" => $generator->getItemCSSUrl("renderchest:empty", true),
             ]);
 
         return [$style, $before];

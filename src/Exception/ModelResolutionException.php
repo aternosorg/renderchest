@@ -2,7 +2,7 @@
 
 namespace Aternos\Renderchest\Exception;
 
-class ModelResolutionException extends RenderchestException
+class ModelResolutionException extends ResourceResolutionException
 {
 
 }

@@ -7,9 +7,13 @@ use ImagickPixel;
 class TinterList
 {
     /**
-     * @var Tinterface[]
+     * @param Tinterface[] $tinters
      */
-    protected array $tinters = [];
+    public function __construct(
+        protected array $tinters = []
+    )
+    {
+    }
 
     /**
      * @param Tinterface $tinter

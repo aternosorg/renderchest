@@ -20,16 +20,20 @@ enum TintSourceType : string
     /**
      * @param stdClass $data
      * @param ResourceManagerInterface $resourceManager
-     * @return Tinterface|null
+     * @return Tinterface
+     * @throws InvalidTinterDefinitionException
      */
-    public static function createFromData(stdClass $data, ResourceManagerInterface $resourceManager): ?Tinterface
+    public static function createFromData(stdClass $data, ResourceManagerInterface $resourceManager): Tinterface
     {
         $typeString = $data->type ?? null;
         if (!is_string($typeString)) {
-            return null;
+            throw new InvalidTinterDefinitionException("Tinter type must be a string");
         }
         $type = self::tryFrom($typeString);
-        return $type?->create($data, $resourceManager);
+        if ($type === null) {
+            throw new InvalidTinterDefinitionException("Invalid tinter type: " . $typeString);
+        }
+        return $type->create($data, $resourceManager);
     }
 
     /**

@@ -3,9 +3,12 @@
 namespace Aternos\Renderchest\Resource;
 
 use Aternos\Renderchest\Exception\FileResolutionException;
+use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
+use Aternos\Renderchest\Exception\ItemResolutionException;
 use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Model\ModelInterface;
+use Aternos\Renderchest\Resource\Item\ItemInterface;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 
 interface ResourceManagerInterface
@@ -18,8 +21,16 @@ interface ResourceManagerInterface
     function getModel(ResourceLocator $locator): ModelInterface;
 
     /**
+     * @param ResourceLocator $locator
+     * @return ItemInterface
+     * @throws ItemResolutionException
+     * @throws InvalidItemDefinitionException
+     */
+    function getItem(ResourceLocator $locator): ItemInterface;
+
+    /**
      * @param string $namespace
-     * @return array
+     * @return string[]
      */
     function getAllItems(string $namespace): array;
 
