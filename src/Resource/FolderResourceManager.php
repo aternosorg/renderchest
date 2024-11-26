@@ -35,8 +35,8 @@ class FolderResourceManager implements ResourceManagerInterface
     {
         array_unshift($this->paths, __DIR__ . "/../../builtin/");
         $this->loadTextureSources();
-        //$this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
-        //$this->addDynamicResourceGenerator(new DecoratedPotModelGenerator($this));
+        $this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
+        $this->addDynamicResourceGenerator(new DecoratedPotModelGenerator($this));
     }
 
     /**
@@ -222,6 +222,10 @@ class FolderResourceManager implements ResourceManagerInterface
      */
     function getItem(ResourceLocator $locator): ItemInterface
     {
+        if ($generator = $this->getGeneratorFor($locator->getNamespace())) {
+            return $generator->getItem($locator);
+        }
+
         $path = $this->getFile($locator->getNamespace() . "/items/" . $locator->getPath(), "json");
         if ($path === null) {
             throw new ItemResolutionException("Cannot resolve model locator " . $locator);

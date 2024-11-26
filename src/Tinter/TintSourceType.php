@@ -16,6 +16,7 @@ enum TintSourceType : string
     case MapColor = "minecraft:map_color";
     case Team = "minecraft:team";
     case CustomModelData = "minecraft:custom_model_data";
+    case Random = "renderchest:random";
 
     /**
      * @param stdClass $data
@@ -53,6 +54,7 @@ enum TintSourceType : string
             self::MapColor => MapColorTinter::fromData($data, $resourceManager),
             self::Team => TeamTinter::fromData($data, $resourceManager),
             self::CustomModelData => CustomModelDataTinter::fromData($data, $resourceManager),
+            self::Random => RandomTinter::fromData($data, $resourceManager),
         };
     }
 }

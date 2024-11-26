@@ -3,10 +3,12 @@
 namespace Aternos\Renderchest\Resource\DynamicResources;
 
 use Aternos\Renderchest\Constants;
+use Aternos\Renderchest\Exception\InvalidResourceLocatorException;
 use Aternos\Renderchest\Exception\ModelResolutionException;
+use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Model\ModelInterface;
-use Aternos\Renderchest\Resource\Item\ItemInterface;
 use Aternos\Renderchest\Resource\ResourceLocator;
+use Exception;
 
 class DecoratedPotModelGenerator extends DynamicResourceGenerator
 {
@@ -31,15 +33,21 @@ class DecoratedPotModelGenerator extends DynamicResourceGenerator
         }
         $this->models = [];
         foreach (Constants::POTTERY_SHERDS as $sherd) {
-            $this->createBasePot($sherd);
-            $this->createOverlayModel($sherd);
+            try {
+                $this->createBasePot($sherd);
+                $this->createOverlayModel($sherd);
+            } catch (Exception $e) {
+                throw new ModelResolutionException("Failed to create model for sherd " . $sherd, 0, $e);
+            }
         }
     }
 
     /**
      * @param string $sherd
      * @return ModelInterface
+     * @throws InvalidResourceLocatorException
      * @throws ModelResolutionException
+     * @throws TextureResolutionException
      */
     protected function createBasePot(string $sherd): ModelInterface
     {
@@ -58,6 +66,8 @@ class DecoratedPotModelGenerator extends DynamicResourceGenerator
      * @param string $sherd
      * @return ModelInterface
      * @throws ModelResolutionException
+     * @throws InvalidResourceLocatorException
+     * @throws TextureResolutionException
      */
     protected function createOverlayModel(string $sherd): ModelInterface
     {
@@ -89,13 +99,5 @@ class DecoratedPotModelGenerator extends DynamicResourceGenerator
     {
         $this->initializeModels();
         return array_keys($this->models);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    function getItem(ResourceLocator $locator): ItemInterface
-    {
-        // TODO: Implement getItem() method.
     }
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "renderchest:item/shield",
-  "textures": {
-    "texture": "minecraft:entity/shield_base_nopattern"
-  }
-}

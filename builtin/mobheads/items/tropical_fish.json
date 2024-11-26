@@ -1,0 +1,14 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "mobheads:item/tropical_fish",
+        "tints": [
+            {
+                "type": "renderchest:random"
+            },
+            {
+                "type": "renderchest:random"
+            }
+        ]
+    }
+}

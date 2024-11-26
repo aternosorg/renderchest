@@ -20,7 +20,7 @@ class TinterManager
     public function getTinter(ResourceLocator $modelLocator): ?Tinterface
     {
         if ($modelLocator->isString("mobheads:item/tropical_fish")) {
-            return new FishTinter();
+            return new RandomTinter();
         }
 
         if ($modelLocator->getNamespace() !== "minecraft") {

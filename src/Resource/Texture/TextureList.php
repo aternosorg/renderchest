@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Resource\Texture;
 
+use Aternos\Renderchest\Exception\InvalidResourceLocatorException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Resource\ResourceLocator;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
@@ -19,7 +20,8 @@ class TextureList
      * @param string $ref
      * @param ResourceManagerInterface $resourceManager
      * @return $this
-     * @throws Exception
+     * @throws TextureResolutionException
+     * @throws InvalidResourceLocatorException
      */
     public function set(string $name, string $ref, ResourceManagerInterface $resourceManager): static
     {

@@ -6,7 +6,6 @@ use Aternos\Renderchest\Constants;
 use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\ModelInterface;
-use Aternos\Renderchest\Resource\Item\ItemInterface;
 use Aternos\Renderchest\Resource\ResourceLocator;
 use Exception;
 
@@ -24,7 +23,7 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
 
     /**
      * @return void
-     * @throws Exception
+     * @throws ModelResolutionException
      */
     protected function initializeModels(): void
     {
@@ -54,13 +53,17 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
      * @param string $locatorPath
      * @param string[] $layers
      * @return GeneratedItem
-     * @throws Exception
+     * @throws ModelResolutionException
      */
     protected function createModelFromLayers(string $locatorPath, array $layers): GeneratedItem
     {
         $model = new GeneratedItem();
         foreach ($layers as $i => $layer) {
-            $model->getTextures()->set("layer" . $i, $layer, $this->resourceManager);
+            try {
+                $model->getTextures()->set("layer" . $i, $layer, $this->resourceManager);
+            } catch (Exception $e) {
+                throw new ModelResolutionException("Cannot resolve texture locator " . $layer, 0, $e);
+            }
         }
 
         $itemId = new ResourceLocator(static::getNamespace(), $locatorPath);
@@ -71,7 +74,6 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function getModel(ResourceLocator $locator): ModelInterface
     {
@@ -90,13 +92,5 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
     {
         $this->initializeModels();
         return array_keys($this->models);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    function getItem(ResourceLocator $locator): ItemInterface
-    {
-        // TODO: Implement getItem() method.
     }
 }

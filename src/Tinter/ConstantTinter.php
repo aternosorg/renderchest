@@ -9,8 +9,6 @@ use stdClass;
 
 class ConstantTinter implements Tinterface
 {
-    protected ImagickPixel $color;
-
     /**
      * @inheritDoc
      */
@@ -27,6 +25,10 @@ class ConstantTinter implements Tinterface
      */
     public static function fromColorValue(mixed $value): static
     {
+        if ($value === null || $value === -1) {
+            return new static(null);
+        }
+
         if (is_int($value)) {
             $b = $value & 0xff;
             $g = ($value >> 8) & 0xff;
@@ -73,11 +75,10 @@ class ConstantTinter implements Tinterface
     }
 
     /**
-     * @param ImagickPixel $color
+     * @param ImagickPixel|null $color
      */
-    public function __construct(ImagickPixel $color)
+    public function __construct(protected ?ImagickPixel $color)
     {
-        $this->color = $color;
     }
 
     /**
