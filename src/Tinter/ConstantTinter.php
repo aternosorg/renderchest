@@ -28,9 +28,9 @@ class ConstantTinter implements Tinterface
     public static function fromColorValue(mixed $value): static
     {
         if (is_int($value)) {
-            $r = $value & 0xff;
+            $b = $value & 0xff;
             $g = ($value >> 8) & 0xff;
-            $b = ($value >> 16) & 0xff;
+            $r = ($value >> 16) & 0xff;
             $a = ($value >> 24) & 0xff;
             return static::fromRGBA($r, $g, $b, $a);
         } else if (is_array($value)) {
