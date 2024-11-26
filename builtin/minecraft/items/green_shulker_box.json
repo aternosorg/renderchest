@@ -1,0 +1,6 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "renderchest:item/shulker_box/green_shulker_box"
+    }
+}

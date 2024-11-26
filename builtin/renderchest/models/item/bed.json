@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/template_bed",
 	"texture_size": [64, 64],
+	"gui_light": "side",
 	"elements": [
 		{
 			"from": [0, 3, 0],
