@@ -1,0 +1,6 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "renderchest:item/bed/black_bed"
+    }
+}
