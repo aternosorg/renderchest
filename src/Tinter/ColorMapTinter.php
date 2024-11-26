@@ -31,7 +31,18 @@ abstract class ColorMapTinter implements Tinterface
         $mapImage = $map->getImage();
         $width = $mapImage->getImageWidth();
         $height = $mapImage->getImageHeight();
-        return $mapImage->getImagePixelColor(floor($width * $this->sampleX), floor($height * $this->sampleY));
+        $x = floor($this->sampleX * $width);
+        $y = floor($this->sampleY * $height);
+
+        $index = $y * $width + $x;
+        if ($index < 0 || $index >= $width * $height) {
+            return new ImagickPixel("#ff00ff");
+        }
+
+        $x = floor($index % $width);
+        $y = intdiv($index, $width);
+
+        return $mapImage->getImagePixelColor($x, $y);
     }
 
     /**
