@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Tinter;
 
+use Aternos\Renderchest\Exception\InvalidTinterDefinitionException;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use ImagickPixel;
 use stdClass;
@@ -13,7 +14,7 @@ class ConstantTinter implements Tinterface
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): ?static
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): static
     {
         $value = $data->value ?? null;
         return static::fromColorValue($value);
@@ -21,9 +22,10 @@ class ConstantTinter implements Tinterface
 
     /**
      * @param mixed $value
-     * @return static|null
+     * @return static
+     * @throws InvalidTinterDefinitionException
      */
-    public static function fromColorValue(mixed $value): ?static
+    public static function fromColorValue(mixed $value): static
     {
         if (is_int($value)) {
             $r = $value & 0xff;
@@ -35,12 +37,13 @@ class ConstantTinter implements Tinterface
             return static::fromArray($value);
         }
 
-        return null;
+        throw new InvalidTinterDefinitionException("Invalid color value");
     }
 
     /**
      * @param array $color
      * @return static|null
+     * @throws InvalidTinterDefinitionException
      */
     public static function fromArray(array $color): ?static
     {
@@ -48,7 +51,7 @@ class ConstantTinter implements Tinterface
         $g = $color[1] ?? null;
         $b = $color[2] ?? null;
         if (!is_numeric($r) || !is_numeric($g) || !is_numeric($b)) {
-            return null;
+            throw new InvalidTinterDefinitionException("Invalid RGB color array");
         }
         $r *= 0xff;
         $g *= 0xff;

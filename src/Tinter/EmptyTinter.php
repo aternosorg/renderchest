@@ -11,7 +11,7 @@ class EmptyTinter implements Tinterface
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): ?static
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): static
     {
         return new static();
     }

@@ -11,7 +11,7 @@ class DefaultColorTinter extends ConstantTinter
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): ?static
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): static
     {
         $value = $data->default ?? null;
         return static::fromColorValue($value);

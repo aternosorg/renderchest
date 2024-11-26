@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Tinter;
 
+use Aternos\Renderchest\Exception\InvalidTinterDefinitionException;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use stdClass;
 
@@ -34,9 +35,10 @@ enum TintSourceType : string
     /**
      * @param stdClass $data
      * @param ResourceManagerInterface $resourceManager
-     * @return Tinterface|null
+     * @return Tinterface
+     * @throws InvalidTinterDefinitionException
      */
-    public function create(stdClass $data, ResourceManagerInterface $resourceManager): ?Tinterface
+    public function create(stdClass $data, ResourceManagerInterface $resourceManager): Tinterface
     {
         return match ($this) {
             self::Constant => ConstantTinter::fromData($data, $resourceManager),
