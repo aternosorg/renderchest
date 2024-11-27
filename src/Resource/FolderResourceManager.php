@@ -11,6 +11,7 @@ use Aternos\Renderchest\Model\Model;
 use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\AtlasSource\AtlasTextureResolver;
 use Aternos\Renderchest\Resource\DynamicResources\ArmorTrimModelGenerator;
+use Aternos\Renderchest\Resource\DynamicResources\CrossbowModelGenerator;
 use Aternos\Renderchest\Resource\DynamicResources\DecoratedPotModelGenerator;
 use Aternos\Renderchest\Resource\DynamicResources\LeatherArmorTrimModelGenerator;
 use Aternos\Renderchest\Resource\Item\ItemInterface;
@@ -39,6 +40,7 @@ class FolderResourceManager implements ResourceManagerInterface
         $this->addDynamicResourceGenerator(new LeatherArmorTrimModelGenerator($this));
         $this->addDynamicResourceGenerator(new DecoratedPotModelGenerator($this));
         $this->addDynamicResourceGenerator(new ArmorTrimModelGenerator($this));
+        $this->addDynamicResourceGenerator(new CrossbowModelGenerator($this));
     }
 
     /**

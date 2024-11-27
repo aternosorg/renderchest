@@ -107,13 +107,5 @@ class FaceInfo
     {
         return $this->tintIndex;
     }
-
-    /**
-     * @return Tinterface|null
-     */
-    public function getTinter(): ?Tinterface
-    {
-        return $this->tinter;
-    }
 }
 

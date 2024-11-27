@@ -3,6 +3,7 @@
 namespace Aternos\Renderchest\Resource\Item;
 
 use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
+use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use stdClass;
 
@@ -20,10 +21,11 @@ enum ItemType: string
     /**
      * @param stdClass $data
      * @param ResourceManagerInterface $resourceManager
+     * @param Properties|null $properties
      * @return ItemInterface
      * @throws InvalidItemDefinitionException
      */
-    public static function createFromData(stdClass $data, ResourceManagerInterface $resourceManager): ItemInterface
+    public static function createFromData(stdClass $data, ResourceManagerInterface $resourceManager, ?Properties $properties = null): ItemInterface
     {
         $typeString = $data->type ?? null;
         if (!is_string($typeString)) {
@@ -33,26 +35,28 @@ enum ItemType: string
         if ($type === null) {
             throw new InvalidItemDefinitionException("Invalid item type: " . $typeString);
         }
-        return $type->create($data, $resourceManager);
+        return $type->create($data, $resourceManager, $properties);
     }
 
     /**
      * @param stdClass $data
      * @param ResourceManagerInterface $resourceManager
+     * @param Properties|null $properties
      * @return ItemInterface
      * @throws InvalidItemDefinitionException
      */
-    public function create(stdClass $data, ResourceManagerInterface $resourceManager): ItemInterface
+    public function create(stdClass $data, ResourceManagerInterface $resourceManager, ?Properties $properties = null): ItemInterface
     {
+        $properties = $properties ?? new Properties();
         return match ($this) {
-            self::Model => ModelItem::fromData($data, $resourceManager),
-            self::Composite => CompositeItem::fromData($data, $resourceManager),
-            self::Condition => ConditionItem::fromData($data, $resourceManager),
-            self::Select => SelectItem::fromData($data, $resourceManager),
-            self::RangeDispatch => RangeDispatchItem::fromData($data, $resourceManager),
-            self::BundleSelectedItem => BundleSelectedItem::fromData($data, $resourceManager),
-            self::Empty => EmptyItem::fromData($data, $resourceManager),
-            self::Special => SpecialItem::fromData($data, $resourceManager)
+            self::Model => ModelItem::fromData($data, $resourceManager, $properties),
+            self::Composite => CompositeItem::fromData($data, $resourceManager, $properties),
+            self::Condition => ConditionItem::fromData($data, $resourceManager, $properties),
+            self::Select => SelectItem::fromData($data, $resourceManager, $properties),
+            self::RangeDispatch => RangeDispatchItem::fromData($data, $resourceManager, $properties),
+            self::BundleSelectedItem => BundleSelectedItem::fromData($data, $resourceManager, $properties),
+            self::Empty => EmptyItem::fromData($data, $resourceManager, $properties),
+            self::Special => SpecialItem::fromData($data, $resourceManager, $properties)
         };
     }
 }

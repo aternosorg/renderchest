@@ -4,29 +4,17 @@ namespace Aternos\Renderchest\Resource\Item;
 
 use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Resource\Item\Parts\RangeDispatchEntry;
+use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Imagick;
 use stdClass;
 
-class RangeDispatchItem implements ItemInterface
+class RangeDispatchItem extends AbstractItem
 {
-    const PROPERTIES = [
-        "minecraft:bundle/fullness" => 0,
-        "minecraft:damage" => 0,
-        "minecraft:count" => 0,
-        "minecraft:cooldown" => 0,
-        "minecraft:time" => 0,
-        "minecraft:compass" => 0,
-        "minecraft:crossbow/pull" => 0,
-        "minecraft:use_duration" => 0,
-        "minecraft:use_cycle" => 0,
-        "minecraft:custom_model_data" => 0
-    ];
-
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): static
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
     {
         if (!isset($data->property) || !is_string($data->property)) {
             throw new InvalidItemDefinitionException("Range dispatch item must have a property");
@@ -47,7 +35,7 @@ class RangeDispatchItem implements ItemInterface
             if (!isset($entry->model) || !($entry->model instanceof stdClass)) {
                 throw new InvalidItemDefinitionException("Entry must have a model object");
             }
-            $entries[] = new RangeDispatchEntry($entry->threshold, ItemType::createFromData($entry->model, $resourceManager));
+            $entries[] = new RangeDispatchEntry($entry->threshold, ItemType::createFromData($entry->model, $resourceManager, $properties));
         }
 
         $scale = 1.0;
@@ -56,27 +44,32 @@ class RangeDispatchItem implements ItemInterface
         }
 
         if (isset($data->fallback) && $data->fallback instanceof stdClass) {
-            $fallback = ItemType::createFromData($data->fallback, $resourceManager);
+            $fallback = ItemType::createFromData($data->fallback, $resourceManager, $properties);
         } else {
-            $fallback = ModelItem::createUnknown($resourceManager);
+            $fallback = ModelItem::createUnknown($resourceManager, $properties);
         }
 
-        return new static($data->property, $entries, $fallback, $scale);
+        return new static($properties, $data->property, $entries, $fallback, $scale, $data);
     }
 
     /**
+     * @param Properties $properties
      * @param string $property
      * @param RangeDispatchEntry[] $entries
      * @param ItemInterface $fallback
      * @param float $scale
+     * @param stdClass $options
      */
     public function __construct(
+        Properties $properties,
         protected string $property,
         protected array $entries,
         protected ItemInterface $fallback,
-        protected float $scale = 1
+        protected float $scale = 1,
+        protected stdClass $options
     )
     {
+        parent::__construct($properties);
     }
 
     /**
@@ -84,7 +77,7 @@ class RangeDispatchItem implements ItemInterface
      */
     public function render(int $width, int $height): Imagick
     {
-        $value = static::PROPERTIES[$this->property] ?? 0;
+        $value = $this->getProperties()->getNumber($this->property)->get($this->options);
         $value *= $this->scale;
         foreach ($this->entries as $entry) {
             if ($entry->match($value)) {

@@ -10,6 +10,7 @@ use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\DynamicResourceGeneratorInterface;
 use Aternos\Renderchest\Resource\Item\ItemInterface;
 use Aternos\Renderchest\Resource\Item\ModelItem;
+use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceLocator;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
@@ -77,6 +78,6 @@ abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInter
             throw new ItemResolutionException("Cannot resolve item locator " . $locator, 0, $e);
         }
 
-        return new ModelItem($model, new TinterList());
+        return new ModelItem(new Properties(), $model, new TinterList());
     }
 }

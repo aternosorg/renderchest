@@ -7,6 +7,7 @@ use Aternos\Renderchest\Exception\InvalidResourceLocatorException;
 use Aternos\Renderchest\Exception\InvalidTinterDefinitionException;
 use Aternos\Renderchest\Exception\ModelResolutionException;
 use Aternos\Renderchest\Model\ModelInterface;
+use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceLocator;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Tinter\TinterList;
@@ -15,12 +16,12 @@ use Exception;
 use Imagick;
 use stdClass;
 
-class ModelItem implements ItemInterface
+class ModelItem extends AbstractItem
 {
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager): static
+    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
     {
         if (!isset($data->model) || !is_string($data->model)) {
             throw new InvalidItemDefinitionException("Model item requires a model resource locator");
@@ -50,19 +51,22 @@ class ModelItem implements ItemInterface
             throw new InvalidItemDefinitionException("Model resolution failed: " . $e->getMessage(), 0, $e);
         }
 
-        return new static($model, new TinterList($tints));
+        return new static($properties, $model, new TinterList($tints));
     }
 
     /**
      * @param ResourceManagerInterface $resourceManager
+     * @param Properties $properties
      * @return static
      * @throws InvalidItemDefinitionException
      */
-    public static function createUnknown(ResourceManagerInterface $resourceManager): static
+    public static function createUnknown(ResourceManagerInterface $resourceManager, Properties $properties): static
     {
         try {
-            return new ModelItem($resourceManager->getModel(
-                new ResourceLocator("renderchest", "item/unknown")), new TinterList()
+            return new ModelItem(
+                $properties,
+                $resourceManager->getModel(new ResourceLocator("renderchest", "item/unknown")),
+                new TinterList()
             );
         } catch (Exception $e) {
             throw new InvalidItemDefinitionException("Failed to create unknown item fallback model", 0, $e);
@@ -70,14 +74,17 @@ class ModelItem implements ItemInterface
     }
 
     /**
+     * @param Properties $properties
      * @param ModelInterface $model
      * @param TinterList $tints
      */
     public function __construct(
+        Properties $properties,
         protected ModelInterface $model,
         protected TinterList     $tints
     )
     {
+        parent::__construct($properties);
     }
 
     /**

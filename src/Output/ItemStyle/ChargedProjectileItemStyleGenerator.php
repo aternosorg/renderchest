@@ -6,6 +6,7 @@ use Aternos\Renderchest\Output\CSS\CSSEntry;
 use Aternos\Renderchest\Output\CSS\PropertyListEntry;
 use Aternos\Renderchest\Output\Item;
 use Aternos\Renderchest\Output\ItemLibraryGenerator;
+use Aternos\Renderchest\Resource\DynamicResources\CrossbowModelGenerator;
 
 class ChargedProjectileItemStyleGenerator extends ItemStyleGenerator
 {
@@ -13,7 +14,7 @@ class ChargedProjectileItemStyleGenerator extends ItemStyleGenerator
         "arrow" => "arrow",
         "spectral_arrow" => "arrow",
         "tipped_arrow" => "arrow",
-        "firework_rocket" => "firework"
+        "firework_rocket" => "rocket"
     ];
 
     /**
@@ -51,15 +52,15 @@ class ChargedProjectileItemStyleGenerator extends ItemStyleGenerator
                 ])
         ];
 
-        foreach (static::PROJECTILES as $projectile => $texture) {
+        foreach (static::PROJECTILES as $projectile => $chargeType) {
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "projectile-minecraft_" . $projectile))
                 ->setProperties([
-                    "background-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator() . "_" . $texture, $fallback),
+                    "background-image" => $this->item->getGenerator()->getItemCSSUrl(CrossbowModelGenerator::getNamespace() . ":" . $chargeType, $fallback),
                     "-webkit-mask-image" => "none"
                 ]);
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "enchanted" . "." . $prefix . "projectile-minecraft_" . $projectile))
                 ->setProperties([
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator() . "_" . $texture, $fallback)
+                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl(CrossbowModelGenerator::getNamespace() . ":" . $chargeType, $fallback)
                 ]);
         }
         return $styles;

@@ -5,7 +5,6 @@ namespace Aternos\Renderchest\Model\Face;
 use Aternos\Renderchest\Model\LightSource;
 use Aternos\Renderchest\Model\Rasterizer\Point;
 use Aternos\Renderchest\Model\Rasterizer\TriangleRasterizer;
-use Aternos\Renderchest\Tinter\Tinterface;
 use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
 use Aternos\Renderchest\Vector\UV;

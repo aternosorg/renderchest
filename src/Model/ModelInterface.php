@@ -5,7 +5,6 @@ namespace Aternos\Renderchest\Model;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Resource\Texture\TextureList;
-use Aternos\Renderchest\Tinter\Tinterface;
 use Aternos\Renderchest\Tinter\TinterList;
 use Exception;
 use Imagick;

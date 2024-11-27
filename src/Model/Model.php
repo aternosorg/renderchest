@@ -228,7 +228,7 @@ class Model implements ModelInterface
 
         if (isset($data->elements)) {
             $this->elements = [];
-            foreach ($data->elements ?? [] as $element) {
+            foreach ($data->elements as $element) {
                 $this->elements[] = Element::fromModelData($element, $this->guiLight, $this->textures, $this->displaySettings);
             }
         }
