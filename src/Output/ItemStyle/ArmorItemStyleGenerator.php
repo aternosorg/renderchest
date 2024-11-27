@@ -7,6 +7,7 @@ use Aternos\Renderchest\Output\CSS\CSSEntry;
 use Aternos\Renderchest\Output\CSS\PropertyListEntry;
 use Aternos\Renderchest\Output\Item;
 use Aternos\Renderchest\Output\ItemLibraryGenerator;
+use Aternos\Renderchest\Resource\DynamicResources\ArmorTrimModelGenerator;
 use Aternos\Renderchest\Resource\DynamicResources\LeatherArmorTrimModelGenerator;
 
 class ArmorItemStyleGenerator extends ItemStyleGenerator
@@ -75,7 +76,9 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
 
         $prefix = $this->item->getGenerator()->getPrefix();
         $name = substr($this->item->getLocator(), 10);
-        $armorMaterial = explode("_", $name)[0];
+        $parts = explode("_", $name, 2);
+        $armorMaterial = $parts[0];
+        $armorType = $parts[1];
         if ($armorMaterial === "golden") {
             $armorMaterial = "gold";
         }
@@ -93,12 +96,12 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
             if ($textureMaterial == $armorMaterial) {
                 $textureMaterial .= "_darker";
             }
-            $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material))
+            $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material . ":before"))
                 ->setProperties([
                     "background-image" => $this->item->getGenerator()
-                        ->getItemCSSUrl($this->item->getLocator() . "_" . $textureMaterial . "_trim", $fallbackTexture),
+                        ->getItemCSSUrl(ArmorTrimModelGenerator::getNamespace() . ":" . $armorType . "_trim_" . $textureMaterial, $fallbackTexture),
                     "-webkit-mask-image" => $this->item->getGenerator()
-                        ->getItemCSSUrl($this->item->getLocator() . "_" . $textureMaterial . "_trim", $fallbackTexture),
+                        ->getItemCSSUrl(ArmorTrimModelGenerator::getNamespace() . ":" . $armorType . "_trim_" . $textureMaterial, $fallbackTexture),
                 ]);
         }
 
@@ -125,11 +128,6 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         ];
 
         foreach (Constants::TRIM_MATERIALS as $material) {
-            $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material))
-                ->setProperties([
-                    "-webkit-mask-image" => $this->item->getGenerator()->getItemCSSUrl($this->item->getLocator() . "_" . $material . "_trim", $fallbackTexture),
-                ]);
-
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material . ":before"))
                 ->setProperties([
                     "background-image" => $this->item->getGenerator()->getItemCSSUrl(LeatherArmorTrimModelGenerator::getNamespace() . ":" . $name . "_" . $material . "_trim", $fallbackTexture),

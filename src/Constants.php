@@ -28,6 +28,15 @@ class Constants
         "helmet",
     ];
 
+    const ARMOR_MATERIALS = [
+        "leather",
+        "chainmail",
+        "iron",
+        "golden",
+        "diamond",
+        "netherite"
+    ];
+
     const POTTERY_SHERDS = [
         "brick",
         "angler_pottery_sherd",
