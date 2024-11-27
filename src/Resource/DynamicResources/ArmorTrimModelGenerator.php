@@ -33,7 +33,9 @@ class ArmorTrimModelGenerator extends DynamicResourceGenerator
         foreach (Constants::ARMOR_ITEM_TYPES as $type) {
             foreach (Constants::TRIM_MATERIALS as $trimMaterial) {
                 $this->models[] = $type . "_trim_" . $trimMaterial;
-                $this->models[] = $type . "_trim_" . $trimMaterial . "_darker";
+                if (in_array($trimMaterial, Constants::ARMOR_MATERIALS)) {
+                    $this->models[] = $type . "_trim_" . $trimMaterial . "_darker";
+                }
             }
         }
     }

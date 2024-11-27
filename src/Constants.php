@@ -32,7 +32,7 @@ class Constants
         "leather",
         "chainmail",
         "iron",
-        "golden",
+        "gold",
         "diamond",
         "netherite"
     ];
