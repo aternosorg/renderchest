@@ -2,6 +2,8 @@
 
 namespace Aternos\Renderchest\Resource\AtlasSource;
 
+use Aternos\Renderchest\Exception\InvalidResourceLocatorException;
+use Aternos\Renderchest\Exception\ResourceResolutionException;
 use Aternos\Renderchest\Resource\AtlasSource\TextureSource\AtlasTextureSource;
 use Aternos\Renderchest\Resource\AtlasSource\TextureSource\DirectoryAtlasTextureSource;
 use Aternos\Renderchest\Resource\AtlasSource\TextureSource\PalettedPermutationsTextureSource;
@@ -16,10 +18,10 @@ use stdClass;
 class AtlasTextureResolver
 {
     const SOURCES = [
-        "directory" => DirectoryAtlasTextureSource::class,
-        "single" => SingleAtlasTextureSource::class,
-        "unstitch" => UnstitchAtlasTextureSource::class,
-        "paletted_permutations" => PalettedPermutationsTextureSource::class
+        "minecraft:directory" => DirectoryAtlasTextureSource::class,
+        "minecraft:single" => SingleAtlasTextureSource::class,
+        "minecraft:unstitch" => UnstitchAtlasTextureSource::class,
+        "minecraft:paletted_permutations" => PalettedPermutationsTextureSource::class
     ];
 
     /**
@@ -35,12 +37,17 @@ class AtlasTextureResolver
      * @param string $namespace
      * @param stdClass $settings
      * @return $this
+     * @throws InvalidResourceLocatorException|ResourceResolutionException
      */
     public function add(string $namespace, stdClass $settings): static
     {
-        $class = static::SOURCES[$settings->type] ?? null;
+        if (!isset($settings->type) || !is_string($settings->type)) {
+            throw new ResourceResolutionException("Missing atlas texture source type");
+        }
+        $type = ResourceLocator::parse($settings->type);
+        $class = static::SOURCES[(string) $type] ?? null;
         if ($class === null) {
-            return $this;
+            throw new ResourceResolutionException("Unknown atlas texture source type " . $type);
         }
         array_unshift($this->sources, new $class($this->resourceManager, $namespace, $settings));
         return $this;

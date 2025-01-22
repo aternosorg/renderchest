@@ -3,8 +3,10 @@
 namespace Aternos\Renderchest\Resource;
 
 use Aternos\Renderchest\Exception\FileResolutionException;
+use Aternos\Renderchest\Exception\InvalidResourceLocatorException;
 use Aternos\Renderchest\Exception\ItemResolutionException;
 use Aternos\Renderchest\Exception\ModelResolutionException;
+use Aternos\Renderchest\Exception\ResourceResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Model\GeneratedItem;
 use Aternos\Renderchest\Model\Model;
@@ -64,6 +66,8 @@ class FolderResourceManager implements ResourceManagerInterface
 
     /**
      * @return void
+     * @throws InvalidResourceLocatorException
+     * @throws ResourceResolutionException
      */
     protected function loadTextureSources(): void
     {
