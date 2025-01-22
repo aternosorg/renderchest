@@ -8,13 +8,18 @@ class PermutatedTextureInfo
 {
     protected ResourceLocator $locator;
 
-    public function __construct(protected ResourceLocator $baseTextureLocator, protected ResourceLocator $permutationLocator, protected string $suffix)
+    public function __construct(
+        protected ResourceLocator $baseTextureLocator,
+        protected ResourceLocator $permutationLocator,
+        protected string $suffix,
+        protected string $separator = "_"
+    )
     {
         $path = $this->baseTextureLocator->getPath();
         if (str_ends_with($path, ".png")) {
             $path = substr($path, 0, -4);
         }
-        $this->locator = $this->baseTextureLocator->clone()->setPath($path . "_" . $this->suffix);
+        $this->locator = $this->baseTextureLocator->clone()->setPath($path . $this->separator . $this->suffix);
     }
 
     /**

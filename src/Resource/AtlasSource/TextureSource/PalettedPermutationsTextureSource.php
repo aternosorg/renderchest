@@ -30,12 +30,18 @@ class PalettedPermutationsTextureSource extends AtlasTextureSource
 
     protected ?array $keyPalette = null;
 
+    protected string $separator = "_";
+
     /**
      * @throws Exception
      */
     public function __construct(ResourceManagerInterface $resourceManager, string $namespace, stdClass $settings)
     {
         parent::__construct($resourceManager, $namespace, $settings);
+
+        if (isset($settings->separator) && is_string($settings->separator)) {
+            $this->separator = $settings->separator;
+        }
 
         foreach ($settings->textures as $texture) {
             $this->baseTextures[] = ResourceLocator::parse($texture);
@@ -45,7 +51,7 @@ class PalettedPermutationsTextureSource extends AtlasTextureSource
             $locator = ResourceLocator::parse($permutation);
 
             foreach ($this->baseTextures as $baseTexture) {
-                $this->textures[] = new PermutatedTextureInfo($baseTexture, $locator, $name);
+                $this->textures[] = new PermutatedTextureInfo($baseTexture, $locator, $name, $this->separator);
             }
         }
     }
