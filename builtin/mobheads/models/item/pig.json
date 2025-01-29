@@ -3,7 +3,7 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [64, 64],
 	"textures": {
-		"texture": "entity/pig/pig"
+		"texture": "entity/pig/temperate_pig"
 	},
 	"elements": [
 		{
