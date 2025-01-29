@@ -1,6 +1,6 @@
 {
 	"parent": "mobheads:item/base/cow",
 	"textures": {
-		"texture": "minecraft:entity/cow/cow"
+		"texture": "minecraft:entity/cow/temperate_cow"
 	}
 }
