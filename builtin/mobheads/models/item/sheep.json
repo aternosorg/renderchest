@@ -4,7 +4,7 @@
 	"texture_size": [64, 32],
 	"textures": {
 		"0": "minecraft:entity/sheep/sheep",
-		"1": "minecraft:entity/sheep/sheep_fur"
+		"1": "minecraft:entity/sheep/sheep_wool"
 	},
 	"elements": [
 		{
