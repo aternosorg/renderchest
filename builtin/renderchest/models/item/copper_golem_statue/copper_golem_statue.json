@@ -1,0 +1,6 @@
+{
+  "parent": "renderchest:item/copper_golem_statue",
+  "textures": {
+    "texture": "entity/copper_golem/copper_golem"
+  }
+}
