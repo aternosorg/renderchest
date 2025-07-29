@@ -1,0 +1,6 @@
+{
+    "parent": "renderchest:item/chest",
+    "textures": {
+        "texture": "entity/chest/copper"
+    }
+}
