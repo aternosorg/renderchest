@@ -27,6 +27,11 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
         "minecraft:chainmail_chestplate",
         "minecraft:chainmail_helmet",
 
+        "minecraft:copper_boots",
+        "minecraft:copper_leggings",
+        "minecraft:copper_chestplate",
+        "minecraft:copper_helmet",
+
         "minecraft:iron_boots",
         "minecraft:iron_leggings",
         "minecraft:iron_chestplate",
@@ -93,7 +98,7 @@ class ArmorItemStyleGenerator extends ItemStyleGenerator
 
         foreach (Constants::TRIM_MATERIALS as $material) {
             $textureMaterial = $material;
-            if ($textureMaterial == $armorMaterial) {
+            if ($textureMaterial == $armorMaterial && in_array($textureMaterial, Constants::TRIM_DARKER_MATERIALS)) {
                 $textureMaterial .= "_darker";
             }
             $styles[] = (new PropertyListEntry($this->getCssSelector() . "." . $prefix . "trim-minecraft_" . $material . ":before"))

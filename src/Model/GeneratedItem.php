@@ -96,10 +96,6 @@ class GeneratedItem implements ModelInterface
             foreach ($layers as $i => $layer) {
                 $image = clone $layer->getImage($tick);
 
-                if ($image->getImageType() !== Imagick::IMGTYPE_TRUECOLORMATTE) {
-                    $image->transformImageColorspace(Imagick::COLORSPACE_UNDEFINED);
-                }
-
                 if ($tinters !== null) {
                     $color = $tinters->getTintColor($i);
                     if ($color !== null) {

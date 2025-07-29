@@ -16,6 +16,9 @@ class BufferTexture extends ImagickTexture
     {
         $image = new Imagick();
         $image->readImageBlob($data);
+        if ($image->getImageType() !== Imagick::IMGTYPE_TRUECOLORMATTE) {
+            $image->transformImageColorspace(Imagick::COLORSPACE_UNDEFINED);
+        }
         parent::__construct($image, $meta);
     }
 }

@@ -21,6 +21,13 @@ class Constants
         "resin"
     ];
 
+    const TRIM_DARKER_MATERIALS = [
+        "iron",
+        "gold",
+        "diamond",
+        "netherite"
+    ];
+
     const ARMOR_ITEM_TYPES = [
         "boots",
         "leggings",
@@ -30,6 +37,7 @@ class Constants
 
     const ARMOR_MATERIALS = [
         "leather",
+        "copper",
         "chainmail",
         "iron",
         "gold",
