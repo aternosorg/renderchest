@@ -1,0 +1,6 @@
+{
+  "parent": "mobheads:item/base/nautilus",
+  "textures": {
+    "texture": "minecraft:entity/nautilus/nautilus"
+  }
+}
