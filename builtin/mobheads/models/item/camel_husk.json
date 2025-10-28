@@ -1,6 +1,6 @@
 {
 	"parent": "mobheads:item/base/camel",
 	"textures": {
-		"0": "minecraft:entity/camel/camel"
+		"0": "minecraft:entity/camel/camel_husk"
 	}
 }
