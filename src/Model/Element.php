@@ -31,7 +31,6 @@ class Element
      * @param ModelGuiLight $light
      * @param TextureList $textures
      * @param ModelDisplaySettings $displaySettings
-     * @param Tinterface|null $tinter
      * @return Element
      * @throws Exception
      */
@@ -52,8 +51,20 @@ class Element
 
         $rotation = $data->rotation_rc ?? $data->rotation ?? null;
         if ($rotation) {
-            $element->rotate(new Vector3(...$rotation->origin), Axis::from($rotation->axis), $rotation->angle / 180 * pi());
+            $origin = new Vector3(...$rotation->origin);
+            if (isset($rotation->axis) && isset($rotation->angle)) {
+                $element->rotate($origin, Axis::from($rotation->axis), $rotation->angle / 180 * pi());
+            } else {
+                foreach (Axis::cases() as $axis) {
+                    if (!isset($rotation->{$axis->value})) {
+                        continue;
+                    }
+                    $angle = $rotation->{strtolower($axis->name)};
+                    $element->rotate($origin, $axis, $angle / 180 * pi());
+                }
+            }
         }
+
         $element->scale($displaySettings->getScale());
         $element->rotate(Vector3::center(), Axis::Y, $displaySettings->getRotation()->y / 180 * pi());
         $element->rotate(Vector3::center(), Axis::X, $displaySettings->getRotation()->x / 180 * pi());
