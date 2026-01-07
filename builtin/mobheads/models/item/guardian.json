@@ -1,6 +1,6 @@
 {
 	"parent": "mobheads:item/base/guardian",
 	"textures": {
-		"texture": "minecraft:entity/guardian"
+		"texture": "minecraft:entity/guardian/guardian"
 	}
 }

@@ -3,7 +3,7 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [64, 32],
 	"textures": {
-		"texture": "minecraft:entity/silverfish"
+		"texture": "minecraft:entity/silverfish/silverfish"
 	},
 	"elements": [
 		{

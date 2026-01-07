@@ -1,6 +1,6 @@
 {
 	"parent": "mobheads:item/base/cat",
 	"textures": {
-		"texture": "minecraft:entity/cat/black"
+		"texture": "minecraft:entity/cat/cat_black"
 	}
 }

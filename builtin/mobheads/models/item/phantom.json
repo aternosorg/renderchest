@@ -3,8 +3,8 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [64, 64],
 	"textures": {
-		"texture": "entity/phantom",
-		"eyes": "entity/phantom_eyes"
+		"texture": "entity/phantom/phantom",
+		"eyes": "entity/phantom/phantom_eyes"
 	},
 	"elements": [
 		{

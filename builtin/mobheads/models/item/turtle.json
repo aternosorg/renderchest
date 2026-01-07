@@ -3,7 +3,7 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [128, 64],
 	"textures": {
-		"0": "entity/turtle/big_sea_turtle"
+		"0": "entity/turtle/turtle"
 	},
 	"elements": [
 		{

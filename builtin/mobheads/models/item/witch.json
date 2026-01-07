@@ -3,7 +3,7 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [64, 128],
 	"textures": {
-		"texture": "minecraft:entity/witch"
+		"texture": "minecraft:entity/witch/witch"
 	},
 	"elements": [
 		{

@@ -1,6 +1,6 @@
 {
 	"parent": "mobheads:item/base/villager",
 	"textures": {
-		"texture": "minecraft:entity/wandering_trader"
+		"texture": "minecraft:entity/wandering_trader/wandering_trader"
 	}
 }

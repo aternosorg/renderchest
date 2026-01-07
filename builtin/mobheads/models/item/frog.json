@@ -3,7 +3,7 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [48, 48],
 	"textures": {
-		"texture": "minecraft:entity/frog/temperate_frog"
+		"texture": "minecraft:entity/frog/frog_temperate"
 	},
 	"elements": [
 		{

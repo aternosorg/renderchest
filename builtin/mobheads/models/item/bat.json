@@ -3,7 +3,7 @@
 	"parent": "mobheads:item/base/head_display",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "entity/bat"
+		"0": "entity/bat/bat"
 	},
 	"elements": [
 		{
