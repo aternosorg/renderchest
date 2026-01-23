@@ -32,6 +32,14 @@ class FolderResourceManager implements ResourceManagerInterface
     protected array $resourceGenerators = [];
 
     /**
+     * @inheritDoc
+     */
+    public static function fromSerialized(mixed $data): static
+    {
+        return new static($data);
+    }
+
+    /**
      * @param array $paths
      * @throws Exception
      */
@@ -241,5 +249,13 @@ class FolderResourceManager implements ResourceManagerInterface
 
         $data = json_decode(file_get_contents($path));
         return ItemType::createFromData($data->model, $this);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function serialize(): mixed
+    {
+        return $this->paths;
     }
 }

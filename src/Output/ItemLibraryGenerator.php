@@ -17,6 +17,7 @@ use Aternos\Renderchest\Output\ItemStyle\MapItemStyleGenerator;
 use Aternos\Renderchest\Output\ItemStyle\PotionItemStyleGenerator;
 use Aternos\Renderchest\Resource\FolderResourceManager;
 use Aternos\Renderchest\Resource\ResourceLocator;
+use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Taskmaster\Taskmaster;
 use Closure;
 use Exception;
@@ -57,15 +58,24 @@ class ItemLibraryGenerator
      */
     protected array $items = [];
 
-    protected FolderResourceManager $resourceManager;
-
     /**
      * @param string[] $assets
      * @param string $output
+     * @return static
+     * @throws Exception
      */
-    public function __construct(protected array $assets, protected string $output)
+    public static function fromAssetsFolders(array $assets, string $output): static
     {
-        $this->resourceManager = new FolderResourceManager($this->assets);
+        $resourceManager = new FolderResourceManager($assets);
+        return new static($resourceManager, $output);
+    }
+
+    /**
+     * @param ResourceManagerInterface $resourceManager
+     * @param string $output
+     */
+    public function __construct(protected ResourceManagerInterface $resourceManager, protected string $output)
+    {
     }
 
 
@@ -74,11 +84,16 @@ class ItemLibraryGenerator
      * @return $this
      * @throws ImagickException
      * @throws Exception
-     * @throws TextureResolutionException
      */
     public function render(Closure|callable|null $onProgress = null): static
     {
-        $enchantedEffect = $this->resourceManager->getTexture(ResourceLocator::parse("minecraft:misc/enchanted_glint_item"))->getImage();
+        $enchantedEffect = null;
+        try {
+            $enchantedEffect = $this->resourceManager->getTexture(ResourceLocator::parse("minecraft:misc/enchanted_glint_item"))->getImage();
+        } catch (TextureResolutionException) {
+            // Ignore missing enchanted glint texture
+        }
+
         $this->items = $this->createItems($this->size, $this->quality, $onProgress);
         $style = new StyleSheet();
         $fallback = new MediaQueryEntry("min-resolution: 1dpi");
@@ -108,10 +123,14 @@ class ItemLibraryGenerator
             }
         }
 
-        file_put_contents($this->output . "/" . $this->getEnchantmentFilename(), $enchantedEffect);
+        if ($enchantedEffect !== null) {
+            file_put_contents($this->output . "/" . $this->getEnchantmentFilename(), $enchantedEffect);
+        }
         if ($this->createPngFallback) {
-            $enchantedEffect->setFormat("png");
-            file_put_contents($this->output . "/" . $this->getEnchantmentFilename("png"), $enchantedEffect);
+            if ($enchantedEffect !== null) {
+                $enchantedEffect->setFormat("png");
+                file_put_contents($this->output . "/" . $this->getEnchantmentFilename("png"), $enchantedEffect);
+            }
             $style->addEntry($fallback);
         }
 
@@ -172,7 +191,16 @@ class ItemLibraryGenerator
         $taskmaster->autoDetectWorkers($this->defaultWorkerCount);
 
         foreach ($items as $itemName) {
-            $taskmaster->runTask(new ItemRenderTask($itemName, $size, $quality, $this->assets, $this->format, $this->createPngFallback, $this->output));
+            $taskmaster->runTask(new ItemRenderTask(
+                $itemName,
+                $size,
+                $quality,
+                $this->resourceManager::class,
+                $this->resourceManager->serialize(),
+                $this->format,
+                $this->createPngFallback,
+                $this->output
+            ));
         }
 
         $total = count($items);

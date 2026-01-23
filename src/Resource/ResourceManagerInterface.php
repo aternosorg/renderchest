@@ -14,6 +14,12 @@ use Aternos\Renderchest\Resource\Texture\TextureInterface;
 interface ResourceManagerInterface
 {
     /**
+     * @param mixed $data
+     * @return static
+     */
+    public static function fromSerialized(mixed $data): static;
+
+    /**
      * @param ResourceLocator $locator
      * @return ModelInterface
      * @throws ModelResolutionException
@@ -55,4 +61,11 @@ interface ResourceManagerInterface
      * @return bool
      */
     function hasFile(ResourceLocator $locator, ?string $extension = null): bool;
+
+    /**
+     * Serialize the resource manager for transferring it to child processes
+     *
+     * @return mixed
+     */
+    function serialize(): mixed;
 }

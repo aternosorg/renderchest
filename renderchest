@@ -2,7 +2,6 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use Aternos\Renderchest\Output\AsyncItemLibraryGenerator;
 use Aternos\Renderchest\Output\ItemLibraryGenerator;
 use Garden\Cli\Cli;
 
@@ -42,7 +41,7 @@ $args = $cli->parse($argv);
 $output = resolvePath($args->getOpt("output"));
 $assets = array_map(resolvePath(...), $args->getOpt("assets"));
 
-$libraryGenerator = new ItemLibraryGenerator($assets, $output);
+$libraryGenerator = ItemLibraryGenerator::fromAssetsFolders($assets, $output);
 
 $libraryGenerator->setNamespaces($args->getOpt("namespace", ["minecraft"]))
     ->setSize($args->getOpt("size", 64))

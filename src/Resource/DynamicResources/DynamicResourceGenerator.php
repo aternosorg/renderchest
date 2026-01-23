@@ -19,6 +19,14 @@ use Aternos\Renderchest\Tinter\TinterList;
 abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInterface
 {
     /**
+     * @inheritDoc
+     */
+    public static function fromSerialized(mixed $data): static
+    {
+        throw new \RuntimeException("Not implemented");
+    }
+
+    /**
      * @param ResourceManagerInterface $resourceManager
      */
     public function __construct(
@@ -79,5 +87,13 @@ abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInter
         }
 
         return new ModelItem(new Properties(), $model, new TinterList());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    function serialize(): mixed
+    {
+        throw new \RuntimeException("Not implemented");
     }
 }

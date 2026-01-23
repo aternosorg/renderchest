@@ -32,6 +32,9 @@ class CrossbowModelGenerator extends DynamicResourceGenerator
      */
     public function getAllItems(string $namespace): array
     {
+        if ($namespace !== "minecraft") {
+            return [];
+        }
         return [
             strval(new ResourceLocator(static::getNamespace(), "arrow")),
             strval(new ResourceLocator(static::getNamespace(), "rocket")),

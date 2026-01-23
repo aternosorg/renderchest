@@ -45,6 +45,9 @@ class ArmorTrimModelGenerator extends DynamicResourceGenerator
      */
     public function getAllItems(string $namespace): array
     {
+        if ($namespace !== "minecraft") {
+            return [];
+        }
         $this->initializeModels();
         $items = [];
         foreach ($this->models as $model) {

@@ -90,6 +90,9 @@ class LeatherArmorTrimModelGenerator extends DynamicResourceGenerator
      */
     public function getAllItems(string $namespace): array
     {
+        if ($namespace !== "minecraft") {
+            return [];
+        }
         $this->initializeModels();
         return array_keys($this->models);
     }

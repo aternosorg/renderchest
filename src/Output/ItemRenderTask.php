@@ -4,8 +4,8 @@ namespace Aternos\Renderchest\Output;
 
 use Aternos\Renderchest\Exception\ItemResolutionException;
 use Aternos\Renderchest\Exception\TextureResolutionException;
-use Aternos\Renderchest\Resource\FolderResourceManager;
 use Aternos\Renderchest\Resource\ResourceLocator;
+use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Taskmaster\Task\OnBoth;
 use Aternos\Taskmaster\Task\OnChild;
 use Aternos\Taskmaster\Task\Task;
@@ -15,11 +15,22 @@ use ImagickException;
 
 class ItemRenderTask extends Task
 {
+    /**
+     * @param string $itemName
+     * @param int $size
+     * @param int $quality
+     * @param class-string<ResourceManagerInterface> $resourceManagerClass
+     * @param mixed $serializedResourceManager
+     * @param string $format
+     * @param bool $createPngFallback
+     * @param string $output
+     */
     public function __construct(
         #[OnChild] protected string $itemName,
         #[OnChild] protected int $size,
         #[OnChild] protected int $quality,
-        #[OnChild] protected array $assets,
+        #[OnChild] protected string $resourceManagerClass,
+        #[OnChild] protected mixed $serializedResourceManager,
         #[OnChild] protected string $format,
         #[OnChild] protected bool $createPngFallback,
         #[OnChild] protected string $output
@@ -34,7 +45,7 @@ class ItemRenderTask extends Task
      */
     #[OnChild] public function run()
     {
-        $resourceManager = new FolderResourceManager($this->assets);
+        $resourceManager = $this->resourceManagerClass::fromSerialized($this->serializedResourceManager);
         $locator = ResourceLocator::parse($this->itemName);
         $key = strval($locator);
 
