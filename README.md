@@ -119,7 +119,7 @@ composer require aternos/renderchest
 
 When using renderchest as a library, the `ItemLibraryGenerator` class can be used to replicate the functionality of the CLI tool.
 ```php
-(new ItemLibraryGenerator(["path/to/assets"], "path/to/output"))
+ItemLibraryGenerator::fromAssetsFolders(["path/to/assets"], "path/to/output")
     ->setNamespaces(["minecraft"])
     ->setSize(64)
     ->setQuality(2)
