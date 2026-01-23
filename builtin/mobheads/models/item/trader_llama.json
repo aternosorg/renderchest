@@ -2,6 +2,6 @@
 	"parent": "mobheads:item/base/llama",
 	"textures": {
 		"decor": "minecraft:entity/equipment/llama_body/trader_llama",
-		"texture": "minecraft:entity/llama/creamy"
+		"texture": "minecraft:entity/llama/llama_creamy"
 	}
 }
