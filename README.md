@@ -132,5 +132,8 @@ It is also possible to load specific models from a resource manager instead of r
 $resourceManager = new \Aternos\Renderchest\Resource\FolderResourceManager(["path/to/assets"]);
 $model = $resourceManager->getModel(new \Aternos\Renderchest\Resource\ResourceLocator("minecraft", "item/stone"));
 
-$image = $model->render(64, 64);
+$image = $model->render(64, 64, \Aternos\Renderchest\Vector\Matrix4::identity(), \Aternos\Renderchest\Vector\Matrix4::identity());
 ```
+
+The `$outer` and `$inner` parameters of the `render` method can be used to apply transformations to the rendered model
+before or after the GUI display transformation is applied.
