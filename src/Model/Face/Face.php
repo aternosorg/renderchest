@@ -7,6 +7,7 @@ use Aternos\Renderchest\Model\Rasterizer\Point;
 use Aternos\Renderchest\Model\Rasterizer\TriangleRasterizer;
 use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
+use Aternos\Renderchest\Vector\Matrix4;
 use Aternos\Renderchest\Vector\UV;
 use Aternos\Renderchest\Vector\Vector3;
 use Imagick;
@@ -36,12 +37,15 @@ class Face
     }
 
     /**
+     * @param Vector3 $v0
+     * @param Vector3 $v1
+     * @param Vector3 $v2
      * @return Vector3|null
      */
-    public function getNormal(): ?Vector3
+    public function getNormal(Vector3 $v0, Vector3 $v1, Vector3 $v2): ?Vector3
     {
-        $v0to2 = $this->v2->clone()->subtract($this->v0);
-        $v0to1 = $this->v1->clone()->subtract($this->v0);
+        $v0to2 = $v2->clone()->subtract($v0);
+        $v0to1 = $v1->clone()->subtract($v0);
 
         $p = Vector3::crossProduct(
             $v0to2,
@@ -54,12 +58,12 @@ class Face
         return $p->normalize();
     }
 
-    protected function getProjectedVertices(int $width, int $height): array
+    protected function getProjectedVertices(int $width, int $height, Vector3 $v0, Vector3 $v1, Vector3 $v2, Vector3 $v3): array
     {
-        $v1p = $this->v0->project($width, $height);
-        $v2p = $this->v1->project($width, $height);
-        $v3p = $this->v2->project($width, $height);
-        $v4p = $this->v3->project($width, $height);
+        $v1p = $v0->project($width, $height);
+        $v2p = $v1->project($width, $height);
+        $v3p = $v2->project($width, $height);
+        $v4p = $v3->project($width, $height);
 
         return [$v1p, $v2p, $v3p, $v4p];
     }
@@ -68,14 +72,23 @@ class Face
      * @param int $width
      * @param int $height
      * @param int $animationTick
+     * @param Matrix4|null $transformation
      * @param TinterList|null $tinters
      * @return FaceImage|null
      * @throws ImagickException
      * @throws ImagickPixelException
      * @throws ImagickPixelIteratorException
      */
-    public function getPerspectiveImage(int $width, int $height, int $animationTick = 0, ?TinterList $tinters = null): ?FaceImage
+    public function render(
+        int $width,
+        int $height,
+        int $animationTick = 0,
+        ?Matrix4 $transformation = null,
+        ?TinterList $tinters = null
+    ): ?FaceImage
     {
+        $transformation = $transformation ?? Matrix4::identity();
+
         $uv1 = $this->faceInfo->getUv1()?->clone();
         $uv2 = $this->faceInfo->getUv2()?->clone();
 
@@ -88,9 +101,14 @@ class Face
             return null;
         }
 
-        $vps = $this->getProjectedVertices($width, $height);
+        $v0 = $transformation->transformVector($this->v0);
+        $v1 = $transformation->transformVector($this->v1);
+        $v2 = $transformation->transformVector($this->v2);
+        $v3 = $transformation->transformVector($this->v3);
 
-        $normal = $this->getNormal();
+        $vps = $this->getProjectedVertices($width, $height, $v0, $v1, $v2, $v3);
+
+        $normal = $this->getNormal($v0, $v1, $v2);
         if ($normal === null || Vector3::dotProduct(new Vector3(0, 0, -1), $normal) >= -0.01) {
             return null;
         }
@@ -143,17 +161,17 @@ class Face
         $depthIterator = $depth->getPixelIterator();
 
         TriangleRasterizer::drawTexturedTriangle(
-            new Point($vps[0], $uvs[0], abs($this->v0->z / 20)),
-            new Point($vps[2], $uvs[2], abs($this->v2->z / 20)),
-            new Point($vps[3], $uvs[3], abs($this->v3->z / 20)),
+            new Point($vps[0], $uvs[0], abs($v0->z / 20)),
+            new Point($vps[2], $uvs[2], abs($v2->z / 20)),
+            new Point($vps[3], $uvs[3], abs($v3->z / 20)),
             $colorIterator,
             $depthIterator,
             $baseTexture
         );
         TriangleRasterizer::drawTexturedTriangle(
-            new Point($vps[0], $uvs[0], abs($this->v0->z / 20)),
-            new Point($vps[1], $uvs[1], abs($this->v1->z / 20)),
-            new Point($vps[2], $uvs[2], abs($this->v2->z / 20)),
+            new Point($vps[0], $uvs[0], abs($v0->z / 20)),
+            new Point($vps[1], $uvs[1], abs($v1->z / 20)),
+            new Point($vps[2], $uvs[2], abs($v2->z / 20)),
             $colorIterator,
             $depthIterator,
             $baseTexture

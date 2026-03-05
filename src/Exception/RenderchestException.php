@@ -2,7 +2,9 @@
 
 namespace Aternos\Renderchest\Exception;
 
-class RenderchestException extends \Exception
+use Exception;
+
+class RenderchestException extends Exception
 {
 
 }

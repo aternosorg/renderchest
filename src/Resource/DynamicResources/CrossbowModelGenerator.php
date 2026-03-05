@@ -2,7 +2,6 @@
 
 namespace Aternos\Renderchest\Resource\DynamicResources;
 
-use Aternos\Renderchest\Model\ModelInterface;
 use Aternos\Renderchest\Resource\Item\ItemInterface;
 use Aternos\Renderchest\Resource\Item\Properties\StringProperty;
 use Aternos\Renderchest\Resource\ResourceLocator;

@@ -12,6 +12,7 @@ use Aternos\Renderchest\Resource\ResourceLocator;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Tinter\TintSourceType;
+use Aternos\Renderchest\Vector\Matrix4;
 use Exception;
 use Imagick;
 use stdClass;
@@ -21,7 +22,12 @@ class ModelItem extends AbstractItem
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
+    public static function fromData(
+        stdClass $data,
+        ResourceManagerInterface $resourceManager,
+        Properties $properties,
+        Matrix4 $parentTransformation
+    ): static
     {
         if (!isset($data->model) || !is_string($data->model)) {
             throw new InvalidItemDefinitionException("Model item requires a model resource locator");
@@ -30,7 +36,12 @@ class ModelItem extends AbstractItem
         try {
             $modelLocator = ResourceLocator::parse($data->model);
         } catch (InvalidResourceLocatorException $e) {
-            throw new InvalidItemDefinitionException("Invalid model resource locator: " . $e->getMessage(), 0, $e);
+            throw new InvalidItemDefinitionException("Invalid model resource locator: " . $e->getMessage(), previous: $e);
+        }
+
+        $transformation = $parentTransformation;
+        if (isset($data->transformation)) {
+            $transformation = $transformation->multiply(static::parseTransformation($data->transformation));
         }
 
         $tints = [];
@@ -51,7 +62,7 @@ class ModelItem extends AbstractItem
             throw new InvalidItemDefinitionException("Model resolution failed: " . $e->getMessage(), 0, $e);
         }
 
-        return new static($properties, $model, new TinterList($tints));
+        return new static($properties, $model, new TinterList($tints), $transformation);
     }
 
     /**
@@ -66,7 +77,8 @@ class ModelItem extends AbstractItem
             return new ModelItem(
                 $properties,
                 $resourceManager->getModel(new ResourceLocator("renderchest", "item/unknown")),
-                new TinterList()
+                new TinterList(),
+                Matrix4::identity()
             );
         } catch (Exception $e) {
             throw new InvalidItemDefinitionException("Failed to create unknown item fallback model", 0, $e);
@@ -77,11 +89,13 @@ class ModelItem extends AbstractItem
      * @param Properties $properties
      * @param ModelInterface $model
      * @param TinterList $tints
+     * @param Matrix4 $transformation
      */
     public function __construct(
         Properties $properties,
         protected ModelInterface $model,
-        protected TinterList     $tints
+        protected TinterList     $tints,
+        protected Matrix4 $transformation
     )
     {
         parent::__construct($properties);
@@ -92,6 +106,6 @@ class ModelItem extends AbstractItem
      */
     public function render(int $width, int $height): Imagick
     {
-        return $this->model->render($width, $height, $this->tints);
+        return $this->model->render($width, $height, Matrix4::identity(), Matrix4::identity(), $this->tints);
     }
 }

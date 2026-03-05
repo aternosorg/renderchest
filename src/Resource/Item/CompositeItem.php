@@ -5,6 +5,7 @@ namespace Aternos\Renderchest\Resource\Item;
 use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
+use Aternos\Renderchest\Vector\Matrix4;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
@@ -15,10 +16,20 @@ class CompositeItem extends AbstractItem
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
+    public static function fromData(
+        stdClass $data,
+        ResourceManagerInterface $resourceManager,
+        Properties $properties,
+        Matrix4 $parentTransformation
+    ): static
     {
         if (!isset($data->models) || !is_array($data->models)) {
             throw new InvalidItemDefinitionException("Composite item must have a models array");
+        }
+
+        $transformation = $parentTransformation;
+        if (isset($data->transformation)) {
+            $transformation = $transformation->multiply(static::parseTransformation($data->transformation));
         }
 
         $items = [];
@@ -27,7 +38,7 @@ class CompositeItem extends AbstractItem
                 throw new InvalidItemDefinitionException("Item must be an object");
             }
 
-            $items[] = ItemType::createFromData($item, $resourceManager, $properties);
+            $items[] = ItemType::createFromData($item, $resourceManager, $properties, $transformation);
         }
 
         return new static($properties, $items);

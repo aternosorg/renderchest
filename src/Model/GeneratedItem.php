@@ -10,6 +10,7 @@ use Aternos\Renderchest\Resource\Texture\TextureList;
 use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
 use Aternos\Renderchest\Util\Math;
+use Aternos\Renderchest\Vector\Matrix4;
 use Exception;
 use Imagick;
 use ImagickException;
@@ -61,7 +62,13 @@ class GeneratedItem implements ModelInterface
      * @throws ImagickPixelException
      * @throws ImagickPixelIteratorException
      */
-    public function render(int $width, int $height, ?TinterList $tinters = null): Imagick
+    public function render(
+        int $width,
+        int $height,
+        Matrix4 $outer,
+        Matrix4 $inner,
+        ?TinterList $tinters = null
+    ): Imagick
     {
         $layers = [];
         $animationLengths = [];

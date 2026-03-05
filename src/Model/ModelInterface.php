@@ -6,6 +6,7 @@ use Aternos\Renderchest\Exception\TextureResolutionException;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Resource\Texture\TextureList;
 use Aternos\Renderchest\Tinter\TinterList;
+use Aternos\Renderchest\Vector\Matrix4;
 use Exception;
 use Imagick;
 use ImagickException;
@@ -37,13 +38,21 @@ interface ModelInterface
     /**
      * @param int $width
      * @param int $height
+     * @param Matrix4 $outer
+     * @param Matrix4 $inner
      * @param TinterList|null $tinters
      * @return Imagick
      * @throws ImagickException
      * @throws Exception
      * @throws TextureResolutionException
      */
-    public function render(int $width, int $height, ?TinterList $tinters = null): Imagick;
+    public function render(
+        int $width,
+        int $height,
+        Matrix4 $outer,
+        Matrix4 $inner,
+        ?TinterList $tinters = null
+    ): Imagick;
 
     /**
      * @param stdClass $data

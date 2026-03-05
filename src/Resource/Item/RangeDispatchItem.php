@@ -6,6 +6,7 @@ use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Resource\Item\Parts\RangeDispatchEntry;
 use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
+use Aternos\Renderchest\Vector\Matrix4;
 use Imagick;
 use stdClass;
 
@@ -14,7 +15,12 @@ class RangeDispatchItem extends AbstractItem
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
+    public static function fromData(
+        stdClass $data,
+        ResourceManagerInterface $resourceManager,
+        Properties $properties,
+        Matrix4 $parentTransformation
+    ): static
     {
         if (!isset($data->property) || !is_string($data->property)) {
             throw new InvalidItemDefinitionException("Range dispatch item must have a property");
@@ -22,6 +28,11 @@ class RangeDispatchItem extends AbstractItem
 
         if (!isset($data->entries) || !is_array($data->entries)) {
             throw new InvalidItemDefinitionException("Range dispatch item must have an entries array");
+        }
+
+        $transformation = $parentTransformation;
+        if (isset($data->transformation)) {
+            $transformation = $transformation->multiply(static::parseTransformation($data->transformation));
         }
 
         $entries = [];
@@ -35,7 +46,7 @@ class RangeDispatchItem extends AbstractItem
             if (!isset($entry->model) || !($entry->model instanceof stdClass)) {
                 throw new InvalidItemDefinitionException("Entry must have a model object");
             }
-            $entries[] = new RangeDispatchEntry($entry->threshold, ItemType::createFromData($entry->model, $resourceManager, $properties));
+            $entries[] = new RangeDispatchEntry($entry->threshold, ItemType::createFromData($entry->model, $resourceManager, $properties, $transformation));
         }
 
         $scale = 1.0;
@@ -44,7 +55,7 @@ class RangeDispatchItem extends AbstractItem
         }
 
         if (isset($data->fallback) && $data->fallback instanceof stdClass) {
-            $fallback = ItemType::createFromData($data->fallback, $resourceManager, $properties);
+            $fallback = ItemType::createFromData($data->fallback, $resourceManager, $properties, $transformation);
         } else {
             $fallback = ModelItem::createUnknown($resourceManager, $properties);
         }

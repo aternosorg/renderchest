@@ -16,6 +16,7 @@ use Aternos\Renderchest\Resource\Texture\FileTexture;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 use Aternos\Renderchest\Resource\Texture\TextureMeta;
 use Aternos\Renderchest\Tinter\TinterList;
+use Aternos\Renderchest\Vector\Matrix4;
 use ImagickException;
 
 class PreRenderedResourceManager implements ResourceManagerInterface
@@ -84,7 +85,7 @@ class PreRenderedResourceManager implements ResourceManagerInterface
             throw new ItemResolutionException("Item '" . $locator->getPath() . "' not found in PreRenderedResourceManager");
         }
         try {
-            return new ModelItem(new Properties(), $this->getModel($locator), new TinterList());
+            return new ModelItem(new Properties(), $this->getModel($locator), new TinterList(), Matrix4::identity());
         } catch (ModelResolutionException $e) {
             throw new InvalidItemDefinitionException("Failed to get model for item " . $locator, previous: $e);
         }

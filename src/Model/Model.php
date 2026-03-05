@@ -12,6 +12,7 @@ use Aternos\Renderchest\Tinter\TinterList;
 use Aternos\Renderchest\Util\ColorBlender;
 use Aternos\Renderchest\Util\Math;
 use Aternos\Renderchest\Util\PixelIterator;
+use Aternos\Renderchest\Vector\Matrix4;
 use Aternos\Renderchest\Vector\Vector3;
 use Exception;
 use Imagick;
@@ -74,6 +75,8 @@ class Model implements ModelInterface
     /**
      * @param int $width
      * @param int $height
+     * @param Matrix4 $outer
+     * @param Matrix4 $inner
      * @param TinterList|null $tinters
      * @return Imagick
      * @throws ImagickException
@@ -81,7 +84,13 @@ class Model implements ModelInterface
      * @throws ImagickPixelIteratorException
      * @throws TextureResolutionException
      */
-    public function render(int $width, int $height, ?TinterList $tinters = null): Imagick
+    public function render(
+        int $width,
+        int $height,
+        Matrix4 $outer,
+        Matrix4 $inner,
+        ?TinterList $tinters = null
+    ): Imagick
     {
         $startT = microtime(true);
 
@@ -100,6 +109,8 @@ class Model implements ModelInterface
 
         usort($faces, fn($a, $b) => -($b->getMaxZ() <=> $a->getMaxZ()));
 
+        $transformation = $outer->multiply($this->displaySettings->asMatrix4())->multiply($inner);
+
         $animationTicks = max(1, Math::lcm($animationLengths));
         $maxSkipableTicks = $interpolated ? ceil($animationTicks / Constants::ANIMATION_MAX_FRAMES) : null;
 
@@ -116,13 +127,14 @@ class Model implements ModelInterface
             }
 
             foreach ($faces as $i => $face) {
-                if($lastAnimationFrames !== null &&
+                if ($lastAnimationFrames !== null &&
                     !$face->getFaceInfo()->getTexture()->getMeta()->isInterpolated() &&
                     $lastAnimationFrames[$i] === $frames[$i]) {
                     continue;
                 }
-                $res = $face->getPerspectiveImage($width, $height, $tick, $tinters);
-                if($res === null) {
+
+                $res = $face->render($width, $height, $tick, $transformation, $tinters);
+                if ($res === null) {
                     continue;
                 }
 
@@ -218,6 +230,9 @@ class Model implements ModelInterface
         }
 
         foreach ($data->textures ?? [] as $name => $locator) {
+            if (is_object($locator)) {
+                $locator = $locator->sprite;
+            }
             $this->textures->set($name, $locator, $resourceManager);
         }
 
@@ -229,7 +244,7 @@ class Model implements ModelInterface
         if (isset($data->elements)) {
             $this->elements = [];
             foreach ($data->elements as $element) {
-                $this->elements[] = Element::fromModelData($element, $this->guiLight, $this->textures, $this->displaySettings);
+                $this->elements[] = Element::fromModelData($element, $this->guiLight, $this->textures);
             }
         }
     }

@@ -5,6 +5,7 @@ namespace Aternos\Renderchest\Resource\Item;
 use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
+use Aternos\Renderchest\Vector\Matrix4;
 use Imagick;
 use stdClass;
 
@@ -13,7 +14,12 @@ class ConditionItem extends AbstractItem
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
+    public static function fromData(
+        stdClass $data,
+        ResourceManagerInterface $resourceManager,
+        Properties $properties,
+        Matrix4 $parentTransformation
+    ): static
     {
         if (!isset($data->property) || !is_string($data->property)) {
             throw new InvalidItemDefinitionException("Condition item must have a property");
@@ -27,8 +33,13 @@ class ConditionItem extends AbstractItem
             throw new InvalidItemDefinitionException("Condition item must have an on_false object");
         }
 
-        $trueItem = ItemType::createFromData($data->on_true, $resourceManager, $properties);
-        $falseItem = ItemType::createFromData($data->on_false, $resourceManager, $properties);
+        $transformation = $parentTransformation;
+        if (isset($data->transformation)) {
+            $transformation = $transformation->multiply(static::parseTransformation($data->transformation));
+        }
+
+        $trueItem = ItemType::createFromData($data->on_true, $resourceManager, $properties, $transformation);
+        $falseItem = ItemType::createFromData($data->on_false, $resourceManager, $properties, $transformation);
         return new static($properties, $trueItem, $falseItem, $data->property, $data);
     }
 

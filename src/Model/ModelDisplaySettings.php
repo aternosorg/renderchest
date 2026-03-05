@@ -2,6 +2,7 @@
 
 namespace Aternos\Renderchest\Model;
 
+use Aternos\Renderchest\Vector\Matrix4;
 use Aternos\Renderchest\Vector\Vector3;
 
 class ModelDisplaySettings
@@ -50,5 +51,22 @@ class ModelDisplaySettings
     public function getScale(): Vector3
     {
         return $this->scale;
+    }
+
+    /**
+     * @return Matrix4
+     */
+    public function asMatrix4(): Matrix4
+    {
+        $pivot = Vector3::center();
+        return Matrix4::identity()
+            ->translate(...$pivot->getValues())
+            ->translate(...$this->translation->getValues())
+            ->scale(...$this->scale->getValues())
+            ->rotateZRadians(deg2rad(-$this->rotation->z))
+            ->rotateXRadians(deg2rad($this->rotation->x))
+            ->rotateYRadians(deg2rad($this->rotation->y))
+            ->translate(...$pivot->clone()->multiply(-1)->getValues())
+        ;
     }
 }

@@ -4,6 +4,7 @@ namespace Aternos\Renderchest\Resource\Item;
 
 use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
+use Aternos\Renderchest\Vector\Matrix4;
 use Imagick;
 use ImagickPixel;
 use stdClass;
@@ -13,7 +14,12 @@ class EmptyItem extends AbstractItem
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
+    public static function fromData(
+        stdClass $data,
+        ResourceManagerInterface $resourceManager,
+        Properties $properties,
+        Matrix4 $parentTransformation
+    ): static
     {
         return new static($properties);
     }

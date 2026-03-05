@@ -4,7 +4,6 @@ namespace Aternos\Renderchest\Model\Face;
 
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 use Aternos\Renderchest\Resource\Texture\TextureList;
-use Aternos\Renderchest\Tinter\Tinterface;
 use Aternos\Renderchest\Vector\UV;
 use Exception;
 use stdClass;

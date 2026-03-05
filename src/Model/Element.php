@@ -6,7 +6,6 @@ use Aternos\Renderchest\Model\Face\Face;
 use Aternos\Renderchest\Model\Face\FaceDirection;
 use Aternos\Renderchest\Model\Face\FaceInfo;
 use Aternos\Renderchest\Resource\Texture\TextureList;
-use Aternos\Renderchest\Tinter\Tinterface;
 use Aternos\Renderchest\Vector\UV;
 use Aternos\Renderchest\Vector\Vector3;
 use Exception;
@@ -30,13 +29,12 @@ class Element
      * @param stdClass $data
      * @param ModelGuiLight $light
      * @param TextureList $textures
-     * @param ModelDisplaySettings $displaySettings
      * @return Element
      * @throws Exception
      */
     public static function fromModelData(
         stdClass    $data, ModelGuiLight $light,
-        TextureList $textures, ModelDisplaySettings $displaySettings
+        TextureList $textures
     ): Element
     {
         $from = new Vector3(...$data->from);
@@ -64,12 +62,6 @@ class Element
                 }
             }
         }
-
-        $element->scale($displaySettings->getScale());
-        $element->rotate(Vector3::center(), Axis::Y, $displaySettings->getRotation()->y / 180 * pi());
-        $element->rotate(Vector3::center(), Axis::X, $displaySettings->getRotation()->x / 180 * pi());
-        $element->rotate(Vector3::center(), Axis::Z, -$displaySettings->getRotation()->z / 180 * pi());
-        $element->translate($displaySettings->getTranslation());
 
         return $element;
     }

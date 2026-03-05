@@ -6,6 +6,7 @@ use Aternos\Renderchest\Exception\InvalidItemDefinitionException;
 use Aternos\Renderchest\Resource\Item\Parts\SelectCase;
 use Aternos\Renderchest\Resource\Item\Properties\Properties;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
+use Aternos\Renderchest\Vector\Matrix4;
 use Imagick;
 use stdClass;
 
@@ -14,7 +15,12 @@ class SelectItem extends AbstractItem
     /**
      * @inheritDoc
      */
-    public static function fromData(stdClass $data, ResourceManagerInterface $resourceManager, Properties $properties): static
+    public static function fromData(
+        stdClass $data,
+        ResourceManagerInterface $resourceManager,
+        Properties $properties,
+        Matrix4 $parentTransformation
+    ): static
     {
         if (!isset($data->property) || !is_string($data->property)) {
             throw new InvalidItemDefinitionException("Select item must have a property");
@@ -22,6 +28,11 @@ class SelectItem extends AbstractItem
 
         if (!isset($data->cases) || !is_array($data->cases)) {
             throw new InvalidItemDefinitionException("Select item must have cases");
+        }
+
+        $transformation = $parentTransformation;
+        if (isset($data->transformation)) {
+            $transformation = $transformation->multiply(static::parseTransformation($data->transformation));
         }
 
         $cases = [];
@@ -40,11 +51,11 @@ class SelectItem extends AbstractItem
 
             $when = is_array($case->when) ? $case->when : [$case->when];
 
-            $cases[] = new SelectCase($when, ItemType::createFromData($case->model, $resourceManager, $properties));
+            $cases[] = new SelectCase($when, ItemType::createFromData($case->model, $resourceManager, $properties, $transformation));
         }
 
         if (isset($data->fallback) && $data->fallback instanceof stdClass) {
-            $fallback = ItemType::createFromData($data->fallback, $resourceManager, $properties);
+            $fallback = ItemType::createFromData($data->fallback, $resourceManager, $properties, $transformation);
         } else {
             $fallback = ModelItem::createUnknown($resourceManager, $properties);
         }

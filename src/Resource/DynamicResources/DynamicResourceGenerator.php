@@ -15,6 +15,8 @@ use Aternos\Renderchest\Resource\ResourceLocator;
 use Aternos\Renderchest\Resource\ResourceManagerInterface;
 use Aternos\Renderchest\Resource\Texture\TextureInterface;
 use Aternos\Renderchest\Tinter\TinterList;
+use Aternos\Renderchest\Vector\Matrix4;
+use RuntimeException;
 
 abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInterface
 {
@@ -23,7 +25,7 @@ abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInter
      */
     public static function fromSerialized(mixed $data): static
     {
-        throw new \RuntimeException("Not implemented");
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -86,7 +88,7 @@ abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInter
             throw new ItemResolutionException("Cannot resolve item locator " . $locator, 0, $e);
         }
 
-        return new ModelItem(new Properties(), $model, new TinterList());
+        return new ModelItem(new Properties(), $model, new TinterList(), Matrix4::identity());
     }
 
     /**
@@ -94,6 +96,6 @@ abstract class DynamicResourceGenerator implements DynamicResourceGeneratorInter
      */
     function serialize(): mixed
     {
-        throw new \RuntimeException("Not implemented");
+        throw new RuntimeException("Not implemented");
     }
 }
