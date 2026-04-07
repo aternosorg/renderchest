@@ -31,7 +31,7 @@ enum ItemType: string
         stdClass $data,
         ResourceManagerInterface $resourceManager,
         ?Properties $properties = null,
-        Matrix4 $parentTransformation = null
+        ?Matrix4 $parentTransformation = null
     ): ItemInterface
     {
         $parentTransformation = $parentTransformation ?? Matrix4::identity();

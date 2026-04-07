@@ -107,7 +107,7 @@ class TriangleRasterizer
                         $currentDepth = (1.0 - $textureX) * $startDepth + $textureX * $endDepth;
 
                         if(isset($colorRow[$x])) {
-                            $colorRow[$x]->setColorFromPixel($texture->getImagePixelColor($currentU * $textureWidth, $currentV * $textureHeight));
+                            $colorRow[$x]->setColorFromPixel($texture->getImagePixelColor(intval($currentU * $textureWidth), intval($currentV * $textureHeight)));
                         }
 
                         if($x >= $startX && $x < $endX && isset($depthRow[$x])) {
