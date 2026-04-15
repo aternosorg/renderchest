@@ -37,8 +37,8 @@ class Element
         TextureList $textures
     ): Element
     {
-        $from = new Vector3(...$data->from);
-        $to = new Vector3(...$data->to);
+        $from = (new Vector3(...$data->from))->divide(16);
+        $to = (new Vector3(...$data->to))->divide(16);
         $faces = [];
         foreach ($data->faces ?? [] as $name => $face) {
             $faces[$name] = FaceInfo::fromModelData($face, $textures);
@@ -49,7 +49,7 @@ class Element
 
         $rotation = $data->rotation_rc ?? $data->rotation ?? null;
         if ($rotation) {
-            $origin = new Vector3(...$rotation->origin);
+            $origin = (new Vector3(...$rotation->origin))->divide(16);
             if (isset($rotation->axis) && isset($rotation->angle)) {
                 $element->rotate($origin, Axis::from($rotation->axis), $rotation->angle / 180 * pi());
             } else {

@@ -19,8 +19,8 @@ class FaceInfo
     public static function fromModelData(stdClass $data, TextureList $textures): FaceInfo
     {
         $uvData = $data->uv ?? [];
-        $uv1 = count($uvData) >= 2 ? new UV(...array_slice($uvData, 0, 2)) : null;
-        $uv2 = count($uvData) >= 4 ? new UV(...array_slice($uvData, 2, 2)) : null;
+        $uv1 = count($uvData) >= 2 ? UV::fromData(array_slice($uvData, 0, 2)) : null;
+        $uv2 = count($uvData) >= 4 ? UV::fromData(array_slice($uvData, 2, 2)) : null;
 
         $texture = $textures->getResolvable($data->texture);
 

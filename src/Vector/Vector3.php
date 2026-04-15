@@ -6,8 +6,6 @@ use Aternos\Renderchest\Model\Axis;
 
 class Vector3 extends Vector
 {
-    const PROJECTION_SCALE = 16;
-
     /**
      * @param Vector3 $a
      * @param Vector3 $b
@@ -32,11 +30,6 @@ class Vector3 extends Vector
         return $a->x * $b->x + $a->y * $b->y + $a->z * $b->z;
     }
 
-    static function center(): static
-    {
-        return new Vector3(8, 8, 8);
-    }
-
     /**
      * @param float $x
      * @param float $y
@@ -53,11 +46,11 @@ class Vector3 extends Vector
      */
     public function project(int $width, int $height): Vector2
     {
-        $xC = $this->x - 8;
-        $yC = $this->y - 8;
+        $xC = $this->x - 0.5;
+        $yC = $this->y - 0.5;
         return new Vector2(
-            round($xC / static::PROJECTION_SCALE * $width + $width / 2),
-            round($height - ($yC / static::PROJECTION_SCALE * $height + $height / 2))
+            round($xC * $width + $width / 2),
+            round($height - ($yC * $height + $height / 2))
         );
     }
 

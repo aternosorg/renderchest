@@ -106,6 +106,6 @@ class ModelItem extends AbstractItem
      */
     public function render(int $width, int $height): Imagick
     {
-        return $this->model->render($width, $height, Matrix4::identity(), Matrix4::identity(), $this->tints);
+        return $this->model->render($width, $height, Matrix4::identity(), $this->transformation, $this->tints);
     }
 }

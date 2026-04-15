@@ -89,11 +89,8 @@ class Face
     {
         $transformation = $transformation ?? Matrix4::identity();
 
-        $uv1 = $this->faceInfo->getUv1()?->clone();
-        $uv2 = $this->faceInfo->getUv2()?->clone();
-
-        $normUv1 = $uv1->clone()->divide(16);
-        $normUv2 = $uv2->clone()->divide(16);
+        $normUv1 = $this->faceInfo->getUv1()?->clone();
+        $normUv2 = $this->faceInfo->getUv2()?->clone();
         $normUvWidth = $normUv2->u - $normUv1->u;
         $normUvHeight = $normUv2->v - $normUv1->v;
 
@@ -161,23 +158,34 @@ class Face
         $depthIterator = $depth->getPixelIterator();
 
         TriangleRasterizer::drawTexturedTriangle(
-            new Point($vps[0], $uvs[0], abs($v0->z / 20)),
-            new Point($vps[2], $uvs[2], abs($v2->z / 20)),
-            new Point($vps[3], $uvs[3], abs($v3->z / 20)),
+            new Point($vps[0], $uvs[0], $this->linearDepth($v0->z)),
+            new Point($vps[2], $uvs[2], $this->linearDepth($v2->z)),
+            new Point($vps[3], $uvs[3], $this->linearDepth($v3->z)),
             $colorIterator,
             $depthIterator,
             $baseTexture
         );
         TriangleRasterizer::drawTexturedTriangle(
-            new Point($vps[0], $uvs[0], abs($v0->z / 20)),
-            new Point($vps[1], $uvs[1], abs($v1->z / 20)),
-            new Point($vps[2], $uvs[2], abs($v2->z / 20)),
+            new Point($vps[0], $uvs[0], $this->linearDepth($v0->z)),
+            new Point($vps[1], $uvs[1], $this->linearDepth($v1->z)),
+            new Point($vps[2], $uvs[2], $this->linearDepth($v2->z)),
             $colorIterator,
             $depthIterator,
             $baseTexture
         );
 
         return new FaceImage($color, $depth);
+    }
+
+    /**
+     * @param float $z
+     * @param float $zNear
+     * @param float $zFar
+     * @return float
+     */
+    protected function linearDepth(float $z, float $zNear = -1.0, float $zFar = 2.0): float
+    {
+        return ($z - $zNear) / ($zFar - $zNear);
     }
 
     /**

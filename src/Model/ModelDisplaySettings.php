@@ -58,10 +58,10 @@ class ModelDisplaySettings
      */
     public function asMatrix4(): Matrix4
     {
-        $pivot = Vector3::center();
+        $pivot = new Vector3(0.5, 0.5, 0.5);
         return Matrix4::identity()
             ->translate(...$pivot->getValues())
-            ->translate(...$this->translation->getValues())
+            ->translate(...$this->translation->clone()->divide(16)->getValues())
             ->scale(...$this->scale->getValues())
             ->rotateZRadians(deg2rad(-$this->rotation->z))
             ->rotateXRadians(deg2rad($this->rotation->x))
