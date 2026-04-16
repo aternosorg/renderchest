@@ -221,6 +221,11 @@ class Face
             $endY = $from->v;
         }
 
+        $startX = intval(floor($startX));
+        $startY = intval(floor($startY));
+        $endX = intval(ceil($endX));
+        $endY = intval(ceil($endY));
+
         $baseBlendColor = new ImagickPixel('black');
         $iterator = $texture->getPixelIterator();
         foreach ($iterator as $row => $pixelRow) {
