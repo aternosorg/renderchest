@@ -27,7 +27,7 @@ class Model implements ModelInterface
     protected float $renderTime = 0;
     protected ModelDisplaySettings $displaySettings;
     protected TextureList $textures;
-    protected ModelGuiLight $guiLight = ModelGuiLight::FRONT;
+    protected ModelGuiLight $guiLight = ModelGuiLight::SIDE;
 
     /**
      * @var Element[]
