@@ -48,12 +48,21 @@ class PalettedPermutationsTextureSource extends AtlasTextureSource
         }
 
         foreach ($settings->permutations as $name => $permutation) {
-            $locator = ResourceLocator::parse($permutation);
+            $locator = $this->getPaletteLocator(ResourceLocator::parse($permutation));
 
             foreach ($this->baseTextures as $baseTexture) {
                 $this->textures[] = new PermutatedTextureInfo($baseTexture, $locator, $name, $this->separator);
             }
         }
+    }
+
+    /**
+     * @param ResourceLocator $locator
+     * @return ResourceLocator
+     */
+    protected function getPaletteLocator(ResourceLocator $locator): ResourceLocator
+    {
+        return $locator->clone()->setPath("palettes/" . $locator->getPath() . (str_ends_with($locator->getPath(), ".png") ? "" : ".png"));
     }
 
     /**
@@ -104,7 +113,7 @@ class PalettedPermutationsTextureSource extends AtlasTextureSource
     protected function getKeyPalette(): array
     {
         if ($this->keyPalette === null) {
-            $texture = parent::getTexture(ResourceLocator::parse($this->settings->palette_key))->getImage();
+            $texture = parent::getTexture($this->getPaletteLocator(ResourceLocator::parse($this->settings->palette_key)))->getImage();
             $width = $texture->getImageWidth();
             $imageIterator = $texture->getPixelIterator();
             $this->keyPalette = [];

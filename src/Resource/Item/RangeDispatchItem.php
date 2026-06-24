@@ -76,7 +76,7 @@ class RangeDispatchItem extends AbstractItem
         protected string $property,
         protected array $entries,
         protected ItemInterface $fallback,
-        protected float $scale = 1,
+        protected float $scale,
         protected stdClass $options
     )
     {
