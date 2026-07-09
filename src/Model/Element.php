@@ -44,8 +44,11 @@ class Element
             $faces[$name] = FaceInfo::fromModelData($face, $textures);
         }
 
-        $shade = !isset($data->shade) || $data->shade;
-        $element = new static($to, $from, $faces, $shade ? $light->getLightSource() : LightSource::getFrontLight());
+        $shadeDirectionOverride = $data->shade_direction_override ?? null;
+        if ($shadeDirectionOverride !== null) {
+            $shadeDirectionOverride = FaceDirection::from($shadeDirectionOverride)->getNormal();
+        }
+        $element = new static($to, $from, $faces, $light->getLightSource(), $shadeDirectionOverride);
 
         $rotation = $data->rotation_rc ?? $data->rotation ?? null;
         if ($rotation) {
@@ -71,8 +74,15 @@ class Element
      * @param Vector3 $g
      * @param FaceInfo[] $faces
      * @param LightSource $lightSource
+     * @param Vector3|null $shadeDirectionOverride
      */
-    public function __construct(protected Vector3 $a, protected Vector3 $g, array $faces, protected LightSource $lightSource)
+    public function __construct(
+        protected Vector3 $a,
+        protected Vector3 $g,
+        array $faces,
+        protected LightSource $lightSource,
+        protected ?Vector3 $shadeDirectionOverride = null
+    )
     {
         $this->b = new Vector3($this->g->x, $this->a->y, $this->a->z);
         $this->c = new Vector3($this->g->x, $this->g->y, $this->a->z);
@@ -144,12 +154,12 @@ class Element
     protected function createFace(FaceDirection $direction, FaceInfo $info): Face
     {
         return match ($direction) {
-            FaceDirection::DOWN => new Face($this->c, $this->d, $this->h, $this->g, $info, $this->lightSource),
-            FaceDirection::UP => new Face($this->f, $this->e, $this->a, $this->b, $info, $this->lightSource),
-            FaceDirection::NORTH => new Face($this->e, $this->f, $this->g, $this->h, $info, $this->lightSource),
-            FaceDirection::SOUTH => new Face($this->b, $this->a, $this->d, $this->c, $info, $this->lightSource),
-            FaceDirection::WEST => new Face($this->f, $this->b, $this->c, $this->g, $info, $this->lightSource),
-            FaceDirection::EAST => new Face($this->a, $this->e, $this->h, $this->d, $info, $this->lightSource)
+            FaceDirection::DOWN => new Face($this->c, $this->d, $this->h, $this->g, $info, $this->lightSource, $this->shadeDirectionOverride),
+            FaceDirection::UP => new Face($this->f, $this->e, $this->a, $this->b, $info, $this->lightSource, $this->shadeDirectionOverride),
+            FaceDirection::NORTH => new Face($this->e, $this->f, $this->g, $this->h, $info, $this->lightSource, $this->shadeDirectionOverride),
+            FaceDirection::SOUTH => new Face($this->b, $this->a, $this->d, $this->c, $info, $this->lightSource, $this->shadeDirectionOverride),
+            FaceDirection::WEST => new Face($this->f, $this->b, $this->c, $this->g, $info, $this->lightSource, $this->shadeDirectionOverride),
+            FaceDirection::EAST => new Face($this->a, $this->e, $this->h, $this->d, $info, $this->lightSource, $this->shadeDirectionOverride)
         };
     }
 

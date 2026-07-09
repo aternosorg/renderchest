@@ -32,7 +32,9 @@ class Face
         protected Vector3     $v2,
         protected Vector3     $v3,
         protected FaceInfo    $faceInfo,
-        protected LightSource $lightSource)
+        protected LightSource $lightSource,
+        protected ?Vector3 $shadeDirectionOverride = null,
+    )
     {
     }
 
@@ -98,17 +100,26 @@ class Face
             return null;
         }
 
+        $normal = $this->shadeDirectionOverride ?? $this->getNormal($this->v0, $this->v1, $this->v2);
+        if ($normal === null) {
+            return null;
+        }
+        $normal = $transformation->transformDirection($normal)->normalize();
+        if (Vector3::dotProduct(new Vector3(0, 0, -1), $normal) >= -0.01) {
+            return null;
+        }
+
+        $shadeDirection = $normal;
+        if ($this->shadeDirectionOverride) {
+            $shadeDirection = $transformation->transformDirection($this->shadeDirectionOverride)->normalize();
+        }
+
         $v0 = $transformation->transformVector($this->v0);
         $v1 = $transformation->transformVector($this->v1);
         $v2 = $transformation->transformVector($this->v2);
         $v3 = $transformation->transformVector($this->v3);
 
         $vps = $this->getProjectedVertices($width, $height, $v0, $v1, $v2, $v3);
-
-        $normal = $this->getNormal($v0, $v1, $v2);
-        if ($normal === null || Vector3::dotProduct(new Vector3(0, 0, -1), $normal) >= -0.01) {
-            return null;
-        }
 
         $baseTexture = clone $this->faceInfo->getTexture()->getImage($animationTick);
 
@@ -129,7 +140,7 @@ class Face
             $this->darkenTexture(
                 $baseTexture,
                 max(0,
-                    (Vector3::dotProduct($normal, $this->lightSource->getDirection()) + 1) / 2 -
+                    (Vector3::dotProduct($shadeDirection, $this->lightSource->getDirection()) + 1) / 2 -
                     $this->lightSource->getBaseLight()),
                 $absUv1,
                 $absUv2

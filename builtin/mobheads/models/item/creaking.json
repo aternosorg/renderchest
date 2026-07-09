@@ -25,7 +25,7 @@
 			"name": "eyes",
 			"from": [5, 1.5, 5],
 			"to": [11, 11.5, 11],
-			"shade": false,
+			"shade_direction_override": "up",
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 1.5, 5]},
 			"faces": {
 				"north": {"uv": [1.5, 1.5, 3, 4], "texture": "#1"},

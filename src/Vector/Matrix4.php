@@ -270,6 +270,24 @@ class Matrix4 {
     }
 
     /**
+     * Applies the upper-left 3x3 of the matrix to a direction vector (no translation, no w-divide)
+     *
+     * @param Vector3 $vector3
+     * @return Vector3
+     */
+    public function transformDirection(Vector3 $vector3): Vector3
+    {
+        $m = $this->m;
+        [$x, $y, $z] = $vector3->getValues();
+
+        $nx = ($m[0] * $x) + ($m[4] * $y) + ($m[8] * $z);
+        $ny = ($m[1] * $x) + ($m[5] * $y) + ($m[9] * $z);
+        $nz = ($m[2] * $x) + ($m[6] * $y) + ($m[10] * $z);
+
+        return new Vector3($nx, $ny, $nz);
+    }
+
+    /**
      * Applies the transformation matrix to a 3D point
      *
      * @param Vector3 $vector3 The input vector to transform
