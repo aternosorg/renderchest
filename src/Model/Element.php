@@ -5,6 +5,7 @@ namespace Aternos\Renderchest\Model;
 use Aternos\Renderchest\Model\Face\Face;
 use Aternos\Renderchest\Model\Face\FaceDirection;
 use Aternos\Renderchest\Model\Face\FaceInfo;
+use Aternos\Renderchest\Model\LightSource\LightSourceInterface;
 use Aternos\Renderchest\Resource\Texture\TextureList;
 use Aternos\Renderchest\Vector\UV;
 use Aternos\Renderchest\Vector\Vector3;
@@ -73,14 +74,14 @@ class Element
      * @param Vector3 $a
      * @param Vector3 $g
      * @param FaceInfo[] $faces
-     * @param LightSource $lightSource
+     * @param LightSourceInterface $lightSource
      * @param Vector3|null $shadeDirectionOverride
      */
     public function __construct(
         protected Vector3 $a,
         protected Vector3 $g,
         array $faces,
-        protected LightSource $lightSource,
+        protected LightSourceInterface $lightSource,
         protected ?Vector3 $shadeDirectionOverride = null
     )
     {
@@ -222,9 +223,9 @@ class Element
     }
 
     /**
-     * @return LightSource
+     * @return LightSourceInterface
      */
-    public function getLightSource(): LightSource
+    public function getLightSource(): LightSourceInterface
     {
         return $this->lightSource;
     }

@@ -2,7 +2,7 @@
 
 namespace Aternos\Renderchest\Model\Face;
 
-use Aternos\Renderchest\Model\LightSource;
+use Aternos\Renderchest\Model\LightSource\LightSourceInterface;
 use Aternos\Renderchest\Model\Rasterizer\Point;
 use Aternos\Renderchest\Model\Rasterizer\TriangleRasterizer;
 use Aternos\Renderchest\Tinter\TinterList;
@@ -24,7 +24,8 @@ class Face
      * @param Vector3 $v2
      * @param Vector3 $v3
      * @param FaceInfo $faceInfo
-     * @param LightSource $lightSource
+     * @param LightSourceInterface $lightSource
+     * @param Vector3|null $shadeDirectionOverride
      */
     public function __construct(
         protected Vector3     $v0,
@@ -32,7 +33,7 @@ class Face
         protected Vector3     $v2,
         protected Vector3     $v3,
         protected FaceInfo    $faceInfo,
-        protected LightSource $lightSource,
+        protected LightSourceInterface $lightSource,
         protected ?Vector3 $shadeDirectionOverride = null,
     )
     {
@@ -136,16 +137,12 @@ class Face
             }
         }
 
-        if ($this->lightSource->isActive()) {
-            $this->darkenTexture(
-                $baseTexture,
-                max(0,
-                    (Vector3::dotProduct($shadeDirection, $this->lightSource->getDirection()) + 1) / 2 -
-                    $this->lightSource->getBaseLight()),
-                $absUv1,
-                $absUv2
-            );
-        }
+        $this->darkenTexture(
+            $baseTexture,
+            1.0 - $this->lightSource->getLightLevelForNormal($shadeDirection),
+            $absUv1,
+            $absUv2
+        );
 
         $uvs = [
             new UV($normUv1->u, $normUv1->v),

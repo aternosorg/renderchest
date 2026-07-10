@@ -2,19 +2,23 @@
 
 namespace Aternos\Renderchest\Model;
 
+use Aternos\Renderchest\Model\LightSource\GuiFrontLight;
+use Aternos\Renderchest\Model\LightSource\GuiSideLight;
+use Aternos\Renderchest\Model\LightSource\LightSourceInterface;
+
 enum ModelGuiLight: string
 {
     case FRONT = "front";
     case SIDE = "side";
 
     /**
-     * @return LightSource
+     * @return LightSourceInterface
      */
-    public function getLightSource(): LightSource
+    public function getLightSource(): LightSourceInterface
     {
         return match ($this) {
-            ModelGuiLight::SIDE => LightSource::getSideLight(),
-            default => LightSource::getFrontLight()
+            ModelGuiLight::SIDE => new GuiSideLight(),
+            default => new GuiFrontLight(),
         };
     }
 }
