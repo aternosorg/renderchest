@@ -3,24 +3,61 @@
 require_once 'vendor/autoload.php';
 
 use Aternos\Renderchest\Output\ItemLibraryGenerator;
-use Garden\Cli\Cli;
 
-$cli = new Cli();
+$shortOpts = "a:n:s:q:io:p:f:h";
+$longOpts = [
+    "assets:",
+    "namespace:",
+    "size:",
+    "quality:",
+    "item-list",
+    "output:",
+    "prefix:",
+    "format:",
+    "fallback",
+    "help",
+];
 
-$cli->description("Generate icons and css for Minecraft items.")
-    ->opt("assets:a", "Assets folder to use. Multiple assets folders are possible, " .
-        "but a base assets folder extracted from the Minecraft jar should always be included.", true, "string[]")
-    ->opt("namespace:n", "Asset namespace that the items should be rendered from. Default: minecraft", false, "string[]")
-    ->opt("size:s", "Size of the generated item icons. Default: 64", false, "integer")
-    ->opt("quality:q", "When generating very small icons, small issues (like z-fighting of faces close to each other) can occur. " .
-        "This option allows rendering images in a higher resolution and scaling them down for the final icon. Default: 2", false, "integer")
-    ->opt("item-list:i", "Create a JSON file containing the names of all rendered items.", false, "boolean")
-    ->opt("output:o", "Output directory", true)
-    ->opt("prefix:p", "Prefix to use for CSS classes. Default: rc-")
-    ->opt("format:f", "Output image format. Default: webp")
-    ->opt("fallback", "Create a set of fallback textures as PNGs. Default: false", false, "boolean");
+$options = getopt($shortOpts, $longOpts);
 
-function resolvePath($path)
+if (isset($options["h"]) || isset($options["help"])) {
+    echo <<<HELP
+    Generate icons and CSS for Minecraft items.
+
+    Usage: renderchest -a <assets> -o <output> [options]
+
+    Required:
+      -a, --assets <path>      Assets folder (can be specified multiple times)
+      -o, --output <path>      Output directory
+
+    Options:
+      -n, --namespace <name>   Asset namespace to render from (default: minecraft, can be specified multiple times)
+      -s, --size <int>         Size of generated item icons (default: 64)
+      -q, --quality <int>      Render quality multiplier (default: 2)
+      -i, --item-list          Create a JSON file listing all rendered items
+      -p, --prefix <string>    CSS class prefix (default: rc-)
+      -f, --format <string>    Output image format (default: webp)
+          --fallback           Create fallback textures as PNGs
+      -h, --help               Show this help message
+
+    HELP;
+    exit(0);
+}
+
+function resolveOption(array $options, string $long, string $short, mixed $default = null): mixed
+{
+    return $options[$long] ?? $options[$short] ?? $default;
+}
+
+function resolveArrayOption(array $options, string $long, string $short, array $default = []): array
+{
+    $longVal = (array) ($options[$long] ?? []);
+    $shortVal = (array) ($options[$short] ?? []);
+    $merged = array_merge($longVal, $shortVal);
+    return empty($merged) ? $default : $merged;
+}
+
+function resolvePath(string $path): string
 {
     if (!str_starts_with($path, "/")) {
         $path = getcwd() . "/" . $path;
@@ -28,7 +65,7 @@ function resolvePath($path)
     return $path;
 }
 
-function onProgress($i, $total, $name, $success, $errorMessage): void
+function onProgress(int $i, int $total, string $name, bool $success, ?string $errorMessage): void
 {
     if ($success) {
         echo "Rendered item " . ($i + 1) . "/" . $total . ": " . $name . PHP_EOL;
@@ -37,20 +74,26 @@ function onProgress($i, $total, $name, $success, $errorMessage): void
     }
 }
 
-$args = $cli->parse($argv);
-$output = resolvePath($args->getOpt("output"));
-$assets = array_map(resolvePath(...), $args->getOpt("assets"));
+$output = resolveOption($options, "output", "o");
+$assets = resolveArrayOption($options, "assets", "a");
+
+if ($output === null || empty($assets)) {
+    fwrite(STDERR, "Error: --assets and --output are required. Use --help for usage.\n");
+    exit(1);
+}
+
+$output = resolvePath($output);
+$assets = array_map(resolvePath(...), $assets);
 
 $libraryGenerator = ItemLibraryGenerator::fromAssetsFolders($assets, $output);
 
-$libraryGenerator->setNamespaces($args->getOpt("namespace", ["minecraft"]))
-    ->setSize($args->getOpt("size", 64))
-    ->setQuality($args->getOpt("quality", 2))
-    ->setCreateItemList($args->getOpt("item-list", false))
-    ->setPrefix($args->getOpt("prefix", "rc-"))
-    ->setFormat($args->getOpt("format", "webp"))
-    ->setCreatePngFallback($args->getOpt("fallback", false))
+$libraryGenerator->setNamespaces(resolveArrayOption($options, "namespace", "n", ["minecraft"]))
+    ->setSize((int) resolveOption($options, "size", "s", 64))
+    ->setQuality((int) resolveOption($options, "quality", "q", 2))
+    ->setCreateItemList(isset($options["item-list"]) || isset($options["i"]))
+    ->setPrefix(resolveOption($options, "prefix", "p", "rc-"))
+    ->setFormat(resolveOption($options, "format", "f", "webp"))
+    ->setCreatePngFallback(isset($options["fallback"]))
     ->render(onProgress(...));
-
 
 echo "Saved stylesheet and textures to " . $output . "\n";
