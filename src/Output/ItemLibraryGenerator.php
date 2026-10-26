@@ -34,7 +34,6 @@ class ItemLibraryGenerator
         ArmorItemStyleGenerator::class,
         PotionItemStyleGenerator::class,
         ChargedProjectileItemStyleGenerator::class,
-        MapItemStyleGenerator::class,
         FireWorkStarItemStyleGenerator::class,
         EnchantedItemStyleGenerator::class,
         DefaultItemStyleGenerator::class
